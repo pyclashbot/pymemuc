@@ -80,7 +80,7 @@
     Usage:    memuc rename <-i vmindex | -n vmname> <title>
     Sample:  memuc rename -i 0 “MEmu_1” //Rename VM
 
-## Check asynchronous task status, like clone, export, import, start and stop.
+## Check asynchronous task status, like clone, export, import, start and stop
 
     Usage:     taskstatus <taskid>
     Sample:   taskstatus 7baf735f-c877-4836-aaf9-ccca67296a8f //Check the status of task 100, it will return success, running, or failed.
