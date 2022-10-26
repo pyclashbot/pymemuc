@@ -37,8 +37,10 @@ class PyMemuc:
         (output, err) = p.communicate()
 
         p_status = p.wait()
-        print("Command output : ", output)
-        return output
+        if err:
+            raise PyMemucError(err)
+        print(f"Command output [{p_status}]: {output}")
+        return str(output)
 
     def get_version(self):
         self.run(["version"])
@@ -54,7 +56,6 @@ class PyMemuc:
         else:
             raise PyMemucError("Please specify either a vm index or a vm name")
 
-    # a clone vm command that takes either a vm index or a vm name
     def clone_vm(self, vm_index=None, vm_name=None):
         if vm_index is not None:
             self.run(["clonevm", "-i", str(vm_index)])
@@ -63,7 +64,6 @@ class PyMemuc:
         else:
             raise PyMemucError("Please specify either a vm index or a vm name")
 
-    # a export vm command that takes either a vm index or a vm name
     def export_vm(
         self, vm_index=None, vm_name=None, file_name="vm.ova", non_blocking=False
     ):
@@ -77,7 +77,6 @@ class PyMemuc:
     def import_vm(self, file_name="vm.ova", non_blocking=False):
         self.run(["importvm", file_name, "-t" if non_blocking else ""])
 
-    # a start vm command that takes either a vm index or a vm name
     def start_vm(self, vm_index=None, vm_name=None, non_blocking=False):
         if vm_index is not None:
             self.run(["startvm", "-i", str(vm_index)], non_blocking)
@@ -86,7 +85,6 @@ class PyMemuc:
         else:
             raise PyMemucError("Please specify either a vm index or a vm name")
 
-    # a stop vm command that takes either a vm index or a vm name
     def stop_vm(self, vm_index=None, vm_name=None, non_blocking=False):
         if vm_index is not None:
             self.run(["stopvm", "-i", str(vm_index)], non_blocking)
@@ -98,8 +96,32 @@ class PyMemuc:
     def stop_all_vm(self, non_blocking=False):
         self.run(["stopvm", "-a"], non_blocking)
 
-    def list_vm_info(self, running=False, disk_info=False):
-        self.run(["listvms", "-running" if running else "", "-s" if disk_info else ""])
+    def list_vm_info(self, vm_index=None, vm_name=None, running=False, disk_info=False):
+        # simulator index, title, top-level window handle, whether to start the simulator, process PID information, simulator disk usage
+        if vm_index is not None:
+            self.run(
+                [
+                    "listvms",
+                    "-i",
+                    str(vm_index),
+                    "-running" if running else "",
+                    "-s" if disk_info else "",
+                ]
+            )
+        elif vm_name is not None:
+            self.run(
+                [
+                    "listvms",
+                    "-n",
+                    vm_name,
+                    "-running" if running else "",
+                    "-s" if disk_info else "",
+                ]
+            )
+        else:
+            self.run(
+                ["listvms", "-running" if running else "", "-s" if disk_info else ""]
+            )
 
     def vm_is_running(self, vm_index=0):
         self.run(["isrunning", "-i", str(vm_index)])
@@ -324,14 +346,6 @@ class PyMemuc:
             self.run(["createappshortcut", "-n", vm_name, package_name])
         else:
             raise PyMemucError("Please specify either a vm index or a vm name")
-
-    def list_vms(self, vm_index=None, vm_name=None):
-        if vm_index is not None:
-            self.run(["listvms", "-i", str(vm_index)])
-        elif vm_name is not None:
-            self.run(["listvms", "-n", vm_name])
-        else:
-            self.run(["listvms"])
 
     def send_adb_command_vm(self, command, vm_index=None, vm_name=None):
         if vm_index is not None:
