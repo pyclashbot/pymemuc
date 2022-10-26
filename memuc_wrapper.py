@@ -22,11 +22,12 @@ class PyMemuc:
             areg = ConnectRegistry(None, HKEY_LOCAL_MACHINE)
             akey = OpenKey(areg, akey)
         except FileNotFoundError:
-            akey = (
-                r"SOFTWARE\WOW6432Node\Microsoft\Windows\CurrentVersion\Uninstall\MEmu"
-            )
-            areg = ConnectRegistry(None, HKEY_LOCAL_MACHINE)
-            akey = OpenKey(areg, akey)
+            try:
+                akey = r"SOFTWARE\WOW6432Node\Microsoft\Windows\CurrentVersion\Uninstall\MEmu"
+                areg = ConnectRegistry(None, HKEY_LOCAL_MACHINE)
+                akey = OpenKey(areg, akey)
+            except FileNotFoundError as e:
+                raise PyMemucError("MEmu not found") from e
         return str(join(normpath(QueryValueEx(akey, "InstallLocation")[0]), "Memu"))
 
     def run(self, args, non_blocking=False) -> tuple[int, str]:
