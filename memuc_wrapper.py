@@ -29,18 +29,18 @@ class PyMemuc:
             akey = OpenKey(areg, akey)
         return str(join(normpath(QueryValueEx(akey, "InstallLocation")[0]), "Memu"))
 
-    def run(self, args, non_blocking=False):
+    def run(self, args, non_blocking=False) -> tuple[int, str]:
         args.insert(0, self.memuc_path)
         args += "-t" if non_blocking else ""
         p = Popen(args, stdout=PIPE, shell=True)
 
         (output, err) = p.communicate()
-
+        output = output.decode("utf-8").replace("\r", "").replace("\n", "")
         p_status = p.wait()
         if err:
             raise PyMemucError(err)
         print(f"Command output [{p_status}]: {output}")
-        return str(output)
+        return p_status, output
 
     def get_version(self):
         self.run(["version"])
