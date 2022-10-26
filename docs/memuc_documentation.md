@@ -97,6 +97,11 @@
                     <key> configuration key name
     Sample:   memuc setconfigex -i 0 cpus 4 //Set the number of CPU core as 4
 
+### Configuration keys
+
+![table 1](ckt.png)
+![table 2](ckt2.png)
+
 ## Install Apk in VM (Android)
 
     Usage:     memuc installapp <-i vmindex | -n vmname> <apkfile> [-s]
