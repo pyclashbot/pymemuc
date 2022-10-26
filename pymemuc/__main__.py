@@ -43,9 +43,6 @@ class PyMemuc:
         print(f"Command output [{p_status}]: {output}")
         return p_status, output
 
-    def get_version(self):
-        self.run(["version"])
-
     def create_vm(self, vm_version="76"):
         self.run(["createvm", vm_version])
 
