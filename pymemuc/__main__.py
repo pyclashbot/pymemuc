@@ -45,7 +45,7 @@ class PyMemuc:
         """
         args.insert(0, self.memuc_path)
         args += "-t" if non_blocking else ""
-        p = Popen(args, stdout=PIPE, shell=True)
+        p = Popen(args, stdout=PIPE, shell=False)
 
         (output, err) = p.communicate()
         output = output.decode("utf-8").replace("\r", "").replace("\n", "")
