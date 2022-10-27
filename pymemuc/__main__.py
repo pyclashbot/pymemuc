@@ -30,7 +30,7 @@ class PyMemuc:
                 areg = ConnectRegistry(None, HKEY_LOCAL_MACHINE)
                 akey = OpenKey(areg, akey)
             except FileNotFoundError as e:
-                raise PyMemucError("MEmu not found") from e
+                raise PyMemucError("MEmuc not found, is it installed?") from e
         return str(join(normpath(QueryValueEx(akey, "InstallLocation")[0]), "Memu"))
 
     def run(self, args, non_blocking=False) -> tuple[int, str]:
