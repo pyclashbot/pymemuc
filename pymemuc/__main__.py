@@ -64,7 +64,7 @@ class PyMemuc:
         Returns:
             tuple[int, str]: the return code and the output of the command
         """
-        return self.run(["createvm", vm_version])
+        return self.run(["create", vm_version])
 
     def delete_vm(self, vm_index=None, vm_name=None):
         """Delete a VM, must specify either a vm index or a vm name
@@ -80,9 +80,9 @@ class PyMemuc:
             tuple[int, str]: the return code and the output of the command
         """
         if vm_index is not None:
-            return self.run(["deletevm", "-i", str(vm_index)])
+            return self.run(["remove", "-i", str(vm_index)])
         elif vm_name is not None:
-            return self.run(["deletevm", "-n", vm_name])
+            return self.run(["remove", "-n", vm_name])
         else:
             raise PyMemucError("Please specify either a vm index or a vm name")
 
@@ -100,9 +100,9 @@ class PyMemuc:
             tuple[int, str]: the return code and the output of the command
         """
         if vm_index is not None:
-            return self.run(["clonevm", "-i", str(vm_index)])
+            return self.run(["clone", "-i", str(vm_index)])
         elif vm_name is not None:
-            return self.run(["clonevm", "-n", vm_name])
+            return self.run(["clone", "-n", vm_name])
         else:
             raise PyMemucError("Please specify either a vm index or a vm name")
 
@@ -124,9 +124,9 @@ class PyMemuc:
             tuple[int, str]: the return code and the output of the command
         """
         if vm_index is not None:
-            return self.run(["exportvm", "-i", str(vm_index), file_name], non_blocking)
+            return self.run(["export", "-i", str(vm_index), file_name], non_blocking)
         elif vm_name is not None:
-            return self.run(["exportvm", "-n", vm_name, file_name], non_blocking)
+            return self.run(["export", "-n", vm_name, file_name], non_blocking)
         else:
             raise PyMemucError("Please specify either a vm index or a vm name")
 
@@ -140,7 +140,7 @@ class PyMemuc:
         Returns:
             tuple[int, str]: the return code and the output of the command
         """
-        return self.run(["importvm", file_name, "-t" if non_blocking else ""])
+        return self.run(["import", file_name, "-t" if non_blocking else ""])
 
     def start_vm(self, vm_index=None, vm_name=None, non_blocking=False):
         """Start a VM, must specify either a vm index or a vm name
@@ -157,9 +157,9 @@ class PyMemuc:
             tuple[int, str]: the return code and the output of the command
         """
         if vm_index is not None:
-            return self.run(["startvm", "-i", str(vm_index)], non_blocking)
+            return self.run(["start", "-i", str(vm_index)], non_blocking)
         elif vm_name is not None:
-            return self.run(["startvm", "-n", vm_name], non_blocking)
+            return self.run(["start", "-n", vm_name], non_blocking)
         else:
             raise PyMemucError("Please specify either a vm index or a vm name")
 
@@ -178,9 +178,9 @@ class PyMemuc:
             tuple[int, str]: the return code and the output of the command
         """
         if vm_index is not None:
-            return self.run(["stopvm", "-i", str(vm_index)], non_blocking)
+            return self.run(["stop", "-i", str(vm_index)], non_blocking)
         elif vm_name is not None:
-            return self.run(["stopvm", "-n", vm_name], non_blocking)
+            return self.run(["stop", "-n", vm_name], non_blocking)
         else:
             raise PyMemucError("Please specify either a vm index or a vm name")
 
@@ -193,7 +193,7 @@ class PyMemuc:
         Returns:
             tuple[int, str]: the return code and the output of the command
         """
-        return self.run(["stopvm", "-a"], non_blocking)
+        return self.run(["stopall"], non_blocking)
 
     def list_vm_info(self, vm_index=None, vm_name=None, running=False, disk_info=False):
         """List VM info, must specify either a vm index or a vm name
@@ -246,7 +246,7 @@ class PyMemuc:
         Returns:
             tuple[int, str]: the return code and the output of the command.
         """
-        return self.run(["isrunning", "-i", str(vm_index)])
+        return self.run(["isvmrunning", "-i", str(vm_index)])
 
     def sort_out_all_vm(self):
         """Sort out all VMs
@@ -254,7 +254,7 @@ class PyMemuc:
         Returns:
             tuple[int, str]: the return code and the output of the command.
         """
-        return self.run(["sortout"])
+        return self.run(["sortwin"])
 
     def reboot_vm(self, vm_index=None, vm_name=None, non_blocking=False):
         """Reboot a VM, must specify either a vm index or a vm name
@@ -288,9 +288,9 @@ class PyMemuc:
         Raises:
             PyMemucError: an error if neither a vm index, name or new name is specified"""
         if vm_index is not None and new_name is not None:
-            return self.run(["renamevm", "-i", str(vm_index), f'"{new_name}"'])
+            return self.run(["rename", "-i", str(vm_index), f'"{new_name}"'])
         elif vm_name is not None and new_name is not None:
-            return self.run(["renamevm", "-n", vm_name, f'"{new_name}"'])
+            return self.run(["rename", "-n", vm_name, f'"{new_name}"'])
         else:
             raise PyMemucError("Please specify either a vm index or a vm name")
 
@@ -320,9 +320,9 @@ class PyMemuc:
             tuple[int, str]: the return code and the output of the command.
         """
         if vm_index is not None:
-            return self.run(["getconfig", "-i", str(vm_index), config_key])
+            return self.run(["getconfigex", "-i", str(vm_index), config_key])
         elif vm_name is not None:
-            return self.run(["getconfig", "-n", vm_name, config_key])
+            return self.run(["getconfigex", "-n", vm_name, config_key])
         else:
             raise PyMemucError("Please specify either a vm index or a vm name")
 
@@ -345,10 +345,10 @@ class PyMemuc:
         """
         if vm_index is not None:
             return self.run(
-                ["setconfig", "-i", str(vm_index), config_key, config_value]
+                ["setconfigex ", "-i", str(vm_index), config_key, config_value]
             )
         elif vm_name is not None:
-            return self.run(["setconfig", "-n", vm_name, config_key, config_value])
+            return self.run(["setconfigex ", "-n", vm_name, config_key, config_value])
         else:
             raise PyMemucError("Please specify either a vm index or a vm name")
 
@@ -372,7 +372,7 @@ class PyMemuc:
         if vm_index is not None:
             return self.run(
                 [
-                    "installapk",
+                    "installapp",
                     "-i",
                     str(vm_index),
                     apk_path,
@@ -382,7 +382,7 @@ class PyMemuc:
         elif vm_name is not None:
             return self.run(
                 [
-                    "installapk",
+                    "installapp",
                     "-n",
                     vm_name,
                     apk_path,
@@ -407,9 +407,9 @@ class PyMemuc:
             tuple[int, str]: the return code and the output of the command.
         """
         if vm_index is not None:
-            return self.run(["uninstallapk", "-i", str(vm_index), package_name])
+            return self.run(["uninstallapp", "-i", str(vm_index), package_name])
         elif vm_name is not None:
-            return self.run(["uninstallapk", "-n", vm_name, package_name])
+            return self.run(["uninstallapp", "-n", vm_name, package_name])
         else:
             raise PyMemucError("Please specify either a vm index or a vm name")
 
@@ -475,9 +475,9 @@ class PyMemuc:
             tuple[int, str]: the return code and the output of the command.
         """
         if vm_index is not None:
-            return self.run(["triggerkey", "-i", str(vm_index), key])
+            return self.run(["sendkey", "-i", str(vm_index), key])
         elif vm_name is not None:
-            return self.run(["triggerkey", "-n", vm_name, key])
+            return self.run(["sendkey", "-n", vm_name, key])
         else:
             raise PyMemucError("Please specify either a vm index or a vm name")
 
@@ -495,9 +495,9 @@ class PyMemuc:
             tuple[int, str]: the return code and the output of the command.
         """
         if vm_index is not None:
-            return self.run(["triggershake", "-i", str(vm_index)])
+            return self.run(["shake", "-i", str(vm_index)])
         elif vm_name is not None:
-            return self.run(["triggershake", "-n", vm_name])
+            return self.run(["shake", "-n", vm_name])
         else:
             raise PyMemucError("Please specify either a vm index or a vm name")
 
@@ -515,9 +515,9 @@ class PyMemuc:
             tuple[int, str]: the return code and the output of the command.
         """
         if vm_index is not None:
-            return self.run(["connectinternet", "-i", str(vm_index)])
+            return self.run(["connect", "-i", str(vm_index)])
         elif vm_name is not None:
-            return self.run(["connectinternet", "-n", vm_name])
+            return self.run(["connect", "-n", vm_name])
         else:
             raise PyMemucError("Please specify either a vm index or a vm name")
 
@@ -535,9 +535,9 @@ class PyMemuc:
             tuple[int, str]: the return code and the output of the command.
         """
         if vm_index is not None:
-            return self.run(["disconnectinternet", "-i", str(vm_index)])
+            return self.run(["disconnect", "-i", str(vm_index)])
         elif vm_name is not None:
-            return self.run(["disconnectinternet", "-n", vm_name])
+            return self.run(["disconnect", "-n", vm_name])
         else:
             raise PyMemucError("Please specify either a vm index or a vm name")
 
@@ -556,9 +556,9 @@ class PyMemuc:
             tuple[int, str]: the return code and the output of the command.
         """
         if vm_index is not None:
-            return self.run(["inputtext", "-i", str(vm_index), f'"{text}"'])
+            return self.run(["input", "-i", str(vm_index), f'"{text}"'])
         elif vm_name is not None:
-            return self.run(["inputtext", "-n", vm_name, f'"{text}"'])
+            return self.run(["input", "-n", vm_name, f'"{text}"'])
         else:
             raise PyMemucError("Please specify either a vm index or a vm name")
 
@@ -575,9 +575,9 @@ class PyMemuc:
             tuple[int, str]: the return code and the output of the command.
         """
         if vm_index is not None:
-            return self.run(["rotatewindow", "-i", str(vm_index)])
+            return self.run(["rotate", "-i", str(vm_index)])
         elif vm_name is not None:
-            return self.run(["rotatewindow", "-n", vm_name])
+            return self.run(["rotate", "-n", vm_name])
         else:
             raise PyMemucError("Please specify either a vm index or a vm name")
 
@@ -596,9 +596,9 @@ class PyMemuc:
             tuple[int, str]: the return code and the output of the command.
         """
         if vm_index is not None:
-            return self.run(["exec", "-i", str(vm_index), f'"{command}"'])
+            return self.run(["execcmd", "-i", str(vm_index), f'"{command}"'])
         elif vm_name is not None:
-            return self.run(["exec", "-n", vm_name, f'"{command}"'])
+            return self.run(["execcmd", "-n", vm_name, f'"{command}"'])
         else:
             raise PyMemucError("Please specify either a vm index or a vm name")
 
@@ -619,10 +619,10 @@ class PyMemuc:
         """
         if vm_index is not None:
             return self.run(
-                ["changegps", "-i", str(vm_index), str(latitude), str(longitude)]
+                ["setgps", "-i", str(vm_index), str(latitude), str(longitude)]
             )
         elif vm_name is not None:
-            return self.run(["changegps", "-n", vm_name, str(latitude), str(longitude)])
+            return self.run(["setgps", "-n", vm_name, str(latitude), str(longitude)])
         else:
             raise PyMemucError("Please specify either a vm index or a vm name")
 
@@ -733,10 +733,10 @@ class PyMemuc:
         """
         if vm_index is not None:
             return self.run(
-                ["setaccelerometer", "-i", str(vm_index), str(x), str(y), str(z)]
+                ["accelerometer", "-i", str(vm_index), str(x), str(y), str(z)]
             )
         elif vm_name is not None:
-            return self.run(["setaccelerometer", "-n", vm_name, str(x), str(y), str(z)])
+            return self.run(["accelerometer", "-n", vm_name, str(x), str(y), str(z)])
         else:
             raise PyMemucError("Please specify either a vm index or a vm name")
 
@@ -760,9 +760,9 @@ class PyMemuc:
             tuple[int, str]: the return code and the output of the command.
         """
         if vm_index is not None:
-            return self.run(["createappshortcut", "-i", str(vm_index), package_name])
+            return self.run(["createshortcut", "-i", str(vm_index), package_name])
         elif vm_name is not None:
-            return self.run(["createappshortcut", "-n", vm_name, package_name])
+            return self.run(["createshortcut", "-n", vm_name, package_name])
         else:
             raise PyMemucError("Please specify either a vm index or a vm name")
 
@@ -781,9 +781,9 @@ class PyMemuc:
             tuple[int, str]: the return code and the output of the command.
         """
         if vm_index is not None:
-            return self.run(["sendadbcommand", "-i", str(vm_index), f'"{command}"'])
+            return self.run(["adb", "-i", str(vm_index), f'"{command}"'])
         elif vm_name is not None:
-            return self.run(["sendadbcommand", "-n", vm_name, f'"{command}"'])
+            return self.run(["adb", "-n", vm_name, f'"{command}"'])
         else:
             raise PyMemucError("Please specify either a vm index or a vm name")
 
