@@ -1,5 +1,7 @@
 # pymemuc
 
+![GitHub](https://img.shields.io/github/license/marmig0404/pymemuc) ![PyPI](https://img.shields.io/pypi/v/pymemuc) ![PyPI - Downloads](https://img.shields.io/pypi/dm/pymemuc) ![PyPI - Python Version](https://img.shields.io/pypi/pyversions/pymemuc)
+
 A wrapper for [memuc](https://www.memuplay.com/blog/memucommand-reference-manual.html) in python.
 
 See [pymemuc.md](docs/pymemuc.md) for package documentation.
