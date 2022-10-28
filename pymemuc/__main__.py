@@ -4,15 +4,30 @@
 from os.path import abspath, expanduser, expandvars, join, normpath
 from subprocess import PIPE, Popen
 from typing import Literal, TypedDict
-from winreg import HKEY_LOCAL_MACHINE, ConnectRegistry, OpenKey, QueryValueEx
+
+try:
+    from winreg import HKEY_LOCAL_MACHINE, ConnectRegistry, OpenKey, QueryValueEx
+    windows_registry = True
+except ImportError:
+    print("Windows Registry is not supported on this platform, you must specify the path to memuc.exe manually")
+    windows_registry = False
 
 
 class PyMemuc:
     """A class to interact with the memuc.exe command line tool to control virtual machines"""
 
-    def __init__(self) -> None:
-        """initialize the class, automatically finding memuc.exe"""
-        self.memuc_path = join(self.get_memu_top_level(), "memuc.exe")
+    def __init__(self, memuc_path = None) -> None:
+        """initialize the class, automatically finding memuc.exe if windows registry is supported, otherwise a path must be specified
+
+        Args:
+            memuc_path (str, optional): Path to memuc.exe. Defaults to None.
+        """
+        if windows_registry:
+            self.memuc_path = join(self.get_memu_top_level(), "memuc.exe")
+        elif memuc_path is not None:
+            raise PyMemucError("Windows Registry is not supported on this platform, you must specify the path to memuc.exe manually")
+        else:
+            self.memuc_path = memuc_path
 
     def get_memu_top_level(self) -> str:
         """locate the path of the memu directory using windows registry keys
