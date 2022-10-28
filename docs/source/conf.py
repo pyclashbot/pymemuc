@@ -7,9 +7,9 @@
 import os
 import sys
 
-sys.path.insert(0, os.path.abspath('.'))
-sys.path.insert(0, os.path.abspath('..'))
-sys.path.insert(0, os.path.abspath('../..'))
+sys.path.insert(0, os.path.abspath("."))
+sys.path.insert(0, os.path.abspath(".."))
+sys.path.insert(0, os.path.abspath("../.."))
 
 # -- Project information -----------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#project-information
@@ -37,3 +37,5 @@ exclude_patterns = ["_build", "Thumbs.db", ".DS_Store"]
 
 html_theme = "groundwork"
 html_static_path = ["_static"]
+htmlhelp_basename = "pymemuc"
+intersphinx_mapping = {"http://docs.python.org/": None}
