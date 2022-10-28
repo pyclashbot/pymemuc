@@ -18,7 +18,7 @@ except ImportError:
 
 class PyMemuc:
     """A class to interact with the memuc.exe command line tool to control virtual machines.
-    Will automatically finding memuc.exe if windows registry is supported, otherwise a path must be specified.
+    memuc.exe is automatically if windows registry is supported, otherwise a path must be specified.
     """
 
     def __init__(self, memuc_path=None) -> None:
