@@ -52,7 +52,7 @@ class PyMemuc:
         p_status = p.wait()
         if err:
             raise PyMemucError(err)
-        print(f"Command output [{p_status}]: {output}")
+        # print(f"Command output [{p_status}]: {output}") # debug
         return p_status, output
 
     def create_vm(self, vm_version="76") -> int:
