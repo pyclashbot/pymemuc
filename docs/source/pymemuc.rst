@@ -1,36 +1,42 @@
 Documentation
 =================
 
+.. _The ``PyMemuc`` class:
+
 The ``PyMemuc`` class
-=====================
+---------------------
 .. autoclass:: pymemuc.__main__.PyMemuc
     :members:
     :undoc-members:
     :show-inheritance:
 
 
+.. _The ``PyMemucError`` exception:
+
 The ``PyMemucError`` exception
-==============================
+------------------------------
 .. autoclass:: pymemuc.__main__.PyMemucError
     :members:
     :undoc-members:
     :show-inheritance:
 
 
+.. _The ``PyMemucIndexError`` exception:
+
 The ``PyMemucIndexError`` exception
-===================================
+-----------------------------------
 .. autoclass:: pymemuc.__main__.PyMemucIndexError
     :members:
     :undoc-members:
     :show-inheritance:
 
 
-The ``VM Configuration Keys`` table
-====================================
-.. |Table 1| image:: images/ckt.png
-  :width: 400
-  :alt: Configuration table 1
+.. _The ``VM Configuration Keys`` table:
 
-.. |Table 2| image:: images/ckt2.png
-  :width: 400
-  :alt: Configuration table 2
+The ``VM Configuration Keys`` table
+-----------------------------------
+.. csv-table:: VM Configuration Keys
+    :file: tables/vm_config_keys.csv
+    :header: "Key", "Description"
+    :widths: 20, 80
+

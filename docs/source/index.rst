@@ -9,6 +9,7 @@ pymemuc
    :maxdepth: 2
    :caption: Contents:
 
+   quickstart
    pymemuc
 
 Contribute

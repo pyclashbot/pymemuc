@@ -35,7 +35,7 @@ exclude_patterns = ["_build", "Thumbs.db", ".DS_Store"]
 # -- Options for HTML output -------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#options-for-html-output
 
-html_theme = "groundwork"
+html_theme = "classic"
 html_static_path = ["_static"]
 htmlhelp_basename = "pymemuc"
 intersphinx_mapping = {"http://docs.python.org/": None}
