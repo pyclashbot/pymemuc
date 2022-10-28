@@ -25,3 +25,12 @@ The ``PyMemucIndexError`` exception
     :show-inheritance:
 
 
+The ``VM Configuration Keys`` table
+====================================
+.. |Table 1| image:: images/ckt.png
+  :width: 400
+  :alt: Configuration table 1
+
+.. |Table 2| image:: images/ckt2.png
+  :width: 400
+  :alt: Configuration table 2

@@ -9,6 +9,7 @@ description = "A Memuc.exe wrapper for Python"
 readme = "README.md"
 authors = ["Martin Miglio <code@martinmiglio.dev>"]
 license = "MIT"
+python = "^3"
 classifiers = [
     "License :: OSI Approved :: MIT License",
     "Programming Language :: Python",
