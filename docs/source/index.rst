@@ -9,6 +9,8 @@ pymemuc
    :maxdepth: 2
    :caption: Contents:
 
+   pymemuc
+
 Contribute
 ==========
 
@@ -25,7 +27,3 @@ License
 
 The project is licensed under the MIT license.
 
-Documentation
-=============
-.. automodule:: pymemuc.__main__
-   :members:
