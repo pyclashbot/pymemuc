@@ -38,11 +38,11 @@ See [the demo notebook][demo_notebook] for more examples.
 
 ## Documentation
 
-See [pymemuc.md][full_doc] for full package documentation.
+See the [API documentation][full_doc].
 
 [python_link]: https://www.python.org/
 [pypi_link]: https://pypi.org/project/pymemuc/
 [codefactor_link]: https://www.codefactor.io/repository/github/marmig0404/pymemuc
 [memuc_docs]: https://www.memuplay.com/blog/memucommand-reference-manual.html
 [demo_notebook]: demo/demo.ipynb
-[full_doc]: docs/pymemuc.md
+[full_doc]: https://pymemuc.readthedocs.io

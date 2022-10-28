@@ -17,5 +17,5 @@ classifiers = [
 ]
 keywords = ["memu", "memuc", "wrapper", "api"]
 repository = "https://github.com/marmig0404/pymemuc"
-documentation = "https://github.com/marmig0404/pymemuc/blob/master/docs/pymemuc.md"
+documentation = "https://pymemuc.readthedocs.io/"
 
