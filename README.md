@@ -1,6 +1,6 @@
 # pymemuc
 
-[![GitHub](https://img.shields.io/github/license/marmig0404/pymemuc)](LICENSE) [![Documentation Status](https://readthedocs.org/projects/pymemuc/badge/?version=latest)](full_doc) [![PyPI](https://img.shields.io/pypi/v/pymemuc) ![PyPI - Downloads](https://img.shields.io/pypi/dm/pymemuc)][pypi_link] [![PyPI - Python Version](https://img.shields.io/pypi/pyversions/pymemuc)][python_link] [![CodeFactor](https://www.codefactor.io/repository/github/marmig0404/pymemuc/badge)][codefactor_link]
+[![GitHub](https://img.shields.io/github/license/marmig0404/pymemuc)](LICENSE) [![Documentation Status](https://readthedocs.org/projects/pymemuc/badge/?version=latest)][full_doc] [![PyPI](https://img.shields.io/pypi/v/pymemuc) ![PyPI - Downloads](https://img.shields.io/pypi/dm/pymemuc)][pypi_link] [![PyPI - Python Version](https://img.shields.io/pypi/pyversions/pymemuc)][python_link] [![CodeFactor](https://www.codefactor.io/repository/github/marmig0404/pymemuc/badge)][codefactor_link]
 
 A wrapper for [MEmu Command (MEMUC)][memuc_docs] in python.
 
