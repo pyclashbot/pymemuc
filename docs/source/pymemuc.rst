@@ -1,31 +1,12 @@
 Documentation
 =================
 
-.. _The ``PyMemuc`` class:
+.. _The ``PyMemuc`` module:
 
-The ``PyMemuc`` class
----------------------
-.. autoclass:: pymemuc.__main__.PyMemuc
-    :members:
-    :undoc-members:
-    :show-inheritance:
-
-
-.. _The ``PyMemucError`` exception:
-
-The ``PyMemucError`` exception
-------------------------------
-.. autoclass:: pymemuc.__main__.PyMemucError
-    :members:
-    :undoc-members:
-    :show-inheritance:
-
-
-.. _The ``PyMemucIndexError`` exception:
-
-The ``PyMemucIndexError`` exception
------------------------------------
-.. autoclass:: pymemuc.__main__.PyMemucIndexError
+The ``PyMemuc`` module
+----------------------
+.. automodule:: pymemuc.__main__
+    :special-members: __init__
     :members:
     :undoc-members:
     :show-inheritance:
@@ -40,3 +21,11 @@ The ``VM Configuration Keys`` table
     :header: "Key", "Description"
     :widths: 20, 80
 
+.. _The ``VMInfo`` type:
+
+The ``VMInfo`` type
+-------------------
+.. autoclass:: pymemuc.types.VMInfo
+    :members:
+    :undoc-members:
+    :show-inheritance:

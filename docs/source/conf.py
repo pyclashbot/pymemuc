@@ -20,8 +20,16 @@ extensions = [
 templates_path = ["_templates"]
 exclude_patterns = ["_build", "Thumbs.db", ".DS_Store"]
 
+autodoc_default_options = {
+    'member-order': 'bysource',
+}
+add_module_names = False
+
 
 html_theme = "classic"
+html_theme_options = {
+    "sidebarwidth": "19em",
+}
 html_static_path = ["_static"]
 htmlhelp_basename = "pymemuc"
 intersphinx_mapping = {"http://docs.python.org/": None}

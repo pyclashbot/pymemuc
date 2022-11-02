@@ -20,17 +20,15 @@ except ImportError:
 
 class PyMemuc:
     """A class to interact with the memuc.exe command line tool to control virtual machines.
-    memuc.exe is automatically if windows registry is supported, otherwise a path must be specified.
+
+    :param memuc_path: Path to memuc.exe. If windows registry is supported, this is not necessary. Defaults to None.
+    :type memuc_path: str, optional
     """
 
     def __init__(self, memuc_path=None) -> None:
-        """initialize the class, automatically finding memuc.exe if windows registry is supported, otherwise a path must be specified
-
-        Args:
-            memuc_path (str, optional): Path to memuc.exe. Defaults to None.
-        """
+        """initialize the class, automatically finding memuc.exe if windows registry is supported, otherwise a path must be specified"""
         if windows_registry:
-            self.memuc_path = join(self.get_memu_top_level(), "memuc.exe")
+            self.memuc_path = join(self._get_memu_top_level(), "memuc.exe")
         elif memuc_path is not None:
             raise PyMemucError(
                 "Windows Registry is not supported on this platform, you must specify the path to memuc.exe manually"
@@ -38,11 +36,11 @@ class PyMemuc:
         else:
             self.memuc_path = memuc_path
 
-    def get_memu_top_level(self) -> str:
+    def _get_memu_top_level(self) -> str:
         """locate the path of the memu directory using windows registry keys
 
-        Returns:
-            str: the path of the memu directory
+        :return: the path of the memu directory
+        :rtype: str
         """
         try:
             akey = r"SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\MEmu"
@@ -60,12 +58,12 @@ class PyMemuc:
     def run(self, args, non_blocking=False) -> tuple[int, str]:
         """run a command with memuc.exe
 
-        Args:
-            args (list): a list of arguments to pass to memuc.exe
-            non_blocking (bool, optional): whether to run the command in the background. Defaults to False.
-
-        Returns:
-            tuple[int, str]: the return code and the output of the command
+        :param args: a list of arguments to pass to memuc.exe
+        :type args: list
+        :param non_blocking: whether to run the command in the background. Defaults to False.
+        :type non_blocking: bool, optional
+        :return: the return code and the output of the command
+        :rtype: tuple[int, str]
         """
         args.insert(0, self.memuc_path)
         args += "-t" if non_blocking else ""
@@ -82,14 +80,11 @@ class PyMemuc:
     def create_vm(self, vm_version="76") -> int:
         """Create a new VM
 
-        Args:
-            vm_version (str, optional): Android version. Defaults to "76".
-
-        Raises:
-            PyMemucError: an error if the vm creation failed
-
-        Returns:
-            int: the index of the new VM, -1 if an error occurred but no exception was raised
+        :param vm_version: Android version. Defaults to "76".
+        :type vm_version: str, optional
+        :raises PyMemucError: an error if the vm creation failed
+        :return: the index of the new VM, -1 if an error occurred but no exception was raised
+        :rtype: int
         """
         status, output = self.run(["create", vm_version])
         success = status == 0 and output is not None and "SUCCESS" in output
@@ -101,15 +96,13 @@ class PyMemuc:
     def delete_vm(self, vm_index=None, vm_name=None) -> Literal[True]:
         """Delete a VM, must specify either a vm index or a vm name
 
-        Args:
-            vm_index (int, optional): VM index. Defaults to None.
-            vm_name (str, optional): VM name. Defaults to None.
-
-        Raises:
-            PyMemucIndexError: an error if neither a vm index or a vm name is specified
-
-        Returns:
-            Literal[True]: True if the vm was deleted successfully
+        :param vm_index: VM index. Defaults to None.
+        :type vm_index: int, optional
+        :param vm_name: VM name. Defaults to None.
+        :type vm_name: str, optional
+        :raises PyMemucIndexError: an error if neither a vm index or a vm name is specified
+        :return: True if the vm was deleted successfully
+        :rtype: Literal[True]
         """
         if vm_index is not None:
             status, output = self.run(["-i", str(vm_index), "remove"])
@@ -125,15 +118,13 @@ class PyMemuc:
     def clone_vm(self, vm_index=None, vm_name=None) -> Literal[True]:
         """Clone a VM, must specify either a vm index or a vm name
 
-        Args:
-            vm_index (int, optional): VM index. Defaults to None.
-            vm_name (str, optional): VM name. Defaults to None.
-
-        Raises:
-            PyMemucIndexError: an error if neither a vm index or a vm name is specified
-
-        Returns:
-            Literal[True]: True if the vm was cloned successfully
+        :param vm_index: VM index. Defaults to None.
+        :type vm_index: int, optional
+        :param vm_name: VM name. Defaults to None.
+        :type vm_name: str, optional
+        :raises PyMemucIndexError: an error if neither a vm index or a vm name is specified
+        :return: True if the vm was cloned successfully
+        :rtype: Literal[True]
         """
         if vm_index is not None:
             status, output = self.run(["-i", str(vm_index), "clone"])
@@ -152,17 +143,17 @@ class PyMemuc:
     ):
         """Export a VM, must specify either a vm index or a vm name
 
-        Args:
-            vm_index (int, optional): VM index. Defaults to None.
-            vm_name (str, optional): VM name. Defaults to None.
-            file_name (str, optional): File name. Defaults to "vm.ova".
-            non_blocking (bool, optional): Whether to run the command in the background. Defaults to False.
-
-        Raises:
-            PyMemucIndexError: an error if neither a vm index or a vm name is specified
-
-        Returns:
-            tuple[int, str]: the return code and the output of the command
+        :param vm_index: VM index. Defaults to None.
+        :type vm_index: int, optional
+        :param vm_name: VM name. Defaults to None.
+        :type vm_name: str, optional
+        :param file_name: File name. Defaults to "vm.ova".
+        :type file_name: str, optional
+        :param non_blocking: Whether to run the command in the background. Defaults to False.
+        :type non_blocking: bool, optional
+        :raises PyMemucIndexError: an error if neither a vm index or a vm name is specified
+        :return: the return code and the output of the command
+        :rtype: tuple[int, str]
         """
         file_name = abspath(expandvars(expanduser(file_name)))
         if vm_index is not None:
@@ -177,15 +168,13 @@ class PyMemuc:
     def import_vm(self, file_name="vm.ova", non_blocking=False) -> Literal[True]:
         """Import a VM from a file
 
-        Args:
-            file_name (str, optional): File name. Defaults to "vm.ova".
-            non_blocking (bool, optional): Whether to run the command in the background. Defaults to False.
-
-        Raises:
-            PyMemucError: an error if the vm import failed
-
-        Returns:
-            Literal[True]: True if the vm was imported successfully
+        :param file_name: File name. Defaults to "vm.ova".
+        :type file_name: str, optional
+        :param non_blocking: Whether to run the command in the background. Defaults to False.
+        :type non_blocking: bool, optional
+        :raises PyMemucError: an error if the vm import failed
+        :return: True if the vm was imported successfully
+        :rtype: Literal[True]
         """
         status, output = self.run(["import", file_name], non_blocking)
         success = status == 0 and output is not None and "SUCCESS" in output
@@ -198,17 +187,15 @@ class PyMemuc:
     ) -> Literal[True]:
         """Start a VM, must specify either a vm index or a vm name
 
-        Args:
-            vm_index (int, optional): VM index. Defaults to None.
-            vm_name (str, optional): VM name. Defaults to None.
-            non_blocking (bool, optional): Whether to run the command in the background. Defaults to False.
-
-        Raises:
-            PyMemucIndexError: an error if neither a vm index or a vm name is specified
-            PyMemucError: an error if the vm start failed
-
-        Returns:
-            Literal[True]: True if the vm was started successfully
+        :param vm_index: VM index. Defaults to None.
+        :type vm_index: int, optional
+        :param vm_name: VM name. Defaults to None.
+        :type vm_name: str, optional
+        :param non_blocking: Whether to run the command in the background. Defaults to False.
+        :type non_blocking: bool, optional
+        :raises PyMemucIndexError: an error if neither a vm index or a vm name is specified
+        :return: True if the vm was started successfully
+        :rtype: Literal[True]
         """
         if vm_index is not None:
             status, output = self.run(["-i", str(vm_index), "start"], non_blocking)
@@ -224,17 +211,15 @@ class PyMemuc:
     def stop_vm(self, vm_index=None, vm_name=None, non_blocking=False) -> Literal[True]:
         """Stop a VM, must specify either a vm index or a vm name
 
-        Args:
-            vm_index (int, optional): VM index. Defaults to None.
-            vm_name (str, optional): VM name. Defaults to None.
-            non_blocking (bool, optional): Whether to run the command in the background. Defaults to False.
-
-        Raises:
-            PyMemucIndexError: an error if neither a vm index or a vm name is specified
-            PyMemucError: an error if the vm stop failed
-
-        Returns:
-            Literal[True]: True if the vm was stopped successfully
+        :param vm_index: VM index. Defaults to None.
+        :type vm_index: int, optional
+        :param vm_name: VM name. Defaults to None.
+        :type vm_name: str, optional
+        :param non_blocking: Whether to run the command in the background. Defaults to False.
+        :type non_blocking: bool, optional
+        :raises PyMemucIndexError: an error if neither a vm index or a vm name is specified
+        :return: True if the vm was stopped successfully
+        :rtype: Literal[True]
         """
         if vm_index is not None:
             status, output = self.run(["-i", str(vm_index), "stop"], non_blocking)
@@ -250,14 +235,11 @@ class PyMemuc:
     def stop_all_vm(self, non_blocking=False) -> Literal[True]:
         """Stop all VMs
 
-        Args:
-            non_blocking (bool, optional): Whether to run the command in the background. Defaults to False.
-
-        Raises:
-            PyMemucError: an error if the vm stop failed
-
-        Returns:
-            Literal[True]: True if the vm was stopped successfully
+        :param non_blocking: Whether to run the command in the background. Defaults to False.
+        :type non_blocking: bool, optional
+        :raises PyMemucError: an error if the vm stop failed
+        :return: True if the vm was stopped successfully
+        :rtype: Literal[True]
         """
         status, output = self.run(["stopall"], non_blocking)
         success = status == 0 and output is not None and "SUCCESS" in output
@@ -270,24 +252,23 @@ class PyMemuc:
     ) -> list[VMInfo]:
         """List VM info, must specify either a vm index or a vm name
 
-        Args:
-            vm_index (int, optional): VM index. Defaults to None.
-            vm_name (str, optional): VM name. Defaults to None.
-            running (bool, optional): Whether to list only running VMs. Defaults to False.
-            disk_info (bool, optional): Whether to list disk info. Defaults to False.
-
-        Raises:
-            PyMemucIndexError: an error if neither a vm index or a vm name is specified
-
-        Returns:
-            list[vm_info]: a list of VM info, each VM info is a dictionary with the following keys:
+        :param vm_index: VM index. Defaults to None.
+        :type vm_index: int, optional
+        :param vm_name: VM name. Defaults to None.
+        :type vm_name: str, optional
+        :param running: Whether to list only running VMs. Defaults to False.
+        :type running: bool, optional
+        :param disk_info: Whether to list disk info. Defaults to False.
+        :type disk_info: bool, optional
+        :raises PyMemucIndexError: an error if neither a vm index or a vm name is specified
+        :return: a list of VM info, each VM info is a dictionary with the following keys:
                                     index: VM index
                                     title: VM title
                                     top_level: VM top level
                                     running: whether the VM is running
                                     pid: VM pid
                                     disk_usage: VM disk usage
-
+        :rtype: list[VMInfo]
         """
 
         if vm_index is not None:
@@ -338,11 +319,10 @@ class PyMemuc:
     def vm_is_running(self, vm_index=0) -> bool:
         """Check if a VM is running
 
-        Args:
-            vm_index (int, optional): VM index. Defaults to 0.
-
-        Returns:
-            bool: True if the VM is running, False otherwise
+        :param vm_index: VM index. Defaults to 0.
+        :type vm_index: int, optional
+        :return: True if the VM is running, False otherwise
+        :rtype: bool
         """
         status, output = self.run(["-i", str(vm_index), "isrunning"])
         return "Running" in output
@@ -350,8 +330,8 @@ class PyMemuc:
     def sort_out_all_vm(self) -> bool:
         """Sort out all VMs
 
-        Returns:
-            tuple[int, str]: the return code and the output of the command.
+        :return: the return code and the output of the command.
+        :rtype: tuple[int, str]
         """
         status, output = self.run(["sortwin"])
         success = status == 0 and output is not None and "SUCCESS" in output
@@ -364,17 +344,15 @@ class PyMemuc:
     ) -> Literal[True]:
         """Reboot a VM, must specify either a vm index or a vm name
 
-        Args:
-            vm_index (int, optional): VM index. Defaults to None.
-            vm_name (str, optional): VM name. Defaults to None.
-            non_blocking (bool, optional): Whether to run the command in the background. Defaults to False.
-
-        Raises:
-            PyMemucIndexError: an error if neither a vm index or a vm name is specified
-            PyMemucError: an error if the vm reboot failed
-
-        Returns:
-            Literal[True]: True if the vm was rebooted successfully
+        :param vm_index: VM index. Defaults to None.
+        :type vm_index: int, optional
+        :param vm_name: VM name. Defaults to None.
+        :type vm_name: str, optional
+        :param non_blocking: Whether to run the command in the background. Defaults to False.
+        :type non_blocking: bool, optional
+        :raises PyMemucIndexError: an error if neither a vm index or a vm name is specified
+        :return: True if the vm was rebooted successfully
+        :rtype: Literal[True]
         """
         if vm_index is not None:
             status, output = self.run(["-i", str(vm_index), "reboot"], non_blocking)
@@ -390,17 +368,15 @@ class PyMemuc:
     def rename_vm(self, vm_index=None, vm_name=None, new_name=None) -> Literal[True]:
         """Rename a VM, must specify either a vm index or a vm name
 
-        Args:
-            vm_index (int, optional): VM index. Defaults to None.
-            vm_name (str, optional): VM name. Defaults to None.
-            new_name (str, optional): New VM name. Defaults to None.
-
-        Raises:
-            PyMemucError: an error if neither a vm index, name or new name is specified
-            PyMemucError: an error if the vm rename failed
-
-        Returns:
-            Literal[True]: True if the vm was renamed successfully
+        :param vm_index: VM index. Defaults to None.
+        :type vm_index: int, optional
+        :param vm_name: VM name. Defaults to None.
+        :type vm_name: str, optional
+        :param new_name: New VM name. Defaults to None.
+        :type new_name: str, optional
+        :raises PyMemucError: an error if neither a vm index, name or new name is specified
+        :return: True if the vm was renamed successfully
+        :rtype: Literal[True]
         """
         if vm_index is not None and new_name is not None:
             status, output = self.run(["-i", str(vm_index), "rename", f'"{new_name}"'])
@@ -417,28 +393,25 @@ class PyMemuc:
     def check_task_status(self, task_id):
         """Check the status of a task
 
-        Args:
-            task_id (str): Asynchronous task ID
-
-        Returns:
-            tuple[int, str]: the return code and the output of the command.
+        :param task_id: Asynchronous task ID
+        :type task_id: str
+        :return: the return code and the output of the command.
+        :rtype: tuple[int, str]
         """
         return self.run("taskstatus", task_id)
 
     def get_configuration_vm(self, config_key, vm_index=None, vm_name=None) -> str:
         """Get a VM configuration, must specify either a vm index or a vm name
 
-        Args:
-            config_key (str): Configuration key, keys are noted in docs/memuc_documentation.md
-            vm_index (int, optional): VM index. Defaults to None.
-            vm_name (str, optional): VM name. Defaults to None.
-
-        Raises:
-            PyMemucIndexError: an error if neither a vm index or a vm name is specified
-            PyMemucError: an error if the vm configuration failed
-
-        Returns:
-            str: The configuration value
+        :param config_key: Configuration key, keys are noted in `configuration keys table <https://pymemuc.readthedocs.io/pymemuc.html#the-vm-configuration-keys-table>`_
+        :type config_key: str
+        :param vm_index: VM index. Defaults to None.
+        :type vm_index: int, optional
+        :param vm_name: VM name. Defaults to None.
+        :type vm_name: str, optional
+        :raises PyMemucIndexError: an error if neither a vm index or a vm name is specified
+        :return: The configuration value
+        :rtype: str
         """
         if vm_index is not None:
             status, output = self.run(["-i", str(vm_index), "getconfigex", config_key])
@@ -456,18 +429,17 @@ class PyMemuc:
     ) -> Literal[True]:
         """Set a VM configuration, must specify either a vm index or a vm name
 
-        Args:
-            config_key (str): Configuration key, keys are noted in docs/memuc_documentation.md
-            config_value (str): Configuration value
-            vm_index (int, optional): VM index. Defaults to None.
-            vm_name (str, optional): VM name. Defaults to None.
-
-        Raises:
-            PyMemucIndexError: an error if neither a vm index or a vm name is specified
-            PyMemucError: an error if the vm configuration failed
-
-        Returns:
-            Literal[True]: True if the vm configuration was set successfully
+        :param config_key: Configuration key, keys are noted in `configuration keys table <https://pymemuc.readthedocs.io/pymemuc.html#the-vm-configuration-keys-table>`_
+        :type config_key: str
+        :param config_value: Configuration value
+        :type config_value: str
+        :param vm_index: VM index. Defaults to None.
+        :type vm_index: int, optional
+        :param vm_name: VM name. Defaults to None.
+        :type vm_name: str, optional
+        :raises PyMemucIndexError: an error if neither a vm index or a vm name is specified
+        :return: True if the vm configuration was set successfully
+        :rtype: Literal[True]
         """
         if vm_index is not None:
             status, output = self.run(
@@ -490,18 +462,17 @@ class PyMemuc:
     ) -> Literal[True]:
         """Install an APK on a VM, must specify either a vm index or a vm name
 
-        Args:
-            apk_path (str): Path to the APK
-            vm_index (int, optional): VM index. Defaults to None.
-            vm_name (str, optional): VM name. Defaults to None.
-            create_shortcut (bool, optional): Whether to create a shortcut. Defaults to False.
-
-        Raises:
-            PyMemucIndexError: an error if neither a vm index or a vm name is specified
-            PyMemucError: an error if the vm apk installation failed
-
-        Returns:
-            Literal[True]: True if the vm apk installation was successful
+        :param apk_path: Path to the APK
+        :type apk_path: str
+        :param vm_index: VM index. Defaults to None.
+        :type vm_index: int, optional
+        :param vm_name: VM name. Defaults to None.
+        :type vm_name: str, optional
+        :param create_shortcut: Whether to create a shortcut. Defaults to False.
+        :type create_shortcut: bool, optional
+        :raises PyMemucIndexError: an error if neither a vm index or a vm name is specified
+        :return: True if the vm apk installation was successful
+        :rtype: Literal[True]
         """
         if vm_index is not None:
             status, output = self.run(
@@ -535,17 +506,15 @@ class PyMemuc:
     ) -> Literal[True]:
         """Uninstall an APK on a VM, must specify either a vm index or a vm name
 
-        Args:
-            package_name (str): Package name of the APK
-            vm_index (int, optional): VM index. Defaults to None.
-            vm_name (str, optional): VM name. Defaults to None.
-
-        Raises:
-            PyMemucIndexError: an error if neither a vm index or a vm name is specified
-            PyMemucError: an error if the vm apk uninstallation failed
-
-        Returns:
-            Literal[True]: True if the vm apk uninstallation was successful
+        :param package_name: Package name of the APK
+        :type package_name: str
+        :param vm_index: VM index. Defaults to None.
+        :type vm_index: int, optional
+        :param vm_name: VM name. Defaults to None.
+        :type vm_name: str, optional
+        :raises PyMemucIndexError: an error if neither a vm index or a vm name is specified
+        :return: True if the vm apk uninstallation was successful
+        :rtype: Literal[True]
         """
         if vm_index is not None:
             status, output = self.run(
@@ -563,17 +532,15 @@ class PyMemuc:
     def start_app_vm(self, package_name, vm_index=None, vm_name=None) -> Literal[True]:
         """Start an app on a VM, must specify either a vm index or a vm name
 
-        Args:
-            package_name (str): Package name of the APK
-            vm_index (int, optional): VM index. Defaults to None.
-            vm_name (str, optional): VM name. Defaults to None.
-
-        Raises:
-            PyMemucIndexError: an error if neither a vm index or a vm name is specified
-            PyMemucError: an error if the vm app start failed
-
-        Returns:
-            Literal[True]: True if the vm app start was successful
+        :param package_name: Package name of the APK
+        :type package_name: str
+        :param vm_index: VM index. Defaults to None.
+        :type vm_index: int, optional
+        :param vm_name: VM name. Defaults to None.
+        :type vm_name: str, optional
+        :raises PyMemucIndexError: an error if neither a vm index or a vm name is specified
+        :return: True if the vm app start was successful
+        :rtype: Literal[True]
         """
         if vm_index is not None:
             status, output = self.run(["-i", str(vm_index), "startapp", package_name])
@@ -589,17 +556,15 @@ class PyMemuc:
     def stop_app_vm(self, package_name, vm_index=None, vm_name=None) -> Literal[True]:
         """Stop an app on a VM, must specify either a vm index or a vm name
 
-        Args:
-            package_name (str): Package name of the APK
-            vm_index (int, optional): VM index. Defaults to None.
-            vm_name (str, optional): VM name. Defaults to None.
-
-        Raises:
-            PyMemucIndexError: an error if neither a vm index or a vm name is specified
-            PyMemucError: an error if the vm app stop failed
-
-        Returns:
-            Literal[True]: True if the vm app stop was successful
+        :param package_name: Package name of the APK
+        :type package_name: str
+        :param vm_index: VM index. Defaults to None.
+        :type vm_index: int, optional
+        :param vm_name: VM name. Defaults to None.
+        :type vm_name: str, optional
+        :raises PyMemucIndexError: an error if neither a vm index or a vm name is specified
+        :return: True if the vm app stop was successful
+        :rtype: Literal[True]
         """
         if vm_index is not None:
             status, output = self.run(["-i", str(vm_index), "stopapp", package_name])
@@ -620,17 +585,15 @@ class PyMemuc:
     ) -> Literal[True]:
         """Trigger a keystroke on a VM, must specify either a vm index or a vm name
 
-        Args:
-            key (Literal["back", "home", "menu", "volumeup", "volumedown"]): Key to trigger
-            vm_index (int, optional): VM index. Defaults to None.
-            vm_name (str, optional): VM name. Defaults to None.
-
-        Raises:
-            PyMemucIndexError: an error if neither a vm index or a vm name is specified
-            PyMemucError: an error if the vm keystroke trigger failed
-
-        Returns:
-            Literal[True]: True if the vm keystroke trigger was successful
+        :param key: Key to trigger
+        :type key: Literal["back", "home", "menu", "volumeup", "volumedown"]
+        :param vm_index: VM index. Defaults to None.
+        :type vm_index: int, optional
+        :param vm_name: VM name. Defaults to None.
+        :type vm_name: str, optional
+        :raises PyMemucIndexError: an error if neither a vm index or a vm name is specified
+        :return: True if the vm keystroke trigger was successful
+        :rtype: Literal[True]
         """
         if vm_index is not None:
             status, output = self.run(["-i", str(vm_index), "sendkey", key])
@@ -646,16 +609,13 @@ class PyMemuc:
     def trigger_shake_vm(self, vm_index=None, vm_name=None) -> Literal[True]:
         """Trigger a shake on a VM, must specify either a vm index or a vm name
 
-        Args:
-            vm_index (int, optional): VM index. Defaults to None.
-            vm_name (str, optional): VM name. Defaults to None.
-
-        Raises:
-            PyMemucIndexError: an error if neither a vm index or a vm name is specified
-            PyMemucError: an error if the vm shake trigger failed
-
-        Returns:
-            Literal[True]: True if the vm shake trigger was successful
+        :param vm_index: VM index. Defaults to None.
+        :type vm_index: int, optional
+        :param vm_name: VM name. Defaults to None.
+        :type vm_name: str, optional
+        :raises PyMemucIndexError: an error if neither a vm index or a vm name is specified
+        :return: True if the vm shake trigger was successful
+        :rtype: Literal[True]
         """
         if vm_index is not None:
             status, output = self.run(["-i", str(vm_index), "shake"])
@@ -671,16 +631,13 @@ class PyMemuc:
     def connect_internet_vm(self, vm_index=None, vm_name=None) -> Literal[True]:
         """Connect the internet on a VM, must specify either a vm index or a vm name
 
-        Args:
-            vm_index (int, optional): VM index. Defaults to None.
-            vm_name (str, optional): VM name. Defaults to None.
-
-        Raises:
-            PyMemucIndexError: an error if neither a vm index or a vm name is specified
-            PyMemucError: an error if the vm internet connection failed
-
-        Returns:
-            Literal[True]: True if the vm internet connection was successful
+        :param vm_index: VM index. Defaults to None.
+        :type vm_index: int, optional
+        :param vm_name: VM name. Defaults to None.
+        :type vm_name: str, optional
+        :raises PyMemucIndexError: an error if neither a vm index or a vm name is specified
+        :return: True if the vm internet connection was successful
+        :rtype: Literal[True]
         """
         if vm_index is not None:
             status, output = self.run(["-i", str(vm_index), "connect"])
@@ -696,15 +653,13 @@ class PyMemuc:
     def disconnect_internet_vm(self, vm_index=None, vm_name=None):
         """Disconnect the internet on a VM, must specify either a vm index or a vm name
 
-        Args:
-            vm_index (int, optional): VM index. Defaults to None.
-            vm_name (str, optional): VM name. Defaults to None.
-
-        Raises:
-            PyMemucIndexError: an error if neither a vm index or a vm name is specified
-
-        Returns:
-            tuple[int, str]: the return code and the output of the command.
+        :param vm_index: VM index. Defaults to None.
+        :type vm_index: int, optional
+        :param vm_name: VM name. Defaults to None.
+        :type vm_name: str, optional
+        :raises PyMemucIndexError: an error if neither a vm index or a vm name is specified
+        :return: the return code and the output of the command.
+        :rtype: tuple[int, str]
         """
         if vm_index is not None:
             status, output = self.run(["-i", str(vm_index), "disconnect"])
@@ -720,17 +675,15 @@ class PyMemuc:
     def input_text_vm(self, text, vm_index=None, vm_name=None) -> Literal[True]:
         """Input text on a VM, must specify either a vm index or a vm name
 
-        Args:
-            text (str): Text to input
-            vm_index (int, optional): VM index. Defaults to None.
-            vm_name (str, optional): VM name. Defaults to None.
-
-        Raises:
-            PyMemucIndexError: an error if neither a vm index or a vm name is specified
-            PyMemucError: an error if the vm text input failed
-
-        Returns:
-            Literal[True]: True if the vm text input was successful
+        :param text: Text to input
+        :type text: str
+        :param vm_index: VM index. Defaults to None.
+        :type vm_index: int, optional
+        :param vm_name: VM name. Defaults to None.
+        :type vm_name: str, optional
+        :raises PyMemucIndexError: an error if neither a vm index or a vm name is specified
+        :return: True if the vm text input was successful
+        :rtype: Literal[True]
         """
         if vm_index is not None:
             status, output = self.run(["-i", str(vm_index), "input", text])
@@ -746,15 +699,11 @@ class PyMemuc:
     def rotate_window_vm(self, vm_index=None, vm_name=None) -> Literal[True]:
         """Rotate the window on a VM, must specify either a vm index or a vm name
 
-        Args:
-            vm_index (int, optional): VM index. Defaults to None.
-
-        Raises:
-            PyMemucIndexError: an error if neither a vm index or a vm name is specified
-            PyMemucError: an error if the vm window rotation failed
-
-        Returns:
-            Literal[True]: True if the vm window rotation was successful
+        :param vm_index: VM index. Defaults to None.
+        :type vm_index: int, optional
+        :raises PyMemucIndexError: an error if neither a vm index or a vm name is specified
+        :return: True if the vm window rotation was successful
+        :rtype: Literal[True]
         """
         if vm_index is not None:
             status, output = self.run(["-i", str(vm_index), "rotate"])
@@ -772,16 +721,15 @@ class PyMemuc:
     ) -> tuple[int, str]:
         """Execute a command on a VM, must specify either a vm index or a vm name
 
-        Args:
-            command (str): Command to execute
-            vm_index (int, optional): VM index. Defaults to None.
-            vm_name (str, optional): VM name. Defaults to None.
-
-        Raises:
-            PyMemucIndexError: an error if neither a vm index or a vm name is specified
-
-        Returns:
-            tuple[int, str]: the return code and the output of the command.
+        :param command: Command to execute
+        :type command: str
+        :param vm_index: VM index. Defaults to None.
+        :type vm_index: int, optional
+        :param vm_name: VM name. Defaults to None.
+        :type vm_name: str, optional
+        :raises PyMemucIndexError: an error if neither a vm index or a vm name is specified
+        :return: the return code and the output of the command.
+        :rtype: tuple[int, str]
         """
         if vm_index is not None:
             return self.run(["-i", str(vm_index), "execcmd", f'"{command}"'])
@@ -795,18 +743,17 @@ class PyMemuc:
     ) -> Literal[True]:
         """Change the GPS location on a VM, must specify either a vm index or a vm name
 
-        Args:
-            latitude (float): Latitude
-            longitude (float): Longitude
-            vm_index (int, optional): VM index. Defaults to None.
-            vm_name (str, optional): VM name. Defaults to None.
-
-        Raises:
-            PyMemucIndexError: an error if neither a vm index or a vm name is specified
-            PyMemucError: an error if the vm GPS change failed
-
-        Returns:
-            Literal[True]: True if the vm GPS change was successful
+        :param latitude: Latitude
+        :type latitude: float
+        :param longitude: Longitude
+        :type longitude: float
+        :param vm_index: VM index. Defaults to None.
+        :type vm_index: int, optional
+        :param vm_name: VM name. Defaults to None.
+        :type vm_name: str, optional
+        :raises PyMemucIndexError: an error if neither a vm index or a vm name is specified
+        :return: True if the vm GPS change was successful
+        :rtype: Literal[True]
         """
         if vm_index is not None:
             success, output = self.run(
@@ -827,15 +774,13 @@ class PyMemuc:
     def get_public_ip_vm(self, vm_index=None, vm_name=None):
         """Get the public IP of a VM, must specify either a vm index or a vm name
 
-        Args:
-            vm_index (int, optional): VM index. Defaults to None.
-            vm_name (str, optional): VM name. Defaults to None.
-
-        Raises:
-            PyMemucIndexError: an error if neither a vm index or a vm name is specified
-
-        Returns:
-            tuple[int, str]: the return code and the output of the command.
+        :param vm_index: VM index. Defaults to None.
+        :type vm_index: int, optional
+        :param vm_name: VM name. Defaults to None.
+        :type vm_name: str, optional
+        :raises PyMemucIndexError: an error if neither a vm index or a vm name is specified
+        :return: the return code and the output of the command.
+        :rtype: tuple[int, str]
         """
         if vm_index is not None:
             return self.run(
@@ -849,16 +794,13 @@ class PyMemuc:
     def zoom_in_vm(self, vm_index=None, vm_name=None) -> Literal[True]:
         """Zoom in on a VM, must specify either a vm index or a vm name
 
-        Args:
-            vm_index (int, optional): VM index. Defaults to None.
-            vm_name (str, optional): VM name. Defaults to None.
-
-        Raises:
-            PyMemucIndexError: an error if neither a vm index or a vm name is specified
-            PyMemucError: an error if the vm zoom in failed
-
-        Returns:
-            Literal[True]: True if the vm zoom in was successful
+        :param vm_index: VM index. Defaults to None.
+        :type vm_index: int, optional
+        :param vm_name: VM name. Defaults to None.
+        :type vm_name: str, optional
+        :raises PyMemucIndexError: an error if neither a vm index or a vm name is specified
+        :return: True if the vm zoom in was successful
+        :rtype: Literal[True]
         """
         if vm_index is not None:
             status, output = self.run(["-i", str(vm_index), "zoomin"])
@@ -874,16 +816,13 @@ class PyMemuc:
     def zoom_out_vm(self, vm_index=None, vm_name=None) -> Literal[True]:
         """Zoom out on a VM, must specify either a vm index or a vm name
 
-        Args:
-            vm_index (int, optional): VM index. Defaults to None.
-            vm_name (str, optional): VM name. Defaults to None.
-
-        Raises:
-            PyMemucIndexError: an error if neither a vm index or a vm name is specified
-            PyMemucError: an error if the vm zoom out failed
-
-        Returns:
-            Literal[True]: True if the vm zoom out was successful
+        :param vm_index: VM index. Defaults to None.
+        :type vm_index: int, optional
+        :param vm_name: VM name. Defaults to None.
+        :type vm_name: str, optional
+        :raises PyMemucIndexError: an error if neither a vm index or a vm name is specified
+        :return: True if the vm zoom out was successful
+        :rtype: Literal[True]
         """
         if vm_index is not None:
             status, output = self.run(["-i", str(vm_index), "zoomout"])
@@ -899,15 +838,13 @@ class PyMemuc:
     def get_app_info_list_vm(self, vm_index=None, vm_name=None) -> list[str]:
         """Get the list of apps installed on a VM, must specify either a vm index or a vm name
 
-        Args:
-            vm_index (int, optional): VM index. Defaults to None.
-            vm_name (str, optional): VM name. Defaults to None.
-
-        Raises:
-            PyMemucIndexError: an error if neither a vm index or a vm name is specified
-
-        Returns:
-            list[str]: the list of packages installed on the VM
+        :param vm_index: VM index. Defaults to None.
+        :type vm_index: int, optional
+        :param vm_name: VM name. Defaults to None.
+        :type vm_name: str, optional
+        :raises PyMemucIndexError: an error if neither a vm index or a vm name is specified
+        :return: the list of packages installed on the VM
+        :rtype: list[str]
         """
         if vm_index is not None:
             status, output = self.run(["-i", str(vm_index), "getappinfolist"])
@@ -930,18 +867,19 @@ class PyMemuc:
     ):
         """Set the accelerometer on a VM, must specify either a vm index or a vm name
 
-        Args:
-            x (float): X value
-            y (float): Y value
-            z (float): Z value
-            vm_index (int, optional): VM index. Defaults to None.
-            vm_name (str, optional): VM name. Defaults to None.
-
-        Raises:
-            PyMemucIndexError: an error if neither a vm index or a vm name is specified
-
-        Returns:
-            tuple[int, str]: the return code and the output of the command.
+        :param x: X value
+        :type x: float
+        :param y: Y value
+        :type y: float
+        :param z: Z value
+        :type z: float
+        :param vm_index: VM index. Defaults to None.
+        :type vm_index: int, optional
+        :param vm_name: VM name. Defaults to None.
+        :type vm_name: str, optional
+        :raises PyMemucIndexError: an error if neither a vm index or a vm name is specified
+        :return: the return code and the output of the command.
+        :rtype: tuple[int, str]
         """
         if vm_index is not None:
             return self.run(
@@ -961,16 +899,15 @@ class PyMemuc:
     ):
         """Create an app shortcut on a VM, must specify either a vm index or a vm name
 
-        Args:
-            package_name (str): Package name
-            vm_index (int, optional): VM index. Defaults to None.
-            vm_name (str, optional): VM name. Defaults to None.
-
-        Raises:
-            PyMemucIndexError: an error if neither a vm index or a vm name is specified
-
-        Returns:
-            tuple[int, str]: the return code and the output of the command.
+        :param package_name: Package name
+        :type package_name: str
+        :param vm_index: VM index. Defaults to None.
+        :type vm_index: int, optional
+        :param vm_name: VM name. Defaults to None.
+        :type vm_name: str, optional
+        :raises PyMemucIndexError: an error if neither a vm index or a vm name is specified
+        :return: the return code and the output of the command.
+        :rtype: tuple[int, str]
         """
         if vm_index is not None:
             return self.run(["-i", str(vm_index), "createshortcut", package_name])
@@ -983,16 +920,15 @@ class PyMemuc:
     def send_adb_command_vm(self, command, vm_index=None, vm_name=None):
         """Send an ADB command to a VM, must specify either a vm index or a vm name
 
-        Args:
-            command (str): ADB command
-            vm_index (int, optional): VM index. Defaults to None.
-            vm_name (str, optional): VM name. Defaults to None.
-
-        Raises:
-            PyMemucIndexError: an error if neither a vm index or a vm name is specified
-
-        Returns:
-            tuple[int, str]: the return code and the output of the command.
+        :param command: ADB command
+        :type command: str
+        :param vm_index: VM index. Defaults to None.
+        :type vm_index: int, optional
+        :param vm_name: VM name. Defaults to None.
+        :type vm_name: str, optional
+        :raises PyMemucIndexError: an error if neither a vm index or a vm name is specified
+        :return: the return code and the output of the command.
+        :rtype: tuple[int, str]
         """
         if vm_index is not None:
             return self.run(["-i", str(vm_index), "adb", f'"{command}"'])
@@ -1020,3 +956,6 @@ class PyMemucIndexError(PyMemucError):
 
     def __str__(self):
         return repr(self.value)
+
+
+
