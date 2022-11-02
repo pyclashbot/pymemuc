@@ -3,7 +3,9 @@
 
 from os.path import abspath, expanduser, expandvars, join, normpath
 from subprocess import PIPE, Popen
-from typing import Literal, TypedDict
+from typing import Literal
+
+from pymemuc.types import VMInfo
 
 try:
     from winreg import HKEY_LOCAL_MACHINE, ConnectRegistry, OpenKey, QueryValueEx
@@ -263,21 +265,9 @@ class PyMemuc:
             raise PyMemucError(f"Failed to stop all VMs: {output}")
         return True
 
-    vm_info = TypedDict(
-        "Info",
-        {
-            "index": int,
-            "title": str,
-            "top_level": str,
-            "running": bool,
-            "pid": int,
-            "disk_usage": int,
-        },
-    )
-
     def list_vm_info(
         self, vm_index=None, vm_name=None, running=False, disk_info=False
-    ) -> list[vm_info]:
+    ) -> list[VMInfo]:
         """List VM info, must specify either a vm index or a vm name
 
         Args:
