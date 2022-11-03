@@ -384,9 +384,9 @@ class PyMemuc:
         :rtype: Literal[True]
         """
         if vm_index is not None and new_name is not None:
-            status, output = self.run(["-i", str(vm_index), "rename", f'"{new_name}"'])
+            status, output = self.run(["-i", str(vm_index), "rename", new_name])
         elif vm_name is not None and new_name is not None:
-            status, output = self.run(["-n", vm_name, "rename", f'"{new_name}"'])
+            status, output = self.run(["-n", vm_name, "rename", new_name])
         else:
             raise PyMemucIndexError("Please specify either a vm index or a vm name")
         success = status == 0 and output is not None and "SUCCESS" in output
