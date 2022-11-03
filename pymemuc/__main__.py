@@ -90,8 +90,13 @@ class PyMemuc:
         success = status == 0 and output is not None and "SUCCESS" in output
         if not success:
             raise PyMemucError(f"Failed to create VM: {output}")
-        # filter out index from output eg "SUCCESS: create vm finished.index:100" -> 100
-        return int(output.split(".")[-1]) if "." in output else -1
+        # filter output with regex r"index:(\w)"
+        import re
+
+        try:
+            return int(re.search(r"index:(\w)", output).group(1)) # type: ignore
+        except AttributeError: return -1
+
 
     def delete_vm(self, vm_index=None, vm_name=None) -> Literal[True]:
         """Delete a VM, must specify either a vm index or a vm name
