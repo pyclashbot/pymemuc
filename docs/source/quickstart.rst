@@ -26,11 +26,8 @@ Example Usage
     # create a PyMemuc instance, doing so will automatically link to the MEMUC executable
     memuc = PyMemuc()
 
-    # create a new vm
-    memuc.create_vm()
-
-    # list out all vms, get the index of the first one
-    index = memuc.list_vm_info()[0][0]
+    # create a new vm, saving the index
+    index = memuc.create_vm()
 
     # start the vm
     memuc.start_vm(index)
