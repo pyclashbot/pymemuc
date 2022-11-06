@@ -2,8 +2,8 @@
 # documentation detailed in memuc_documentation.md
 
 from os.path import abspath, expanduser, expandvars, join, normpath
-from subprocess import PIPE, Popen
-from typing import Literal
+from subprocess import PIPE, CalledProcessError, Popen, TimeoutExpired, check_output
+from typing import Literal, Union
 
 from pymemuc.types import VMInfo
 
@@ -25,16 +25,16 @@ class PyMemuc:
     :type memuc_path: str, optional
     """
 
-    def __init__(self, memuc_path=None) -> None:
+    def __init__(self, memuc_path: Union[str, None] = None) -> None:
         """initialize the class, automatically finding memuc.exe if windows registry is supported, otherwise a path must be specified"""
         if windows_registry:
-            self.memuc_path = join(self._get_memu_top_level(), "memuc.exe")
-        elif memuc_path is not None:
+            self.memuc_path: str = join(self._get_memu_top_level(), "memuc.exe")
+        elif memuc_path is None:
             raise PyMemucError(
                 "Windows Registry is not supported on this platform, you must specify the path to memuc.exe manually"
             )
         else:
-            self.memuc_path = memuc_path
+            self.memuc_path: str = memuc_path
 
     def _get_memu_top_level(self) -> str:
         """locate the path of the memu directory using windows registry keys
@@ -55,11 +55,11 @@ class PyMemuc:
                 raise PyMemucError("MEmuc not found, is it installed?") from e
         return str(join(normpath(QueryValueEx(akey, "InstallLocation")[0]), "Memu"))
 
-    def run(self, args, non_blocking=False) -> tuple[int, str]:
+    def run(self, args: list[str], non_blocking=False) -> tuple[int, str]:
         """run a command with memuc.exe
 
         :param args: a list of arguments to pass to memuc.exe
-        :type args: list
+        :type args: list[str]
         :param non_blocking: whether to run the command in the background. Defaults to False.
         :type non_blocking: bool, optional
         :return: the return code and the output of the command
@@ -76,6 +76,27 @@ class PyMemuc:
             raise PyMemucError(err)
         # print(f"Command output [{p_status}]: {output}") # debug
         return p_status, output
+
+    def run_with_timeout(self, args: list[str], timeout=10) -> tuple[int, str]:
+        """run a command with memuc.exe with a timeout
+
+        :param args: a list of arguments to pass to memuc.exe
+        :type args: list[str]
+        :param timeout: the timeout in seconds. Defaults to 10.
+        :type timeout: int, optional
+        :return: the return code and the output of the command
+        :rtype: tuple[int, str]
+        :raises PyMemucError: an error if the command failed
+        :raises PyMemucTimeoutExpired: an error if the command timed out
+        """
+        args.insert(0, self.memuc_path)
+        try:
+            output = check_output(args, timeout=timeout)
+            return (1, output.decode("utf-8"))
+        except CalledProcessError as e:
+            raise PyMemucError(e) from e
+        except TimeoutExpired as e:
+            raise PyMemucTimeoutExpired(e) from e
 
     def create_vm(self, vm_version="76") -> int:
         """Create a new VM
@@ -94,9 +115,9 @@ class PyMemuc:
         import re
 
         try:
-            return int(re.search(r"index:(\w)", output).group(1)) # type: ignore
-        except AttributeError: return -1
-
+            return int(re.search(r"index:(\w)", output).group(1))  # type: ignore
+        except AttributeError:
+            return -1
 
     def delete_vm(self, vm_index=None, vm_name=None) -> Literal[True]:
         """Delete a VM, must specify either a vm index or a vm name
@@ -403,7 +424,7 @@ class PyMemuc:
         :return: the return code and the output of the command.
         :rtype: tuple[int, str]
         """
-        return self.run("taskstatus", task_id)
+        return self.run(["taskstatus"], task_id)
 
     def get_configuration_vm(self, config_key, vm_index=None, vm_name=None) -> str:
         """Get a VM configuration, must specify either a vm index or a vm name
@@ -655,7 +676,7 @@ class PyMemuc:
             raise PyMemucError(f"Failed to connect internet: {output}")
         return True
 
-    def disconnect_internet_vm(self, vm_index=None, vm_name=None):
+    def disconnect_internet_vm(self, vm_index=None, vm_name=None) -> Literal[True]:
         """Disconnect the internet on a VM, must specify either a vm index or a vm name
 
         :param vm_index: VM index. Defaults to None.
@@ -776,7 +797,7 @@ class PyMemuc:
         return True
 
     # TODO: fix parsing of the output
-    def get_public_ip_vm(self, vm_index=None, vm_name=None):
+    def get_public_ip_vm(self, vm_index=None, vm_name=None) -> tuple[int, str]:
         """Get the public IP of a VM, must specify either a vm index or a vm name
 
         :param vm_index: VM index. Defaults to None.
@@ -840,26 +861,39 @@ class PyMemuc:
             raise PyMemucError(f"Failed to zoom in: {output}")
         return True
 
-    def get_app_info_list_vm(self, vm_index=None, vm_name=None) -> list[str]:
+    def get_app_info_list_vm(
+        self, vm_index=None, vm_name=None, timeout=10
+    ) -> list[str]:
         """Get the list of apps installed on a VM, must specify either a vm index or a vm name
 
         :param vm_index: VM index. Defaults to None.
         :type vm_index: int, optional
         :param vm_name: VM name. Defaults to None.
         :type vm_name: str, optional
+        :param timeout: Timeout for the command. Defaults to 10.
+        :type timeout: int, optional
         :raises PyMemucIndexError: an error if neither a vm index or a vm name is specified
         :return: the list of packages installed on the VM
         :rtype: list[str]
         """
-        if vm_index is not None:
-            status, output = self.run(["-i", str(vm_index), "getappinfolist"])
-        elif vm_name is not None:
-            status, output = self.run(["-n", vm_name, "getappinfolist"])
-        else:
-            raise PyMemucIndexError("Please specify either a vm index or a vm name")
-        output = output.split("\r\n")
-        output = [line.replace("package:", "") for line in output if line != ""]
-        return output
+        try:
+            if vm_index is not None:
+                status, output = self.run_with_timeout(
+                    ["-i", str(vm_index), "getappinfolist"],
+                    timeout=timeout,
+                )
+            elif vm_name is not None:
+                status, output = self.run_with_timeout(
+                    ["-n", vm_name, "getappinfolist"],
+                    timeout=timeout,
+                )
+            else:
+                raise PyMemucIndexError("Please specify either a vm index or a vm name")
+            output = output.split("\r\n")
+            output = [line.replace("package:", "") for line in output if line != ""]
+            return output
+        except PyMemucTimeoutExpired:
+            return []
 
     # TODO: debug this, it doesn't work
     def set_accelerometer_vm(
@@ -869,7 +903,7 @@ class PyMemuc:
         z: float,
         vm_index=None,
         vm_name=None,
-    ):
+    ) -> tuple[int, str]:
         """Set the accelerometer on a VM, must specify either a vm index or a vm name
 
         :param x: X value
@@ -901,7 +935,7 @@ class PyMemuc:
         package_name: str,
         vm_index=None,
         vm_name=None,
-    ):
+    ) -> tuple[int, str]:
         """Create an app shortcut on a VM, must specify either a vm index or a vm name
 
         :param package_name: Package name
@@ -922,7 +956,7 @@ class PyMemuc:
             raise PyMemucIndexError("Please specify either a vm index or a vm name")
 
     # TODO: parse the output
-    def send_adb_command_vm(self, command, vm_index=None, vm_name=None):
+    def send_adb_command_vm(self, command, vm_index=None, vm_name=None) -> tuple[int, str]:
         """Send an ADB command to a VM, must specify either a vm index or a vm name
 
         :param command: ADB command
@@ -946,21 +980,28 @@ class PyMemuc:
 class PyMemucError(Exception):
     """PyMemuc error class"""
 
-    def __init__(self, value):
+    def __init__(self, value) -> None:
         self.value = value
 
-    def __str__(self):
+    def __str__(self) -> str:
         return repr(self.value)
 
 
 class PyMemucIndexError(PyMemucError):
     """PyMemuc index error class"""
 
-    def __init__(self, value):
+    def __init__(self, value) -> None:
         self.value = value
 
-    def __str__(self):
+    def __str__(self) -> str:
         return repr(self.value)
 
 
+class PyMemucTimeoutExpired(TimeoutExpired):
+    """PyMemuc timeout error class"""
 
+    def __init__(self, value) -> None:
+        self.value = value
+
+    def __str__(self) -> str:
+        return repr(self.value)
