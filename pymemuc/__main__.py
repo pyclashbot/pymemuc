@@ -64,6 +64,7 @@ class PyMemuc:
         :type non_blocking: bool, optional
         :return: the return code and the output of the command
         :rtype: tuple[int, str]
+        :raises PyMemucError: an error if the command failed
         """
         args.insert(0, self.memuc_path)
         args += "-t" if non_blocking else ""
