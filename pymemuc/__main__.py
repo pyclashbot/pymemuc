@@ -79,8 +79,8 @@ class PyMemuc:
                 raise PyMemucError(err)
 
             # print the command that was run and the output for debugging
-            print(f"Command: memuc.exe {' '.join(args)}")  # debug
-            print(f"Command output [{p_status}]: {output}")  # debug
+            # print(f"Command: memuc.exe {' '.join(args)}")  # debug
+            # print(f"Command output [{p_status}]: {output}")  # debug
 
             return p_status, output
 
