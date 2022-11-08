@@ -28,8 +28,10 @@ poetry = "^1.2.2"
 optional = true
 
 [tool.poetry.group.dev.dependencies]
-black = "^22.0.0"
-ipykernel = "^6.17.0"
+pre-commit = "^2.20"
+black = "^22.0"
+prospector = "^1.7"
+ipykernel = "^6.17"
 
 
 [tool.black]

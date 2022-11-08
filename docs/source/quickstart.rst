@@ -37,4 +37,3 @@ Example Usage
 
     # delete the vm
     memuc.delete_vm(index)
-

@@ -7,7 +7,7 @@ sys.path.insert(0, os.path.abspath("../.."))
 
 
 project = "pymemuc"
-copyright = "2022, Martin Miglio"
+copyright = "2022, Martin Miglio"  # noqa
 author = "Martin Miglio"
 
 extensions = [
@@ -21,7 +21,7 @@ templates_path = ["_templates"]
 exclude_patterns = ["_build", "Thumbs.db", ".DS_Store"]
 
 autodoc_default_options = {
-    'member-order': 'bysource',
+    "member-order": "bysource",
 }
 add_module_names = False
 

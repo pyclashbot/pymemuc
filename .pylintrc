@@ -1,0 +1,4 @@
+[MASTER]
+disable=
+    C0301, # line-too-long
+    W0622, # redefined-builtin
