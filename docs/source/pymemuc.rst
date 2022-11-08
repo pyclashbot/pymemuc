@@ -21,11 +21,12 @@ The ``VM Configuration Keys`` table
     :header: "Key", "Description"
     :widths: 20, 80
 
+
 .. _The ``VMInfo`` type:
 
 The ``VMInfo`` type
 -------------------
-.. autoclass:: pymemuc.types.VMInfo
+.. autoclass:: pymemuc.vminfo.VMInfo
     :members:
     :undoc-members:
     :show-inheritance:
