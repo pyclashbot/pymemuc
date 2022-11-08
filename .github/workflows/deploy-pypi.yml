@@ -17,6 +17,7 @@ jobs:
       - name: Setup .env
         run: |
           echo "PYTHON_ENV='production'" > .env
+          cat .env
       - name: Set up Python
         uses: actions/setup-python@master
         with:
