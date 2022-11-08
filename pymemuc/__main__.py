@@ -953,7 +953,6 @@ class PyMemuc:
             )
         raise PyMemucIndexError("Please specify either a vm index or a vm name")
 
-    # TODO: functionally works, but hangs after the command is run
     def create_app_shortcut_vm(
         self,
         package_name: str,
@@ -969,13 +968,18 @@ class PyMemuc:
         :param vm_name: VM name. Defaults to None.
         :type vm_name: str, optional
         :raises PyMemucIndexError: an error if neither a vm index or a vm name is specified
+        :raises PyMemucTimeoutExpired: an error if the command times out
         :return: the return code and the output of the command.
         :rtype: tuple[int, str]
         """
         if vm_index is not None:
-            return self.run(["-i", str(vm_index), "createshortcut", package_name])
+            return self.run_with_timeout(
+                ["-i", str(vm_index), "createshortcut", package_name]
+            )  # can raise timeout
         if vm_name is not None:
-            return self.run(["-n", vm_name, "createshortcut", package_name])
+            return self.run_with_timeout(
+                ["-n", vm_name, "createshortcut", package_name]
+            )  # can raise timeout
         raise PyMemucIndexError("Please specify either a vm index or a vm name")
 
     # TODO: parse the output

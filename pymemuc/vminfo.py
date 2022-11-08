@@ -1,3 +1,5 @@
+"""A type definition for VM info"""
+
 from typing import TypedDict
 
 
