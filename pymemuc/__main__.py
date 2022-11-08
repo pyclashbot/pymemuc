@@ -77,7 +77,11 @@ class PyMemuc:
             p_status = proc.wait()
             if err:
                 raise PyMemucError(err)
-            # print(f"Command output [{p_status}]: {output}") # debug
+
+            # print the command that was run and the output for debugging
+            print(f"Command: memuc.exe {' '.join(args)}")  # debug
+            print(f"Command output [{p_status}]: {output}")  # debug
+
             return p_status, output
 
     def run_with_timeout(self, args: list[str], timeout=10) -> tuple[int, str]:
@@ -304,7 +308,7 @@ class PyMemuc:
                     "-i",
                     str(vm_index),
                     "listvms",
-                    "-running" if running else "",
+                    "-r" if running else "",
                     "-s" if disk_info else "",
                 ]
             )
@@ -314,13 +318,13 @@ class PyMemuc:
                     "-n",
                     vm_name,
                     "listvms",
-                    "-running" if running else "",
+                    "-r" if running else "",
                     "-s" if disk_info else "",
                 ]
             )
         else:
             _, output = self.run(
-                ["listvms", "-running" if running else "", "-s" if disk_info else ""]
+                ["listvms", "-r" if running else "", "-s" if disk_info else ""]
             )
 
         output = output.split("\r\n")
