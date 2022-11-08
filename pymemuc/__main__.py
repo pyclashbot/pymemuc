@@ -1,12 +1,14 @@
 """a wrapper for memuc.exe as a library to control virual machines"""
 import re
+from os import environ
 from os.path import abspath, expanduser, expandvars, join, normpath
 from subprocess import PIPE, CalledProcessError, Popen, TimeoutExpired, check_output
 from typing import Literal, Union
 
 from pymemuc.exceptions import PyMemucError, PyMemucIndexError, PyMemucTimeoutExpired
-from pymemuc.types import VMInfo
+from pymemuc.vminfo import VMInfo
 
+# check for windows registry support
 try:
     from winreg import HKEY_LOCAL_MACHINE, ConnectRegistry, OpenKey, QueryValueEx
 
@@ -17,6 +19,13 @@ except ImportError:
         + "you must specify the path to memuc.exe manually"
     )
     WINREG_EN = False
+
+# check for debug mode
+environment = environ.get("PYTHON_ENV", "development")
+DEBUG = environment == "development"
+
+if __name__ == "__main__" and DEBUG:
+    print("Debug mode enabled")  # debug
 
 
 class PyMemuc:
@@ -78,9 +87,10 @@ class PyMemuc:
             if err:
                 raise PyMemucError(err)
 
-            # print the command that was run and the output for debugging
-            # print(f"Command: memuc.exe {' '.join(args)}")  # debug
-            # print(f"Command output [{p_status}]: {output}")  # debug
+            if DEBUG:
+                # print the command that was run and the output for debugging
+                print(f"Command: memuc.exe {' '.join(args)}")  # debug
+                print(f"Command output [{p_status}]: {output}")  # debug
 
             return p_status, output
 
