@@ -1,3 +1,6 @@
 pycodestyle:
   disable:
-    - E501
+    - E501 # line too long
+pyflakes:
+  disable:
+    - F401 # imported but unused

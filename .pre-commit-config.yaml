@@ -14,3 +14,10 @@ repos:
     rev: 1.7.7
     hooks:
       - id: prospector
+        args:
+          - --no-autodetect
+  - repo: https://github.com/pycqa/isort
+    rev: 5.10.1
+    hooks:
+      - id: isort
+        name: isort (python)
