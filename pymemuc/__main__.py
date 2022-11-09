@@ -1,4 +1,6 @@
 """a wrapper for memuc.exe as a library to control virual machines"""
+
+import contextlib
 import re
 from os import environ
 from os.path import abspath, expanduser, expandvars, join, normpath
@@ -8,21 +10,20 @@ from typing import Literal, Union
 from pymemuc.exceptions import PyMemucError, PyMemucIndexError, PyMemucTimeoutExpired
 from pymemuc.vminfo import VMInfo
 
+# check for debug mode
+DEBUG = environ.get("PYTHON_ENV") == "development"
+
 # check for windows registry support
 try:
     from winreg import HKEY_LOCAL_MACHINE, ConnectRegistry, OpenKey, QueryValueEx
 
     WINREG_EN = True
 except ImportError:
-    print(
-        "Windows Registry is not supported on this platform, "
-        + "you must specify the path to memuc.exe manually"
-    )
+    if DEBUG:
+        print(
+            "Windows Registry is not supported on this platform, you must specify the path to memuc.exe manually"
+        )
     WINREG_EN = False
-
-# check for debug mode
-environment = environ.get("PYTHON_ENV", "development")
-DEBUG = environment == "development"
 
 if __name__ == "__main__" and DEBUG:
     print("Debug mode enabled")  # debug
@@ -40,32 +41,31 @@ class PyMemuc:
         otherwise a path must be specified"""
         if WINREG_EN:
             self.memuc_path: str = join(self._get_memu_top_level(), "memuc.exe")
-        elif memuc_path is None:
-            raise PyMemucError(
-                "Windows Registry is not supported on this platform, "
-                + "you must specify the path to memuc.exe manually"
-            )
-        else:
+        elif memuc_path is not None:
             self.memuc_path: str = memuc_path
+        else:
+            raise PyMemucError(
+                "Windows Registry is not supported on this platform, you must specify the path to memuc.exe manually"
+            )
 
     def _get_memu_top_level(self) -> str:
         """locate the path of the memu directory using windows registry keys
 
         :return: the path of the memu directory
         :rtype: str
+        :raises PyMemucError: an error if memu is not installed
         """
-        try:
-            akey = r"SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\MEmu"
-            areg = ConnectRegistry(None, HKEY_LOCAL_MACHINE)
-            akey = OpenKey(areg, akey)
-        except FileNotFoundError:
-            try:
-                akey = r"SOFTWARE\WOW6432Node\Microsoft\Windows\CurrentVersion\Uninstall\MEmu"
-                areg = ConnectRegistry(None, HKEY_LOCAL_MACHINE)
-                akey = OpenKey(areg, akey)
-            except FileNotFoundError as err:
-                raise PyMemucError("MEmuc not found, is it installed?") from err
-        return str(join(normpath(QueryValueEx(akey, "InstallLocation")[0]), "Memu"))
+
+        for key in [  # keys to search for memu
+            r"SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\MEmu",
+            r"SOFTWARE\WOW6432Node\Microsoft\Windows\CurrentVersion\Uninstall\MEmu",
+        ]:
+            with contextlib.suppress(FileNotFoundError):
+                akey = OpenKey(ConnectRegistry(None, HKEY_LOCAL_MACHINE), key)
+                return str(
+                    join(normpath(QueryValueEx(akey, "InstallLocation")[0]), "Memu")
+                )
+        raise PyMemucError("MEmuc not found, is it installed?")
 
     def run(self, args: list[str], non_blocking=False) -> tuple[int, str]:
         """run a command with memuc.exe
@@ -81,18 +81,15 @@ class PyMemuc:
         args.insert(0, self.memuc_path)
         args += "-t" if non_blocking else ""
         with Popen(args, stdout=PIPE, shell=False) as proc:
-            (output, err) = proc.communicate()
-            output = output.decode("utf-8")  # convert bytes to string
-            p_status = proc.wait()
+            (out, err) = proc.communicate()
+            out = out.decode("utf-8")  # convert bytes to string
+            status = proc.wait()
             if err:
                 raise PyMemucError(err)
-
             if DEBUG:
                 # print the command that was run and the output for debugging
-                print(f"Command: memuc.exe {' '.join(args)}")  # debug
-                print(f"Command output [{p_status}]: {output}")  # debug
-
-            return p_status, output
+                print(f"Command: {' '.join(args)}\nOutput [{status}]: {out}")  # debug
+            return status, out
 
     def run_with_timeout(self, args: list[str], timeout=10) -> tuple[int, str]:
         """run a command with memuc.exe with a timeout
@@ -108,8 +105,7 @@ class PyMemuc:
         """
         args.insert(0, self.memuc_path)
         try:
-            output = check_output(args, timeout=timeout)
-            return (1, output.decode("utf-8"))
+            return (1, check_output(args, timeout=timeout).decode("utf-8"))
         except CalledProcessError as err:
             raise PyMemucError(err) from err
         except TimeoutExpired as err:
@@ -128,7 +124,6 @@ class PyMemuc:
         success = status == 0 and output is not None and "SUCCESS" in output
         if not success:
             raise PyMemucError(f"Failed to create VM: {output}")
-        # filter output with regex r"index:(\w)"
         try:
             indecies = re.search(r"index:(\w)", output)
             return -1 if indecies is None else int(indecies[1])
