@@ -1,6 +1,6 @@
 """a wrapper for memuc.exe as a library to control virual machines"""
-from .__main__ import PyMemuc
 from .exceptions import PyMemucError, PyMemucIndexError, PyMemucTimeoutExpired
+from .pymemuc import PyMemuc
 from .vminfo import VMInfo
 
 __all__ = [

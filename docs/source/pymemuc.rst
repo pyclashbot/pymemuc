@@ -5,7 +5,7 @@ Documentation
 
 The ``PyMemuc`` module
 ----------------------
-.. automodule:: pymemuc.__main__
+.. automodule:: pymemuc.pymemuc
     :special-members: __init__
     :members:
     :undoc-members:

@@ -6,9 +6,6 @@ from typing import Union
 from ._constants import DEBUG, WINREG_EN
 from .exceptions import PyMemucError
 
-if __name__ == "__main__" and DEBUG:
-    print("Debug mode enabled")  # debug
-
 
 class PyMemuc:
     """A class to interact with the memuc.exe command line tool to control virtual machines.
@@ -59,6 +56,8 @@ class PyMemuc:
     def __init__(self, memuc_path: Union[str, None] = None) -> None:
         """initialize the class, automatically finding memuc.exe if windows registry is supported,
         otherwise a path must be specified"""
+        if __name__ == "__main__" and DEBUG:
+            print("PyMemuc: Debug mode enabled")  # debug
         if WINREG_EN:
             self.memuc_path: str = join(self._get_memu_top_level(), "memuc.exe")
         elif memuc_path is not None:
