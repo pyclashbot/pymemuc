@@ -1,5 +1,0 @@
-[MASTER]
-disable=
-    C0301, # line-too-long
-    W0622, # redefined-builtin
-    R0903, # too-few-public-methods
