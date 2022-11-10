@@ -90,7 +90,7 @@ def memuc_run(
 
 
 # TODO: add output parsing
-def check_task_status(self, task_id):
+def check_task_status(self, task_id: str) -> tuple[int, str]:
     """Check the status of a task
 
     :param task_id: Asynchronous task ID
@@ -98,4 +98,4 @@ def check_task_status(self, task_id):
     :return: the return code and the output of the command.
     :rtype: tuple[int, str]
     """
-    return self.memuc_run(["taskstatus"], task_id)
+    return self.memuc_run(["taskstatus", task_id])
