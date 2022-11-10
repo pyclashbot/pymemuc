@@ -56,6 +56,7 @@ def memuc_run(
     :return: the return code and the output of the command
     :rtype: tuple[int, str]
     :raises PyMemucError: an error if the command failed
+    :raises PyMemucTimeoutExpired: an error if the command timed out
     """
     # sourcery skip: extract-method
     args.insert(0, self.memuc_path)
