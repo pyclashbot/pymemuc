@@ -20,9 +20,9 @@ def start_vm(self, vm_index=None, vm_name=None, non_blocking=False) -> Literal[T
     :rtype: Literal[True]
     """
     if vm_index is not None:
-        status, output = self.run(["-i", str(vm_index), "start"], non_blocking)
+        status, output = self.memuc_run(["-i", str(vm_index), "start"], non_blocking)
     elif vm_name is not None:
-        status, output = self.run(["-n", vm_name, "start"], non_blocking)
+        status, output = self.memuc_run(["-n", vm_name, "start"], non_blocking)
     else:
         raise PyMemucIndexError("Please specify either a vm index or a vm name")
     success = status == 0 and output is not None and "SUCCESS" in output
@@ -45,9 +45,9 @@ def stop_vm(self, vm_index=None, vm_name=None, non_blocking=False) -> Literal[Tr
     :rtype: Literal[True]
     """
     if vm_index is not None:
-        status, output = self.run(["-i", str(vm_index), "stop"], non_blocking)
+        status, output = self.memuc_run(["-i", str(vm_index), "stop"], non_blocking)
     elif vm_name is not None:
-        status, output = self.run(["-n", vm_name, "stop"], non_blocking)
+        status, output = self.memuc_run(["-n", vm_name, "stop"], non_blocking)
     else:
         raise PyMemucIndexError("Please specify either a vm index or a vm name")
     success = status == 0 and output is not None and "SUCCESS" in output
@@ -65,7 +65,7 @@ def stop_all_vm(self, non_blocking=False) -> Literal[True]:
     :return: True if the vm was stopped successfully
     :rtype: Literal[True]
     """
-    status, output = self.run(["stopall"], non_blocking)
+    status, output = self.memuc_run(["stopall"], non_blocking)
     success = status == 0 and output is not None and "SUCCESS" in output
     if not success:
         raise PyMemucError(f"Failed to stop all VMs: {output}")
@@ -86,9 +86,9 @@ def reboot_vm(self, vm_index=None, vm_name=None, non_blocking=False) -> Literal[
     :rtype: Literal[True]
     """
     if vm_index is not None:
-        status, output = self.run(["-i", str(vm_index), "reboot"], non_blocking)
+        status, output = self.memuc_run(["-i", str(vm_index), "reboot"], non_blocking)
     elif vm_name is not None:
-        status, output = self.run(["-n", vm_name, "reboot"], non_blocking)
+        status, output = self.memuc_run(["-n", vm_name, "reboot"], non_blocking)
     else:
         raise PyMemucIndexError("Please specify either a vm index or a vm name")
     success = status == 0 and output is not None and "SUCCESS" in output

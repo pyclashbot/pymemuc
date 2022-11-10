@@ -11,7 +11,7 @@ def sort_out_all_vm(self) -> bool:
     :return: the return code and the output of the command.
     :rtype: tuple[int, str]
     """
-    status, output = self.run(["sortwin"])
+    status, output = self.memuc_run(["sortwin"])
     success = status == 0 and output is not None and "SUCCESS" in output
     if not success:
         raise PyMemucError(f"Failed to sort out all VMs: {output}")
@@ -37,7 +37,7 @@ def install_apk_vm(
     :rtype: Literal[True]
     """
     if vm_index is not None:
-        status, output = self.run(
+        status, output = self.memuc_run(
             [
                 "installapp",
                 "-i",
@@ -47,7 +47,7 @@ def install_apk_vm(
             ]
         )
     elif vm_name is not None:
-        status, output = self.run(
+        status, output = self.memuc_run(
             [
                 "installapp",
                 "-n",
@@ -78,9 +78,11 @@ def uninstall_apk_vm(self, package_name, vm_index=None, vm_name=None) -> Literal
     :rtype: Literal[True]
     """
     if vm_index is not None:
-        status, output = self.run(["-i", str(vm_index), "uninstallapp", package_name])
+        status, output = self.memuc_run(
+            ["-i", str(vm_index), "uninstallapp", package_name]
+        )
     elif vm_name is not None:
-        status, output = self.run(["-n", vm_name, "uninstallapp", package_name])
+        status, output = self.memuc_run(["-n", vm_name, "uninstallapp", package_name])
     else:
         raise PyMemucIndexError("Please specify either a vm index or a vm name")
     success = status == 0 and output is not None and "SUCCESS" in output
@@ -103,9 +105,9 @@ def start_app_vm(self, package_name, vm_index=None, vm_name=None) -> Literal[Tru
     :rtype: Literal[True]
     """
     if vm_index is not None:
-        status, output = self.run(["-i", str(vm_index), "startapp", package_name])
+        status, output = self.memuc_run(["-i", str(vm_index), "startapp", package_name])
     elif vm_name is not None:
-        status, output = self.run(["-n", vm_name, "startapp", package_name])
+        status, output = self.memuc_run(["-n", vm_name, "startapp", package_name])
     else:
         raise PyMemucIndexError("Please specify either a vm index or a vm name")
     success = status == 0 and output is not None and "SUCCESS" in output
@@ -128,9 +130,9 @@ def stop_app_vm(self, package_name, vm_index=None, vm_name=None) -> Literal[True
     :rtype: Literal[True]
     """
     if vm_index is not None:
-        status, output = self.run(["-i", str(vm_index), "stopapp", package_name])
+        status, output = self.memuc_run(["-i", str(vm_index), "stopapp", package_name])
     elif vm_name is not None:
-        status, output = self.run(["-n", vm_name, "stopapp", package_name])
+        status, output = self.memuc_run(["-n", vm_name, "stopapp", package_name])
     else:
         raise PyMemucIndexError("Please specify either a vm index or a vm name")
     success = status == 0 and output is not None and "SUCCESS" in output
@@ -158,9 +160,9 @@ def trigger_keystroke_vm(
     :rtype: Literal[True]
     """
     if vm_index is not None:
-        status, output = self.run(["-i", str(vm_index), "sendkey", key])
+        status, output = self.memuc_run(["-i", str(vm_index), "sendkey", key])
     elif vm_name is not None:
-        status, output = self.run(["-n", vm_name, "sendkey", key])
+        status, output = self.memuc_run(["-n", vm_name, "sendkey", key])
     else:
         raise PyMemucIndexError("Please specify either a vm index or a vm name")
     success = status == 0 and output is not None and "SUCCESS" in output
@@ -181,9 +183,9 @@ def trigger_shake_vm(self, vm_index=None, vm_name=None) -> Literal[True]:
     :rtype: Literal[True]
     """
     if vm_index is not None:
-        status, output = self.run(["-i", str(vm_index), "shake"])
+        status, output = self.memuc_run(["-i", str(vm_index), "shake"])
     elif vm_name is not None:
-        status, output = self.run(["-n", vm_name, "shake"])
+        status, output = self.memuc_run(["-n", vm_name, "shake"])
     else:
         raise PyMemucIndexError("Please specify either a vm index or a vm name")
     success = status == 0 and output is not None and "SUCCESS" in output
@@ -204,9 +206,9 @@ def connect_internet_vm(self, vm_index=None, vm_name=None) -> Literal[True]:
     :rtype: Literal[True]
     """
     if vm_index is not None:
-        status, output = self.run(["-i", str(vm_index), "connect"])
+        status, output = self.memuc_run(["-i", str(vm_index), "connect"])
     elif vm_name is not None:
-        status, output = self.run(["-n", vm_name, "connect"])
+        status, output = self.memuc_run(["-n", vm_name, "connect"])
     else:
         raise PyMemucIndexError("Please specify either a vm index or a vm name")
     success = status == 0 and output is not None and "SUCCESS" in output
@@ -227,9 +229,9 @@ def disconnect_internet_vm(self, vm_index=None, vm_name=None) -> Literal[True]:
     :rtype: tuple[int, str]
     """
     if vm_index is not None:
-        status, output = self.run(["-i", str(vm_index), "disconnect"])
+        status, output = self.memuc_run(["-i", str(vm_index), "disconnect"])
     elif vm_name is not None:
-        status, output = self.run(["-n", vm_name, "disconnect"])
+        status, output = self.memuc_run(["-n", vm_name, "disconnect"])
     else:
         raise PyMemucIndexError("Please specify either a vm index or a vm name")
     success = status == 0 and output is not None and "SUCCESS" in output
@@ -252,9 +254,9 @@ def input_text_vm(self, text, vm_index=None, vm_name=None) -> Literal[True]:
     :rtype: Literal[True]
     """
     if vm_index is not None:
-        status, output = self.run(["-i", str(vm_index), "input", text])
+        status, output = self.memuc_run(["-i", str(vm_index), "input", text])
     elif vm_name is not None:
-        status, output = self.run(["-n", vm_name, "input", text])
+        status, output = self.memuc_run(["-n", vm_name, "input", text])
     else:
         raise PyMemucIndexError("Please specify either a vm index or a vm name")
     success = status == 0 and output is not None and "SUCCESS" in output
@@ -273,9 +275,9 @@ def rotate_window_vm(self, vm_index=None, vm_name=None) -> Literal[True]:
     :rtype: Literal[True]
     """
     if vm_index is not None:
-        status, output = self.run(["-i", str(vm_index), "rotate"])
+        status, output = self.memuc_run(["-i", str(vm_index), "rotate"])
     elif vm_name is not None:
-        status, output = self.run(["-n", vm_name, "rotate"])
+        status, output = self.memuc_run(["-n", vm_name, "rotate"])
     else:
         raise PyMemucIndexError("Please specify either a vm index or a vm name")
     success = status == 0 and output is not None and "SUCCESS" in output
@@ -298,9 +300,9 @@ def execute_command_vm(self, command, vm_index=None, vm_name=None) -> tuple[int,
     :rtype: tuple[int, str]
     """
     if vm_index is not None:
-        return self.run(["-i", str(vm_index), "execcmd", f'"{command}"'])
+        return self.memuc_run(["-i", str(vm_index), "execcmd", f'"{command}"'])
     if vm_name is not None:
-        return self.run(["-n", vm_name, "execcmd", f'"{command}"'])
+        return self.memuc_run(["-n", vm_name, "execcmd", f'"{command}"'])
     raise PyMemucIndexError("Please specify either a vm index or a vm name")
 
 
@@ -322,11 +324,11 @@ def change_gps_vm(
     :rtype: Literal[True]
     """
     if vm_index is not None:
-        success, output = self.run(
+        success, output = self.memuc_run(
             ["-i", str(vm_index), "setgps", str(latitude), str(longitude)]
         )
     elif vm_name is not None:
-        success, output = self.run(
+        success, output = self.memuc_run(
             ["-n", vm_name, "setgps", str(latitude), str(longitude)]
         )
     else:
@@ -350,11 +352,13 @@ def get_public_ip_vm(self, vm_index=None, vm_name=None) -> tuple[int, str]:
     :rtype: tuple[int, str]
     """
     if vm_index is not None:
-        return self.run(
+        return self.memuc_run(
             ["-i", str(vm_index), 'execcmd "wget -O- whatismyip.akamai.com"']
         )
     if vm_name is not None:
-        return self.run(["-n", vm_name, 'execcmd "wget -O- whatismyip.akamai.com"'])
+        return self.memuc_run(
+            ["-n", vm_name, 'execcmd "wget -O- whatismyip.akamai.com"']
+        )
     raise PyMemucIndexError("Please specify either a vm index or a vm name")
 
 
@@ -370,9 +374,9 @@ def zoom_in_vm(self, vm_index=None, vm_name=None) -> Literal[True]:
     :rtype: Literal[True]
     """
     if vm_index is not None:
-        status, output = self.run(["-i", str(vm_index), "zoomin"])
+        status, output = self.memuc_run(["-i", str(vm_index), "zoomin"])
     elif vm_name is not None:
-        status, output = self.run(["-n", vm_name, "zoomin"])
+        status, output = self.memuc_run(["-n", vm_name, "zoomin"])
     else:
         raise PyMemucIndexError("Please specify either a vm index or a vm name")
     success = status == 0 and output is not None and "SUCCESS" in output
@@ -393,9 +397,9 @@ def zoom_out_vm(self, vm_index=None, vm_name=None) -> Literal[True]:
     :rtype: Literal[True]
     """
     if vm_index is not None:
-        status, output = self.run(["-i", str(vm_index), "zoomout"])
+        status, output = self.memuc_run(["-i", str(vm_index), "zoomout"])
     elif vm_name is not None:
-        status, output = self.run(["-n", vm_name, "zoomout"])
+        status, output = self.memuc_run(["-n", vm_name, "zoomout"])
     else:
         raise PyMemucIndexError("Please specify either a vm index or a vm name")
     success = status == 0 and output is not None and "SUCCESS" in output
@@ -419,12 +423,12 @@ def get_app_info_list_vm(self, vm_index=None, vm_name=None, timeout=10) -> list[
     """
     try:
         if vm_index is not None:
-            _, output = self.run_with_timeout(
+            _, output = self.memuc_run_with_timeout(
                 ["-i", str(vm_index), "getappinfolist"],
                 timeout=timeout,
             )
         elif vm_name is not None:
-            _, output = self.run_with_timeout(
+            _, output = self.memuc_run_with_timeout(
                 ["-n", vm_name, "getappinfolist"],
                 timeout=timeout,
             )
@@ -458,7 +462,7 @@ def set_accelerometer_vm(
     """
 
     if vm_index is not None:
-        return self.run(
+        return self.memuc_run(
             [
                 "-i",
                 str(vm_index),
@@ -469,7 +473,7 @@ def set_accelerometer_vm(
             ]
         )
     if vm_name is not None:
-        return self.run(
+        return self.memuc_run(
             [
                 "-n",
                 vm_name,
@@ -502,11 +506,11 @@ def create_app_shortcut_vm(
     :rtype: tuple[int, str]
     """
     if vm_index is not None:
-        return self.run_with_timeout(
+        return self.memuc_run_with_timeout(
             ["-i", str(vm_index), "createshortcut", package_name]
         )  # can raise timeout
     if vm_name is not None:
-        return self.run_with_timeout(
+        return self.memuc_run_with_timeout(
             ["-n", vm_name, "createshortcut", package_name]
         )  # can raise timeout
     raise PyMemucIndexError("Please specify either a vm index or a vm name")
@@ -527,7 +531,7 @@ def send_adb_command_vm(self, command, vm_index=None, vm_name=None) -> tuple[int
     :rtype: tuple[int, str]
     """
     if vm_index is not None:
-        return self.run(["-i", str(vm_index), "adb", f'"{command}"'])
+        return self.memuc_run(["-i", str(vm_index), "adb", f'"{command}"'])
     if vm_name is not None:
-        return self.run(["-n", vm_name, "adb", f'"{command}"'])
+        return self.memuc_run(["-n", vm_name, "adb", f'"{command}"'])
     raise PyMemucIndexError("Please specify either a vm index or a vm name")

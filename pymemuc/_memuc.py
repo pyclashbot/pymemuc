@@ -1,7 +1,7 @@
 """This module contains functions for directly interacting with memuc.exe."""
 import contextlib
 from os.path import join, normpath
-from subprocess import PIPE, CalledProcessError, Popen, TimeoutExpired, check_output
+from subprocess import CalledProcessError, TimeoutExpired, run
 
 from ._constants import DEBUG, WINREG_EN
 from .exceptions import PyMemucError, PyMemucTimeoutExpired
@@ -30,7 +30,7 @@ def _get_memu_top_level() -> str:
     raise PyMemucError("MEmuc not found, is it installed?")
 
 
-def run(self, args: list[str], non_blocking=False) -> tuple[int, str]:
+def memuc_run(self, args: list[str], non_blocking=False) -> tuple[int, str]:
     """run a command with memuc.exe
 
     :param args: a list of arguments to pass to memuc.exe
@@ -43,19 +43,16 @@ def run(self, args: list[str], non_blocking=False) -> tuple[int, str]:
     """
     args.insert(0, self.memuc_path)
     args += "-t" if non_blocking else ""
-    with Popen(args, stdout=PIPE, shell=False) as proc:
-        (out, err) = proc.communicate()
-        out = out.decode("utf-8")  # convert bytes to string
-        status = proc.wait()
-        if err:
-            raise PyMemucError(err)
+    try:
+        result = run(args, capture_output=True, text=True, check=True)
         if DEBUG:
-            # print the command that was run and the output for debugging
-            print(f"Command: {' '.join(args)}\nOutput [{status}]: {out}")  # debug
-        return status, out
+            print(f"Command: {' '.join(args)}\nOutput: {result.stdout}")  # debug
+        return (0, result.stdout)
+    except CalledProcessError as err:
+        raise PyMemucError(err) from err
 
 
-def run_with_timeout(self, args: list[str], timeout=10) -> tuple[int, str]:
+def memuc_run_with_timeout(self, args: list[str], timeout=10) -> tuple[int, str]:
     """run a command with memuc.exe with a timeout
 
     :param args: a list of arguments to pass to memuc.exe
@@ -69,7 +66,10 @@ def run_with_timeout(self, args: list[str], timeout=10) -> tuple[int, str]:
     """
     args.insert(0, self.memuc_path)
     try:
-        return (1, check_output(args, timeout=timeout).decode("utf-8"))
+        result = run(args, capture_output=True, text=True, timeout=timeout, check=True)
+        if DEBUG:
+            print(f"Command: {' '.join(args)}\nOutput: {result.stdout}")  # debug
+        return (0, result.stdout)
     except CalledProcessError as err:
         raise PyMemucError(err) from err
     except TimeoutExpired as err:
@@ -85,4 +85,4 @@ def check_task_status(self, task_id):
     :return: the return code and the output of the command.
     :rtype: tuple[int, str]
     """
-    return self.run(["taskstatus"], task_id)
+    return self.memuc_run(["taskstatus"], task_id)

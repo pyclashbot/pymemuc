@@ -51,7 +51,12 @@ class PyMemuc:
         set_configuration_vm,
         vm_is_running,
     )
-    from ._memuc import _get_memu_top_level, check_task_status, run, run_with_timeout
+    from ._memuc import (
+        _get_memu_top_level,
+        check_task_status,
+        memuc_run,
+        memuc_run_with_timeout,
+    )
 
     def __init__(self, memuc_path: Union[str, None] = None) -> None:
         """initialize the class, automatically finding memuc.exe if windows registry is supported,
