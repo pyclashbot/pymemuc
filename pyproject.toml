@@ -23,7 +23,6 @@ documentation = "https://pymemuc.readthedocs.io/"
 [tool.poetry.dependencies]
 python = "^3.8"
 poetry = "^1.2.2"
-poetry-dotenv-plugin = "^0.1"
 
 [tool.poetry.group.dev]
 optional = true
@@ -68,4 +67,5 @@ disable = [
     "C0301", # line-too-long
     "W0622", # redefined-builtin
     "R0903", # too-few-public-methods
+    "C0412", # ungrouped-imports
     ]

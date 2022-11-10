@@ -3,7 +3,7 @@
 from os.path import join
 from typing import Union
 
-from ._constants import DEBUG, WINREG_EN
+from ._constants import WINREG_EN
 from .exceptions import PyMemucError
 
 
@@ -53,11 +53,12 @@ class PyMemuc:
     )
     from ._memuc import _get_memu_top_level, check_task_status, memuc_run
 
-    def __init__(self, memuc_path: Union[str, None] = None) -> None:
+    def __init__(self, memuc_path: Union[str, None] = None, debug=False) -> None:
         """initialize the class, automatically finding memuc.exe if windows registry is supported,
         otherwise a path must be specified"""
-        if __name__ == "__main__" and DEBUG:
-            print("PyMemuc: Debug mode enabled")  # debug
+        self.debug = debug
+        if self.debug:
+            print("PyMemuc: Debug mode enabled")
         if WINREG_EN:
             self.memuc_path: str = join(self._get_memu_top_level(), "memuc.exe")
         elif memuc_path is not None:

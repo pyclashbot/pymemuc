@@ -1,22 +1,23 @@
 """This module contains functions for directly interacting with memuc.exe."""
 from contextlib import suppress
 from os.path import join, normpath
-from subprocess import (
-    PIPE,
-    STARTF_USESHOWWINDOW,
-    STARTUPINFO,
-    SW_HIDE,
-    CalledProcessError,
-    Popen,
-    TimeoutExpired,
-)
+from subprocess import PIPE, CalledProcessError, Popen, TimeoutExpired
 from tempfile import NamedTemporaryFile
 
-from ._constants import DEBUG, WINREG_EN
+from ._constants import WIN32, WINREG_EN
 from .exceptions import PyMemucError, PyMemucTimeoutExpired
 
 if WINREG_EN:
     from winreg import HKEY_LOCAL_MACHINE, ConnectRegistry, OpenKey, QueryValueEx
+
+if WIN32:
+    from subprocess import STARTF_USESHOWWINDOW, STARTUPINFO, SW_HIDE
+
+    ST_INFO = STARTUPINFO()
+    ST_INFO.dwFlags = STARTF_USESHOWWINDOW
+    ST_INFO.wShowWindow = SW_HIDE
+else:
+    ST_INFO = None
 
 
 @staticmethod
@@ -63,9 +64,6 @@ def memuc_run(
     if timeout is None:
         args += "-t" if non_blocking else ""
     try:
-        startupinfo = STARTUPINFO()
-        startupinfo.dwFlags = STARTF_USESHOWWINDOW
-        startupinfo.wShowWindow = SW_HIDE
         with NamedTemporaryFile(mode="r+", delete=False) as stdout_file:
             with Popen(
                 args,
@@ -73,13 +71,13 @@ def memuc_run(
                 stdout=stdout_file,
                 stderr=PIPE,
                 shell=False,
-                startupinfo=startupinfo,
+                startupinfo=ST_INFO,
             ) as process:
                 return_code = process.wait(timeout)
                 stdout_file.flush()
                 stdout_file.seek(0)
                 result = stdout_file.read()
-                if DEBUG:
+                if self.debug:
                     print("pymemuc._memuc.memuc_run:")
                     print(f"\tCommand: {' '.join(args)}")
                     print(f"\tOutput [{return_code}]: {result}")
