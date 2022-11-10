@@ -423,14 +423,16 @@ def get_app_info_list_vm(self, vm_index=None, vm_name=None, timeout=10) -> list[
     """
     try:
         if vm_index is not None:
-            _, output = self.memuc_run_with_timeout(
+            _, output = self.memuc_run(
                 ["-i", str(vm_index), "getappinfolist"],
                 timeout=timeout,
+                non_blocking=False,
             )
         elif vm_name is not None:
-            _, output = self.memuc_run_with_timeout(
+            _, output = self.memuc_run(
                 ["-n", vm_name, "getappinfolist"],
                 timeout=timeout,
+                non_blocking=False,
             )
         else:
             raise PyMemucIndexError("Please specify either a vm index or a vm name")
@@ -506,12 +508,16 @@ def create_app_shortcut_vm(
     :rtype: tuple[int, str]
     """
     if vm_index is not None:
-        return self.memuc_run_with_timeout(
-            ["-i", str(vm_index), "createshortcut", package_name]
+        return self.memuc_run(
+            ["-i", str(vm_index), "createshortcut", package_name],
+            timeout=10,
+            non_blocking=False,
         )  # can raise timeout
     if vm_name is not None:
-        return self.memuc_run_with_timeout(
-            ["-n", vm_name, "createshortcut", package_name]
+        return self.memuc_run(
+            ["-n", vm_name, "createshortcut", package_name],
+            timeout=10,
+            non_blocking=False,
         )  # can raise timeout
     raise PyMemucIndexError("Please specify either a vm index or a vm name")
 

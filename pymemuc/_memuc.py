@@ -1,7 +1,16 @@
 """This module contains functions for directly interacting with memuc.exe."""
-import contextlib
+from contextlib import suppress
 from os.path import join, normpath
-from subprocess import CalledProcessError, TimeoutExpired, run
+from subprocess import (
+    PIPE,
+    STARTF_USESHOWWINDOW,
+    STARTUPINFO,
+    SW_HIDE,
+    CalledProcessError,
+    Popen,
+    TimeoutExpired,
+)
+from tempfile import NamedTemporaryFile
 
 from ._constants import DEBUG, WINREG_EN
 from .exceptions import PyMemucError, PyMemucTimeoutExpired
@@ -24,52 +33,57 @@ def _get_memu_top_level() -> str:
         r"SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\MEmu",
         r"SOFTWARE\WOW6432Node\Microsoft\Windows\CurrentVersion\Uninstall\MEmu",
     ]:
-        with contextlib.suppress(FileNotFoundError):
+        with suppress(FileNotFoundError):
             akey = OpenKey(ConnectRegistry(None, HKEY_LOCAL_MACHINE), key)
             return str(join(normpath(QueryValueEx(akey, "InstallLocation")[0]), "Memu"))
     raise PyMemucError("MEmuc not found, is it installed?")
 
 
-def memuc_run(self, args: list[str], non_blocking=False) -> tuple[int, str]:
-    """run a command with memuc.exe
+def memuc_run(
+    self, args: list[str], non_blocking=False, timeout=None
+) -> tuple[int, str]:
+    """run a command with memuc.exe.
+    Memuc can support non-blocking commands, returning a task id.
+    A timeout can be specified if memuc is expected to hang, but this will not work with non-blocking commands.
 
     :param args: a list of arguments to pass to memuc.exe
     :type args: list[str]
     :param non_blocking: whether to run the command in the background. Defaults to False.
     :type non_blocking: bool, optional
-    :return: the return code and the output of the command
-    :rtype: tuple[int, str]
-    :raises PyMemucError: an error if the command failed
-    """
-    args.insert(0, self.memuc_path)
-    args += "-t" if non_blocking else ""
-    try:
-        result = run(args, capture_output=True, text=True, check=True)
-        if DEBUG:
-            print(f"Command: {' '.join(args)}\nOutput: {result.stdout}")  # debug
-        return (0, result.stdout)
-    except CalledProcessError as err:
-        raise PyMemucError(err) from err
-
-
-def memuc_run_with_timeout(self, args: list[str], timeout=10) -> tuple[int, str]:
-    """run a command with memuc.exe with a timeout
-
-    :param args: a list of arguments to pass to memuc.exe
-    :type args: list[str]
-    :param timeout: the timeout in seconds. Defaults to 10.
+    :param timeout: the timeout in seconds. Defaults to None for no timeout.
     :type timeout: int, optional
     :return: the return code and the output of the command
     :rtype: tuple[int, str]
     :raises PyMemucError: an error if the command failed
-    :raises PyMemucTimeoutExpired: an error if the command timed out
     """
+    # sourcery skip: extract-method
     args.insert(0, self.memuc_path)
+    if timeout is not None and non_blocking:
+        raise PyMemucError("Cannot use timeout and non_blocking at the same time")
+    if timeout is None:
+        args += "-t" if non_blocking else ""
     try:
-        result = run(args, capture_output=True, text=True, timeout=timeout, check=True)
-        if DEBUG:
-            print(f"Command: {' '.join(args)}\nOutput: {result.stdout}")  # debug
-        return (0, result.stdout)
+        startupinfo = STARTUPINFO()
+        startupinfo.dwFlags = STARTF_USESHOWWINDOW
+        startupinfo.wShowWindow = SW_HIDE
+        with NamedTemporaryFile(mode="r+", delete=False) as stdout_file:
+            with Popen(
+                args,
+                stdin=PIPE,
+                stdout=stdout_file,
+                stderr=PIPE,
+                shell=False,
+                startupinfo=startupinfo,
+            ) as process:
+                return_code = process.wait(timeout)
+                stdout_file.flush()
+                stdout_file.seek(0)
+                result = stdout_file.read()
+                if DEBUG:
+                    print("pymemuc._memuc.memuc_run:")
+                    print(f"\tCommand: {' '.join(args)}")
+                    print(f"\tOutput [{return_code}]: {result}")
+                return (return_code, result)
     except CalledProcessError as err:
         raise PyMemucError(err) from err
     except TimeoutExpired as err:
