@@ -434,7 +434,7 @@ def get_app_info_list_vm(self, vm_index=None, vm_name=None, timeout=10) -> list[
             )
         else:
             raise PyMemucIndexError("Please specify either a vm index or a vm name")
-        output = output.split("\r\n")
+        output = output.split("\n")
         output = [line.replace("package:", "") for line in output if line != ""]
         return output
     except PyMemucTimeoutExpired:
