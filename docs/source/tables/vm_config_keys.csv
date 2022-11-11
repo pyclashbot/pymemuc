@@ -30,7 +30,7 @@
 "``selected_map``", "The VM's selected gps provider. (``0``: Google, ``1``: Baidu)"
 "``latitude``", "The VM's gps latitude. (Unit: Degree)"
 "``longitude``", "The VM's gps longitude. (Unit: Degree)"
-"``pricturepath``", "The path to the VM's shared picture path."
+"``picturepath``", "The path to the VM's shared picture path."
 "``musicpath``", "The path to the VM's shared music path."
 "``moviepath``", "The path to the VM's shared movie path."
 "``downloadpath``", "The path to the VM's shared download path."
