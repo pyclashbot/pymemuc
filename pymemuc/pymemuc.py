@@ -12,6 +12,8 @@ class PyMemuc:
 
     :param memuc_path: Path to memuc.exe. Set to None for autodetect.
     :type memuc_path: str, optional
+    :param debug: Enable debug mode, defaults to False
+    :type debug: bool, optional
     """
 
     # pylint: disable=import-outside-toplevel
