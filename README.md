@@ -4,7 +4,7 @@
 
 A wrapper for [MEmu Command (MEMUC)][memuc_docs] in python.
 
-Allows for easy interaction with MEmu VMs, including management, configuration, direct control and ADB interaction.
+Allows for easy interaction with MEmu VMs, including VM image management, VM control, running VM commands and ADB interaction.
 
 ## Installation
 
