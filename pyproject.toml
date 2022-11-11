@@ -22,7 +22,6 @@ documentation = "https://pymemuc.readthedocs.io/"
 
 [tool.poetry.dependencies]
 python = "^3.8"
-poetry = "^1.2.2"
 
 [tool.poetry.group.dev]
 optional = true
