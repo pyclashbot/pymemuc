@@ -74,19 +74,22 @@ def memuc_run(
                 shell=False,
                 startupinfo=ST_INFO,
             ) as process:
-                return_code = process.wait(timeout)
+                try:
+                    process.communicate(timeout=timeout)
+                except TimeoutExpired as err:
+                    process.kill()
+                    process.communicate()
+                    raise PyMemucTimeoutExpired(err) from err
                 stdout_file.flush()
                 stdout_file.seek(0)
                 result = stdout_file.read()
                 if self.debug:
                     print("pymemuc._memuc.memuc_run:")
                     print(f"\tCommand: {' '.join(args)}")
-                    print(f"\tOutput [{return_code}]: {result}")
-                return (return_code, result)
+                    print(f"\tOutput: {result}")
+                return (0, result)
     except CalledProcessError as err:
         raise PyMemucError(err) from err
-    except TimeoutExpired as err:
-        raise PyMemucTimeoutExpired(err) from err
 
 
 # TODO: add output parsing
