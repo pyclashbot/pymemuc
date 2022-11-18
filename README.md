@@ -25,7 +25,7 @@ memuc = PyMemuc()
 memuc.create_vm()
 
 # list out all vms, get the index of the first one
-index = memuc.list_vm_info()[0][0]
+index = memuc.list_vm_info()[0]['index']
 
 # start the vm
 memuc.start_vm(index)
