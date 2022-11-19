@@ -62,8 +62,8 @@ def memuc_run(
     args.insert(0, self.memuc_path)
     if timeout is not None and non_blocking:
         raise PyMemucError("Cannot use timeout and non_blocking at the same time")
-    if timeout is None:
-        args += "-t" if non_blocking else ""
+    if non_blocking:
+        args += "-t"
     try:
         with NamedTemporaryFile(mode="r+", delete=False) as stdout_file:
             with Popen(
