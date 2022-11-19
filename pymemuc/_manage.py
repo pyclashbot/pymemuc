@@ -5,7 +5,7 @@ import re
 from os.path import abspath, expanduser, expandvars
 from typing import Literal
 
-from .exceptions import PyMemucError, PyMemucIndexError
+from .exceptions import PyMemucError, PyMemucIndexError, PyMemucTimeoutExpired
 from .vminfo import VMInfo
 
 
@@ -130,20 +130,28 @@ def rename_vm(self, vm_index=None, vm_name=None, new_name=None) -> Literal[True]
     :type vm_name: str, optional
     :param new_name: New VM name. Defaults to None.
     :type new_name: str, optional
-    :raises PyMemucError: an error if neither a vm index, name or new name is specified
+    :raises PyMemucIndexError: an error if neither a vm index or name is specified
+    :raises PyMemucError: an error if the vm rename failed
     :return: True if the vm was renamed successfully
     :rtype: Literal[True]
     """
-    if vm_index is not None and new_name is not None:
-        status, output = self.memuc_run(["-i", str(vm_index), "rename", new_name])
-    elif vm_name is not None and new_name is not None:
-        status, output = self.memuc_run(["-n", vm_name, "rename", new_name])
-    else:
-        raise PyMemucIndexError("Please specify either a vm index or a vm name")
-    success = status == 0 and output is not None and "SUCCESS" in output
-    if not success:
-        raise PyMemucError(f"Failed to rename VM: {output}")
-    return True
+    try:
+        if vm_index is not None and new_name is not None:
+            status, output = self.memuc_run(
+                ["-i", str(vm_index), "rename", new_name], timeout=10
+            )
+        elif vm_name is not None and new_name is not None:
+            status, output = self.memuc_run(
+                ["-n", vm_name, "rename", new_name], timeout=10
+            )
+        else:
+            raise PyMemucIndexError("Please specify either a vm index or a vm name")
+        success = status == 0 and output is not None and "SUCCESS" in output
+        if not success:
+            raise PyMemucError(f"Failed to rename VM: {output}")
+        return True
+    except PyMemucTimeoutExpired as err:
+        raise PyMemucError("Failed to rename VM: Timeout expired") from err
 
 
 def list_vm_info(
