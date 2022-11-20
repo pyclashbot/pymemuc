@@ -16,3 +16,6 @@ if WIN32:
         WINREG_EN = False
 else:
     WINREG_EN = False
+
+# number of times to retry a command decorated with _decorator._retryable
+RETRIES = 3

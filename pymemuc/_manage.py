@@ -5,10 +5,12 @@ import re
 from os.path import abspath, expanduser, expandvars
 from typing import Literal
 
+from ._decorators import _retryable
 from .exceptions import PyMemucError, PyMemucIndexError, PyMemucTimeoutExpired
 from .vminfo import VMInfo
 
 
+@_retryable
 def create_vm(self, vm_version="76") -> int:
     """Create a new VM
 
@@ -29,6 +31,7 @@ def create_vm(self, vm_version="76") -> int:
         return -1
 
 
+@_retryable
 def delete_vm(self, vm_index=None, vm_name=None) -> Literal[True]:
     """Delete a VM, must specify either a vm index or a vm name
 
@@ -121,6 +124,7 @@ def import_vm(self, file_name="vm.ova", non_blocking=False) -> Literal[True]:
     return True
 
 
+@_retryable
 def rename_vm(self, vm_index=None, vm_name=None, new_name=None) -> Literal[True]:
     """Rename a VM, must specify either a vm index or a vm name
 

@@ -64,6 +64,9 @@ def memuc_run(
         raise PyMemucError("Cannot use timeout and non_blocking at the same time")
     if non_blocking:
         args += "-t"
+    if self.debug:
+        print("pymemuc._memuc.memuc_run:")
+        print(f"\tCommand: {' '.join(args)}")
     try:
         with NamedTemporaryFile(mode="r+", delete=False) as stdout_file:
             with Popen(
@@ -84,8 +87,6 @@ def memuc_run(
                 stdout_file.seek(0)
                 result = stdout_file.read()
                 if self.debug:
-                    print("pymemuc._memuc.memuc_run:")
-                    print(f"\tCommand: {' '.join(args)}")
                     print(f"\tOutput: {result}")
                 return (0, result)
     except CalledProcessError as err:
