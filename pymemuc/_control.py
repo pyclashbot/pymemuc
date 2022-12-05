@@ -3,10 +3,14 @@ Functions for starting and stopping VMs are defined here.
 """
 from typing import Literal
 
+from ._decorators import _retryable
 from .exceptions import PyMemucError, PyMemucIndexError
 
 
-def start_vm(self, vm_index=None, vm_name=None, non_blocking=False) -> Literal[True]:
+@_retryable
+def start_vm(
+    self, vm_index=None, vm_name=None, non_blocking=False, timeout=None
+) -> Literal[True]:
     """Start a VM, must specify either a vm index or a vm name
 
     :param vm_index: VM index. Defaults to None.
@@ -15,14 +19,18 @@ def start_vm(self, vm_index=None, vm_name=None, non_blocking=False) -> Literal[T
     :type vm_name: str, optional
     :param non_blocking: Whether to run the command in the background. Defaults to False.
     :type non_blocking: bool, optional
+    :param timeout: Timeout in seconds. Cannot be used if non blocking. Defaults to None.
+    :type timeout: int, optional
     :raises PyMemucIndexError: an error if neither a vm index or a vm name is specified
     :return: True if the vm was started successfully
     :rtype: Literal[True]
     """
     if vm_index is not None:
-        status, output = self.memuc_run(["-i", str(vm_index), "start"], non_blocking)
+        status, output = self.memuc_run(
+            ["-i", str(vm_index), "start"], non_blocking, timeout
+        )
     elif vm_name is not None:
-        status, output = self.memuc_run(["-n", vm_name, "start"], non_blocking)
+        status, output = self.memuc_run(["-n", vm_name, "start"], non_blocking, timeout)
     else:
         raise PyMemucIndexError("Please specify either a vm index or a vm name")
     success = status == 0 and output is not None and "SUCCESS" in output
@@ -31,7 +39,10 @@ def start_vm(self, vm_index=None, vm_name=None, non_blocking=False) -> Literal[T
     return True
 
 
-def stop_vm(self, vm_index=None, vm_name=None, non_blocking=False) -> Literal[True]:
+@_retryable
+def stop_vm(
+    self, vm_index=None, vm_name=None, non_blocking=False, timeout=None
+) -> Literal[True]:
     """Stop a VM, must specify either a vm index or a vm name
 
     :param vm_index: VM index. Defaults to None.
@@ -40,14 +51,18 @@ def stop_vm(self, vm_index=None, vm_name=None, non_blocking=False) -> Literal[Tr
     :type vm_name: str, optional
     :param non_blocking: Whether to run the command in the background. Defaults to False.
     :type non_blocking: bool, optional
+    :param timeout: Timeout in seconds. Cannot be used if non blocking. Defaults to None.
+    :type timeout: int, optional
     :raises PyMemucIndexError: an error if neither a vm index or a vm name is specified
     :return: True if the vm was stopped successfully
     :rtype: Literal[True]
     """
     if vm_index is not None:
-        status, output = self.memuc_run(["-i", str(vm_index), "stop"], non_blocking)
+        status, output = self.memuc_run(
+            ["-i", str(vm_index), "stop"], non_blocking, timeout
+        )
     elif vm_name is not None:
-        status, output = self.memuc_run(["-n", vm_name, "stop"], non_blocking)
+        status, output = self.memuc_run(["-n", vm_name, "stop"], non_blocking, timeout)
     else:
         raise PyMemucIndexError("Please specify either a vm index or a vm name")
     success = status == 0 and output is not None and "SUCCESS" in output
@@ -56,16 +71,19 @@ def stop_vm(self, vm_index=None, vm_name=None, non_blocking=False) -> Literal[Tr
     return True
 
 
-def stop_all_vm(self, non_blocking=False) -> Literal[True]:
+@_retryable
+def stop_all_vm(self, non_blocking=False, timeout=None) -> Literal[True]:
     """Stop all VMs
 
     :param non_blocking: Whether to run the command in the background. Defaults to False.
     :type non_blocking: bool, optional
+    :param timeout: Timeout in seconds. Cannot be used if non blocking. Defaults to None.
+    :type timeout: int, optional
     :raises PyMemucError: an error if the vm stop failed
     :return: True if the vm was stopped successfully
     :rtype: Literal[True]
     """
-    status, output = self.memuc_run(["stopall"], non_blocking)
+    status, output = self.memuc_run(["stopall"], non_blocking, timeout)
     success = status == 0 and output is not None and "SUCCESS" in output
     if not success:
         raise PyMemucError(f"Failed to stop all VMs: {output}")
