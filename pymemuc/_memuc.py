@@ -5,7 +5,7 @@ from subprocess import PIPE, CalledProcessError, Popen, TimeoutExpired
 from tempfile import NamedTemporaryFile
 
 from ._constants import WIN32, WINREG_EN
-from .exceptions import PyMemucError, PyMemucTimeoutExpired
+from .exceptions import PyMemucError, PyMemucException, PyMemucTimeoutExpired
 
 if WINREG_EN:
     from winreg import HKEY_LOCAL_MACHINE, ConnectRegistry, OpenKey, QueryValueEx
@@ -61,7 +61,7 @@ def memuc_run(
     # sourcery skip: extract-method
     args.insert(0, self.memuc_path)
     if timeout is not None and non_blocking:
-        raise PyMemucError("Cannot use timeout and non_blocking at the same time")
+        raise PyMemucException("Cannot use timeout and non_blocking at the same time")
     if non_blocking:
         args += "-t"
     if self.debug:
