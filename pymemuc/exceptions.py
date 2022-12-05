@@ -13,7 +13,17 @@ class PyMemucError(Exception):
         return repr(self.value)
 
 
-class PyMemucIndexError(PyMemucError):
+class PyMemucException(Exception):
+    """PyMemuc exception class"""
+
+    def __init__(self, value) -> None:
+        self.value = value
+
+    def __str__(self) -> str:
+        return repr(self.value)
+
+
+class PyMemucIndexError(PyMemucException):
     """PyMemuc index error class"""
 
     def __init__(self, value) -> None:
