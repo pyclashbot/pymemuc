@@ -55,21 +55,24 @@ def delete_vm(self, vm_index=None, vm_name=None) -> Literal[True]:
     return True
 
 
-def clone_vm(self, vm_index=None, vm_name=None) -> Literal[True]:
+def clone_vm(self, vm_index=None, vm_name=None, new_name=None) -> Literal[True]:
     """Clone a VM, must specify either a vm index or a vm name
 
     :param vm_index: VM index. Defaults to None.
     :type vm_index: int, optional
     :param vm_name: VM name. Defaults to None.
     :type vm_name: str, optional
+    :param new_name: Cloned VM name. Defaults to None.
+    :type new_name: str, optional
     :raises PyMemucIndexError: an error if neither a vm index or a vm name is specified
     :return: True if the vm was cloned successfully
     :rtype: Literal[True]
     """
+    new_name_cmd = ["-r", new_name] if new_name is not None else []
     if vm_index is not None:
-        status, output = self.memuc_run(["-i", str(vm_index), "clone"])
+        status, output = self.memuc_run(["-i", str(vm_index), "clone", *new_name_cmd])
     elif vm_name is not None:
-        status, output = self.memuc_run(["-n", vm_name, "clone"])
+        status, output = self.memuc_run(["-n", vm_name, "clone", *new_name_cmd])
     else:
         raise PyMemucIndexError("Please specify either a vm index or a vm name")
     success = status == 0 and output is not None and "SUCCESS" in output
