@@ -1,15 +1,18 @@
 """This module contains functions for controlling the VMs.
 Functions for starting and stopping VMs are defined here.
 """
-from typing import Literal
+from typing import TYPE_CHECKING, Literal
 
 from ._decorators import _retryable
 from .exceptions import PyMemucError, PyMemucIndexError
 
+if TYPE_CHECKING:
+    from pymemuc import PyMemuc
+
 
 @_retryable
 def start_vm(
-    self, vm_index=None, vm_name=None, non_blocking=False, timeout=None
+    self: "PyMemuc", vm_index=None, vm_name=None, non_blocking=False, timeout=None
 ) -> Literal[True]:
     """Start a VM, must specify either a vm index or a vm name
 
@@ -41,7 +44,7 @@ def start_vm(
 
 @_retryable
 def stop_vm(
-    self, vm_index=None, vm_name=None, non_blocking=False, timeout=None
+    self: "PyMemuc", vm_index=None, vm_name=None, non_blocking=False, timeout=None
 ) -> Literal[True]:
     """Stop a VM, must specify either a vm index or a vm name
 
@@ -72,7 +75,7 @@ def stop_vm(
 
 
 @_retryable
-def stop_all_vm(self, non_blocking=False, timeout=None) -> Literal[True]:
+def stop_all_vm(self: "PyMemuc", non_blocking=False, timeout=None) -> Literal[True]:
     """Stop all VMs
 
     :param non_blocking: Whether to run the command in the background. Defaults to False.
@@ -90,7 +93,9 @@ def stop_all_vm(self, non_blocking=False, timeout=None) -> Literal[True]:
     return True
 
 
-def reboot_vm(self, vm_index=None, vm_name=None, non_blocking=False) -> Literal[True]:
+def reboot_vm(
+    self: "PyMemuc", vm_index=None, vm_name=None, non_blocking=False
+) -> Literal[True]:
     """Reboot a VM, must specify either a vm index or a vm name
 
     :param vm_index: VM index. Defaults to None.

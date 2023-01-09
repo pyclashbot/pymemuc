@@ -3,15 +3,18 @@ Functions for creating, deleting, and listing VMs are defined here.
 """
 import re
 from os.path import abspath, expanduser, expandvars
-from typing import Literal
+from typing import TYPE_CHECKING, Literal
 
 from ._decorators import _retryable
 from .exceptions import PyMemucError, PyMemucIndexError, PyMemucTimeoutExpired
 from .vminfo import VMInfo
 
+if TYPE_CHECKING:
+    from pymemuc import PyMemuc
+
 
 @_retryable
-def create_vm(self, vm_version="76") -> int:
+def create_vm(self: "PyMemuc", vm_version="76") -> int:
     """Create a new VM
 
     :param vm_version: Android version. Defaults to "76".
@@ -32,7 +35,7 @@ def create_vm(self, vm_version="76") -> int:
 
 
 @_retryable
-def delete_vm(self, vm_index=None, vm_name=None) -> Literal[True]:
+def delete_vm(self: "PyMemuc", vm_index=None, vm_name=None) -> Literal[True]:
     """Delete a VM, must specify either a vm index or a vm name
 
     :param vm_index: VM index. Defaults to None.
@@ -55,7 +58,9 @@ def delete_vm(self, vm_index=None, vm_name=None) -> Literal[True]:
     return True
 
 
-def clone_vm(self, vm_index=None, vm_name=None, new_name=None) -> Literal[True]:
+def clone_vm(
+    self: "PyMemuc", vm_index=None, vm_name=None, new_name=None
+) -> Literal[True]:
     """Clone a VM, must specify either a vm index or a vm name
 
     :param vm_index: VM index. Defaults to None.
@@ -83,7 +88,7 @@ def clone_vm(self, vm_index=None, vm_name=None, new_name=None) -> Literal[True]:
 
 # TODO: verify functionality
 def export_vm(
-    self, vm_index=None, vm_name=None, file_name="vm.ova", non_blocking=False
+    self: "PyMemuc", vm_index=None, vm_name=None, file_name="vm.ova", non_blocking=False
 ):
     """Export a VM, must specify either a vm index or a vm name
 
@@ -109,7 +114,7 @@ def export_vm(
     raise PyMemucIndexError("Please specify either a vm index or a vm name")
 
 
-def import_vm(self, file_name="vm.ova", non_blocking=False) -> Literal[True]:
+def import_vm(self: "PyMemuc", file_name="vm.ova", non_blocking=False) -> Literal[True]:
     """Import a VM from a file
 
     :param file_name: File name. Defaults to "vm.ova".
@@ -128,7 +133,9 @@ def import_vm(self, file_name="vm.ova", non_blocking=False) -> Literal[True]:
 
 
 @_retryable
-def rename_vm(self, vm_index=None, vm_name=None, new_name=None) -> Literal[True]:
+def rename_vm(
+    self: "PyMemuc", vm_index=None, vm_name=None, new_name=None
+) -> Literal[True]:
     """Rename a VM, must specify either a vm index or a vm name
 
     :param vm_index: VM index. Defaults to None.
@@ -162,7 +169,7 @@ def rename_vm(self, vm_index=None, vm_name=None, new_name=None) -> Literal[True]
 
 
 def list_vm_info(
-    self, vm_index=None, vm_name=None, running=False, disk_info=False
+    self: "PyMemuc", vm_index=None, vm_name=None, running=False, disk_info=False
 ) -> list[VMInfo]:
     """List VM info, must specify either a vm index or a vm name
 
@@ -232,7 +239,7 @@ def list_vm_info(
     return parsed_output
 
 
-def vm_is_running(self, vm_index=0) -> bool:
+def vm_is_running(self: "PyMemuc", vm_index=0) -> bool:
     """Check if a VM is running
 
     :param vm_index: VM index. Defaults to 0.
@@ -244,7 +251,9 @@ def vm_is_running(self, vm_index=0) -> bool:
     return "Running" in output
 
 
-def get_configuration_vm(self, config_key, vm_index=None, vm_name=None) -> str:
+def get_configuration_vm(
+    self: "PyMemuc", config_key, vm_index=None, vm_name=None
+) -> str:
     """Get a VM configuration, must specify either a vm index or a vm name
 
     :param config_key: Configuration key, keys are noted in `configuration keys table <https://pymemuc.readthedocs.io/pymemuc.html#the-vm-configuration-keys-table>`_
@@ -272,7 +281,7 @@ def get_configuration_vm(self, config_key, vm_index=None, vm_name=None) -> str:
 
 
 def set_configuration_vm(
-    self, config_key: str, config_value: str, vm_index=None, vm_name=None
+    self: "PyMemuc", config_key: str, config_value: str, vm_index=None, vm_name=None
 ) -> Literal[True]:
     """Set a VM configuration, must specify either a vm index or a vm name
 

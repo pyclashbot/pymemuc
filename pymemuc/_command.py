@@ -1,11 +1,14 @@
 """This module contains functions for commanding running virtual machines with memuc.exe.
 Functions for interacting with running VMs are defined here."""
-from typing import Literal
+from typing import TYPE_CHECKING, Literal
 
 from .exceptions import PyMemucError, PyMemucIndexError, PyMemucTimeoutExpired
 
+if TYPE_CHECKING:
+    from pymemuc import PyMemuc
 
-def sort_out_all_vm(self) -> bool:
+
+def sort_out_all_vm(self: "PyMemuc") -> bool:
     """Sort out all VMs
 
     :return: the return code and the output of the command.
@@ -20,7 +23,7 @@ def sort_out_all_vm(self) -> bool:
 
 # TODO: look into bindings with https://github.com/egirault/googleplay-api
 def install_apk_vm(
-    self, apk_path, vm_index=None, vm_name=None, create_shortcut=False
+    self: "PyMemuc", apk_path, vm_index=None, vm_name=None, create_shortcut=False
 ) -> Literal[True]:
     """Install an APK on a VM, must specify either a vm index or a vm name
 
@@ -64,7 +67,9 @@ def install_apk_vm(
     return True
 
 
-def uninstall_apk_vm(self, package_name, vm_index=None, vm_name=None) -> Literal[True]:
+def uninstall_apk_vm(
+    self: "PyMemuc", package_name, vm_index=None, vm_name=None
+) -> Literal[True]:
     """Uninstall an APK on a VM, must specify either a vm index or a vm name
 
     :param package_name: Package name of the APK
@@ -91,7 +96,9 @@ def uninstall_apk_vm(self, package_name, vm_index=None, vm_name=None) -> Literal
     return True
 
 
-def start_app_vm(self, package_name, vm_index=None, vm_name=None) -> Literal[True]:
+def start_app_vm(
+    self: "PyMemuc", package_name, vm_index=None, vm_name=None
+) -> Literal[True]:
     """Start an app on a VM, must specify either a vm index or a vm name
 
     :param package_name: Package name of the APK
@@ -116,7 +123,9 @@ def start_app_vm(self, package_name, vm_index=None, vm_name=None) -> Literal[Tru
     return True
 
 
-def stop_app_vm(self, package_name, vm_index=None, vm_name=None) -> Literal[True]:
+def stop_app_vm(
+    self: "PyMemuc", package_name, vm_index=None, vm_name=None
+) -> Literal[True]:
     """Stop an app on a VM, must specify either a vm index or a vm name
 
     :param package_name: Package name of the APK
@@ -142,7 +151,7 @@ def stop_app_vm(self, package_name, vm_index=None, vm_name=None) -> Literal[True
 
 
 def trigger_keystroke_vm(
-    self,
+    self: "PyMemuc",
     key: Literal["back", "home", "menu", "volumeup", "volumedown"],
     vm_index=None,
     vm_name=None,
@@ -171,7 +180,7 @@ def trigger_keystroke_vm(
     return True
 
 
-def trigger_shake_vm(self, vm_index=None, vm_name=None) -> Literal[True]:
+def trigger_shake_vm(self: "PyMemuc", vm_index=None, vm_name=None) -> Literal[True]:
     """Trigger a shake on a VM, must specify either a vm index or a vm name
 
     :param vm_index: VM index. Defaults to None.
@@ -194,7 +203,7 @@ def trigger_shake_vm(self, vm_index=None, vm_name=None) -> Literal[True]:
     return True
 
 
-def connect_internet_vm(self, vm_index=None, vm_name=None) -> Literal[True]:
+def connect_internet_vm(self: "PyMemuc", vm_index=None, vm_name=None) -> Literal[True]:
     """Connect the internet on a VM, must specify either a vm index or a vm name
 
     :param vm_index: VM index. Defaults to None.
@@ -217,7 +226,9 @@ def connect_internet_vm(self, vm_index=None, vm_name=None) -> Literal[True]:
     return True
 
 
-def disconnect_internet_vm(self, vm_index=None, vm_name=None) -> Literal[True]:
+def disconnect_internet_vm(
+    self: "PyMemuc", vm_index=None, vm_name=None
+) -> Literal[True]:
     """Disconnect the internet on a VM, must specify either a vm index or a vm name
 
     :param vm_index: VM index. Defaults to None.
@@ -240,7 +251,7 @@ def disconnect_internet_vm(self, vm_index=None, vm_name=None) -> Literal[True]:
     return True
 
 
-def input_text_vm(self, text, vm_index=None, vm_name=None) -> Literal[True]:
+def input_text_vm(self: "PyMemuc", text, vm_index=None, vm_name=None) -> Literal[True]:
     """Input text on a VM, must specify either a vm index or a vm name
 
     :param text: Text to input
@@ -265,7 +276,7 @@ def input_text_vm(self, text, vm_index=None, vm_name=None) -> Literal[True]:
     return True
 
 
-def rotate_window_vm(self, vm_index=None, vm_name=None) -> Literal[True]:
+def rotate_window_vm(self: "PyMemuc", vm_index=None, vm_name=None) -> Literal[True]:
     """Rotate the window on a VM, must specify either a vm index or a vm name
 
     :param vm_index: VM index. Defaults to None.
@@ -286,7 +297,9 @@ def rotate_window_vm(self, vm_index=None, vm_name=None) -> Literal[True]:
     return True
 
 
-def execute_command_vm(self, command, vm_index=None, vm_name=None) -> tuple[int, str]:
+def execute_command_vm(
+    self: "PyMemuc", command, vm_index=None, vm_name=None
+) -> tuple[int, str]:
     """Execute a command on a VM, must specify either a vm index or a vm name
 
     :param command: Command to execute
@@ -307,7 +320,7 @@ def execute_command_vm(self, command, vm_index=None, vm_name=None) -> tuple[int,
 
 
 def change_gps_vm(
-    self, latitude: float, longitude: float, vm_index=None, vm_name=None
+    self: "PyMemuc", latitude: float, longitude: float, vm_index=None, vm_name=None
 ) -> Literal[True]:
     """Change the GPS location on a VM, must specify either a vm index or a vm name
 
@@ -340,7 +353,7 @@ def change_gps_vm(
 
 
 # TODO: fix parsing of the output
-def get_public_ip_vm(self, vm_index=None, vm_name=None) -> tuple[int, str]:
+def get_public_ip_vm(self: "PyMemuc", vm_index=None, vm_name=None) -> tuple[int, str]:
     """Get the public IP of a VM, must specify either a vm index or a vm name
 
     :param vm_index: VM index. Defaults to None.
@@ -362,7 +375,7 @@ def get_public_ip_vm(self, vm_index=None, vm_name=None) -> tuple[int, str]:
     raise PyMemucIndexError("Please specify either a vm index or a vm name")
 
 
-def zoom_in_vm(self, vm_index=None, vm_name=None) -> Literal[True]:
+def zoom_in_vm(self: "PyMemuc", vm_index=None, vm_name=None) -> Literal[True]:
     """Zoom in on a VM, must specify either a vm index or a vm name
 
     :param vm_index: VM index. Defaults to None.
@@ -385,7 +398,7 @@ def zoom_in_vm(self, vm_index=None, vm_name=None) -> Literal[True]:
     return True
 
 
-def zoom_out_vm(self, vm_index=None, vm_name=None) -> Literal[True]:
+def zoom_out_vm(self: "PyMemuc", vm_index=None, vm_name=None) -> Literal[True]:
     """Zoom out on a VM, must specify either a vm index or a vm name
 
     :param vm_index: VM index. Defaults to None.
@@ -408,7 +421,9 @@ def zoom_out_vm(self, vm_index=None, vm_name=None) -> Literal[True]:
     return True
 
 
-def get_app_info_list_vm(self, vm_index=None, vm_name=None, timeout=10) -> list[str]:
+def get_app_info_list_vm(
+    self: "PyMemuc", vm_index=None, vm_name=None, timeout=10
+) -> list[str]:
     """Get the list of apps installed on a VM, must specify either a vm index or a vm name
 
     :param vm_index: VM index. Defaults to None.
@@ -445,7 +460,7 @@ def get_app_info_list_vm(self, vm_index=None, vm_name=None, timeout=10) -> list[
 
 # TODO: debug this, it doesn't work
 def set_accelerometer_vm(
-    self,
+    self: "PyMemuc",
     value: tuple[float, float, float],
     vm_index=None,
     vm_name=None,
@@ -489,7 +504,7 @@ def set_accelerometer_vm(
 
 
 def create_app_shortcut_vm(
-    self,
+    self: "PyMemuc",
     package_name: str,
     vm_index=None,
     vm_name=None,
@@ -523,7 +538,9 @@ def create_app_shortcut_vm(
 
 
 # TODO: parse the output
-def send_adb_command_vm(self, command, vm_index=None, vm_name=None) -> tuple[int, str]:
+def send_adb_command_vm(
+    self: "PyMemuc", command, vm_index=None, vm_name=None
+) -> tuple[int, str]:
     """Send an ADB command to a VM, must specify either a vm index or a vm name
 
     :param command: ADB command
