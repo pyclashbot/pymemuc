@@ -91,7 +91,10 @@ def memuc_run(
                 stdout_file.seek(0)
                 result = stdout_file.read()
                 if self.debug:
-                    print(f"\tOutput: {result}")
+                    lines = result.splitlines()
+                    print(f"\tOutput: {lines.pop(0)}")
+                    for line in lines:
+                        print(f"\t\t{line}")
                 return (0, result)
     except CalledProcessError as err:
         raise PyMemucError(err) from err
