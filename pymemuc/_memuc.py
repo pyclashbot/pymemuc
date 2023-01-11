@@ -2,7 +2,7 @@
 from contextlib import suppress
 from os.path import join, normpath
 from subprocess import PIPE, CalledProcessError, Popen, TimeoutExpired
-from tempfile import NamedTemporaryFile
+from tempfile import TemporaryFile
 from typing import TYPE_CHECKING
 
 from ._constants import WIN32, WINREG_EN
@@ -72,7 +72,7 @@ def memuc_run(
         print("pymemuc._memuc.memuc_run:")
         print(f"\tCommand: {' '.join(args)}")
     try:
-        with NamedTemporaryFile(mode="r+", delete=False) as stdout_file:
+        with TemporaryFile(mode="r+") as stdout_file:
             with Popen(
                 args,
                 stdin=PIPE,
