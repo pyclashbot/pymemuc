@@ -43,6 +43,13 @@ optional = true
 sphinx = "^5.3"
 
 
+[tool.poetry.group.tests]
+optional = true
+
+
+[tool.poetry.group.tests.dependencies]
+twine = "^4.0.2"
+
 [tool.black]
 line-length = 88
 target-version = ['py310']
