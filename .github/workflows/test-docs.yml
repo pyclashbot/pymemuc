@@ -2,8 +2,7 @@ name: Docs Build Test
 
 on:
   push:
-    branches:
-      - "**" # matches every branch
+    branches: [master]
   pull_request:
     branches: [master]
 
