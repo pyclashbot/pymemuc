@@ -42,7 +42,7 @@ optional = true
 [tool.poetry.group.docs.dependencies]
 sphinx = ">=5.3,<7.0"
 furo = "^2022.12.7"
-sphinxext-opengraph = "^0.7.5"
+sphinxext-opengraph = ">=0.7.5,<0.9.0"
 sphinx-autobuild = "^2021.3.14"
 sphinx-copybutton = "^0.5.1"
 
