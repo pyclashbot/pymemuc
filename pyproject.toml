@@ -30,7 +30,7 @@ optional = true
 
 [tool.poetry.group.dev.dependencies]
 pre-commit = ">=2.20,<4.0"
-black = "^22.0"
+black = ">=22,<24"
 prospector = "^1.8.4"
 ipykernel = "^6.17"
 
