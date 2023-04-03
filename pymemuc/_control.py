@@ -12,7 +12,11 @@ if TYPE_CHECKING:
 
 @_retryable
 def start_vm(
-    self: "PyMemuc", vm_index=None, vm_name=None, non_blocking=False, timeout=None
+    self: "PyMemuc",
+    vm_index: int | None = None,
+    vm_name: str | None = None,
+    non_blocking=False,
+    timeout=None,
 ) -> Literal[True]:
     """Start a VM, must specify either a vm index or a vm name
 
@@ -44,7 +48,11 @@ def start_vm(
 
 @_retryable
 def stop_vm(
-    self: "PyMemuc", vm_index=None, vm_name=None, non_blocking=False, timeout=None
+    self: "PyMemuc",
+    vm_index: int | None = None,
+    vm_name: str | None = None,
+    non_blocking=False,
+    timeout=None,
 ) -> Literal[True]:
     """Stop a VM, must specify either a vm index or a vm name
 
@@ -94,7 +102,10 @@ def stop_all_vm(self: "PyMemuc", non_blocking=False, timeout=None) -> Literal[Tr
 
 
 def reboot_vm(
-    self: "PyMemuc", vm_index=None, vm_name=None, non_blocking=False
+    self: "PyMemuc",
+    vm_index: int | None = None,
+    vm_name: str | None = None,
+    non_blocking=False,
 ) -> Literal[True]:
     """Reboot a VM, must specify either a vm index or a vm name
 
