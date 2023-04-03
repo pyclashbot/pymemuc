@@ -554,7 +554,7 @@ def send_adb_command_vm(
     :rtype: tuple[int, str]
     """
     if vm_index is not None:
-        return self.memuc_run(["-i", str(vm_index), "adb", f'"{command}"'])
+        return self.memuc_run(["-i", str(vm_index), "adb", f'\"{command}\"'])
     if vm_name is not None:
-        return self.memuc_run(["-n", vm_name, "adb", f'"{command}"'])
+        return self.memuc_run(["-n", vm_name, "adb", f'\"{command}\"'])
     raise PyMemucIndexError("Please specify either a vm index or a vm name")
