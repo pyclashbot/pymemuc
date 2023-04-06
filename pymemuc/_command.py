@@ -568,24 +568,38 @@ def create_app_shortcut_vm(
     raise PyMemucIndexError("Please specify either a vm index or a vm name")
 
 
-# TODO: parse the output
+# TODO: parse the output to confirm that the command was ran successfully
 def send_adb_command_vm(
-    self: "PyMemuc", command, vm_index: int | None = None, vm_name: str | None = None
-) -> tuple[int, str]:
+    self: "PyMemuc",
+    command: str | list[str],
+    vm_index: int | None = None,
+    vm_name: str | None = None,
+    timeout: int | None = None,
+) -> str:
     """Send an ADB command to a VM, must specify either a vm index or a vm name
 
     :param command: ADB command
-    :type command: str
+    :type command: str | list[str]
     :param vm_index: VM index. Defaults to None.
     :type vm_index: int, optional
     :param vm_name: VM name. Defaults to None.
     :type vm_name: str, optional
+    :param timeout: Timeout for the command. Defaults to None.
+    :type timeout: int, optional
     :raises PyMemucIndexError: an error if neither a vm index or a vm name is specified
+    :raises PyMemucTimeoutExpired: an error if the command times out
     :return: the return code and the output of the command.
     :rtype: tuple[int, str]
     """
+    if isinstance(command, str):
+        command = command.split()
     if vm_index is not None:
-        return self.memuc_run(["-i", str(vm_index), "adb", f'"{command}"'])
+        _, output = self.memuc_run(
+            ["-i", str(vm_index), "adb"] + command, timeout=timeout
+        )
+        return output
     if vm_name is not None:
-        return self.memuc_run(["-n", vm_name, "adb", f'"{command}"'])
+        _, output = self.memuc_run(["-n", vm_name, "adb"] + command, timeout=timeout)
+        return output
+
     raise PyMemucIndexError("Please specify either a vm index or a vm name")
