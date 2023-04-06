@@ -233,6 +233,11 @@ def list_vm_info(
             ["listvms", "-r" if running else "", "-s" if disk_info else ""]
         )
 
+    # handle when no VMs are on the system
+    # memuc.exe will output a "read failed" error
+    if "read failed" in output:
+        return []
+
     output = output.split("\n")
     parsed_output = []
 
@@ -272,7 +277,8 @@ def get_configuration_vm(
 ) -> str:
     """Get a VM configuration, must specify either a vm index or a vm name
 
-    :param config_key: Configuration key, keys are noted in `configuration keys table <https://pymemuc.readthedocs.io/pymemuc.html#the-vm-configuration-keys-table>`_
+    :param config_key: Configuration key, keys are noted in `configuration keys table
+        <https://pymemuc.readthedocs.io/pymemuc.html#the-vm-configuration-keys-table>`_
     :type config_key: str
     :param vm_index: VM index. Defaults to None.
     :type vm_index: int, optional
@@ -305,7 +311,8 @@ def set_configuration_vm(
 ) -> Literal[True]:
     """Set a VM configuration, must specify either a vm index or a vm name
 
-    :param config_key: Configuration key, keys are noted in `configuration keys table <https://pymemuc.readthedocs.io/pymemuc.html#the-vm-configuration-keys-table>`_
+    :param config_key: Configuration key, keys are noted in `configuration keys table
+        <https://pymemuc.readthedocs.io/pymemuc.html#the-vm-configuration-keys-table>`_
     :type config_key: str
     :param config_value: Configuration value
     :type config_value: str
