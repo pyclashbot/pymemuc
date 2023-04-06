@@ -49,7 +49,8 @@ def memuc_run(
 ) -> tuple[int, str]:
     """run a command with memuc.exe.
     Memuc can support non-blocking commands, returning a task id.
-    A timeout can be specified if memuc is expected to hang, but this will not work with non-blocking commands.
+    A timeout can be specified if memuc is expected to hang,
+    but this will not work with non-blocking commands.
 
     :param args: a list of arguments to pass to memuc.exe
     :type args: list[str]
@@ -91,10 +92,10 @@ def memuc_run(
                 stdout_file.seek(0)
                 result = stdout_file.read()
                 if self.debug:
-                    lines = result.splitlines()
-                    print(f"\tOutput: {lines.pop(0)}")
-                    for line in lines:
-                        print(f"\t\t{line}")
+                    if lines := result.splitlines():
+                        print(f"\tOutput: {lines.pop(0)}")
+                        for line in lines:
+                            print(f"\t\t{line}")
                 return (0, result)
     except CalledProcessError as err:
         raise PyMemucError(err) from err
