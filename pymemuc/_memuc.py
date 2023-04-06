@@ -1,8 +1,7 @@
 """This module contains functions for directly interacting with memuc.exe."""
 from contextlib import suppress
 from os.path import join, normpath
-from subprocess import PIPE, CalledProcessError, Popen, TimeoutExpired
-from tempfile import TemporaryFile
+from subprocess import PIPE, STDOUT, CalledProcessError, Popen, TimeoutExpired
 from typing import TYPE_CHECKING
 
 from ._constants import WIN32, WINREG_EN
@@ -71,32 +70,28 @@ def memuc_run(
         args += "-t"
     if self.debug:
         print("pymemuc._memuc.memuc_run:")
-        print(f"\tCommand: {' '.join(args)}")
+        print(f"\tCommand: \"{' '.join(args)}\"")
     try:
-        with TemporaryFile(mode="r+") as stdout_file:
-            with Popen(
-                args,
-                stdin=PIPE,
-                stdout=stdout_file,
-                stderr=PIPE,
-                shell=False,
-                startupinfo=ST_INFO,
-            ) as process:
-                try:
-                    process.communicate(timeout=timeout)
-                except TimeoutExpired as err:
-                    process.kill()
-                    process.communicate()
-                    raise PyMemucTimeoutExpired(err) from err
-                stdout_file.flush()
-                stdout_file.seek(0)
-                result = stdout_file.read()
-                if self.debug:
-                    if lines := result.splitlines():
-                        print(f"\tOutput: {lines.pop(0)}")
-                        for line in lines:
-                            print(f"\t\t{line}")
-                return (0, result)
+        with Popen(
+            args,
+            shell=True,
+            stdout=PIPE,
+            stderr=STDOUT,
+            close_fds=True,
+            universal_newlines=True,
+        ) as process:
+            try:
+                result, _ = process.communicate(timeout=timeout)
+            except TimeoutExpired as err:
+                process.kill()
+                result, _ = process.communicate()
+                raise PyMemucTimeoutExpired(err) from err
+            if self.debug:
+                if lines := result.splitlines():
+                    print(f"\tOutput: {lines.pop(0)}")
+                    for line in lines:
+                        print(f"\t\t{line}")
+            return (0, result)
     except CalledProcessError as err:
         raise PyMemucError(err) from err
 
