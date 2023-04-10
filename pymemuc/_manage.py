@@ -3,7 +3,7 @@ Functions for creating, deleting, and listing VMs are defined here.
 """
 import re
 from os.path import abspath, expanduser, expandvars
-from typing import TYPE_CHECKING, Literal
+from typing import TYPE_CHECKING, Literal, Union
 
 from ._decorators import _retryable
 from .exceptions import PyMemucError, PyMemucIndexError, PyMemucTimeoutExpired
@@ -36,7 +36,7 @@ def create_vm(self: "PyMemuc", vm_version="76") -> int:
 
 @_retryable
 def delete_vm(
-    self: "PyMemuc", vm_index: int | None = None, vm_name: str | None = None
+    self: "PyMemuc", vm_index: Union[int, None] = None, vm_name: Union[str, None] = None
 ) -> Literal[True]:
     """Delete a VM, must specify either a vm index or a vm name
 
@@ -62,8 +62,8 @@ def delete_vm(
 
 def clone_vm(
     self: "PyMemuc",
-    vm_index: int | None = None,
-    vm_name: str | None = None,
+    vm_index: Union[int, None] = None,
+    vm_name: Union[str, None] = None,
     new_name=None,
 ) -> Literal[True]:
     """Clone a VM, must specify either a vm index or a vm name
@@ -94,8 +94,8 @@ def clone_vm(
 # TODO: verify functionality
 def export_vm(
     self: "PyMemuc",
-    vm_index: int | None = None,
-    vm_name: str | None = None,
+    vm_index: Union[int, None] = None,
+    vm_name: Union[str, None] = None,
     file_name="vm.ova",
     non_blocking=False,
 ):
@@ -144,8 +144,8 @@ def import_vm(self: "PyMemuc", file_name="vm.ova", non_blocking=False) -> Litera
 @_retryable
 def rename_vm(
     self: "PyMemuc",
-    vm_index: int | None = None,
-    vm_name: str | None = None,
+    vm_index: Union[int, None] = None,
+    vm_name: Union[str, None] = None,
     new_name=None,
 ) -> Literal[True]:
     """Rename a VM, must specify either a vm index or a vm name
@@ -182,8 +182,8 @@ def rename_vm(
 
 def list_vm_info(
     self: "PyMemuc",
-    vm_index: int | None = None,
-    vm_name: str | None = None,
+    vm_index: Union[int, None] = None,
+    vm_name: Union[str, None] = None,
     running=False,
     disk_info=False,
 ) -> list[VMInfo]:
@@ -273,7 +273,10 @@ def vm_is_running(self: "PyMemuc", vm_index=0) -> bool:
 
 
 def get_configuration_vm(
-    self: "PyMemuc", config_key, vm_index: int | None = None, vm_name: str | None = None
+    self: "PyMemuc",
+    config_key,
+    vm_index: Union[int, None] = None,
+    vm_name: Union[str, None] = None,
 ) -> str:
     """Get a VM configuration, must specify either a vm index or a vm name
 
@@ -306,8 +309,8 @@ def set_configuration_vm(
     self: "PyMemuc",
     config_key: str,
     config_value: str,
-    vm_index: int | None = None,
-    vm_name: str | None = None,
+    vm_index: Union[int, None] = None,
+    vm_name: Union[str, None] = None,
 ) -> Literal[True]:
     """Set a VM configuration, must specify either a vm index or a vm name
 

@@ -1,7 +1,7 @@
 """This module contains functions for controlling the VMs.
 Functions for starting and stopping VMs are defined here.
 """
-from typing import TYPE_CHECKING, Literal
+from typing import TYPE_CHECKING, Literal, Union
 
 from ._decorators import _retryable
 from .exceptions import PyMemucError, PyMemucIndexError
@@ -13,8 +13,8 @@ if TYPE_CHECKING:
 @_retryable
 def start_vm(
     self: "PyMemuc",
-    vm_index: int | None = None,
-    vm_name: str | None = None,
+    vm_index: Union[int, None] = None,
+    vm_name: Union[str, None] = None,
     non_blocking=False,
     timeout=None,
 ) -> Literal[True]:
@@ -49,8 +49,8 @@ def start_vm(
 @_retryable
 def stop_vm(
     self: "PyMemuc",
-    vm_index: int | None = None,
-    vm_name: str | None = None,
+    vm_index: Union[int, None] = None,
+    vm_name: Union[str, None] = None,
     non_blocking=False,
     timeout=None,
 ) -> Literal[True]:
@@ -103,8 +103,8 @@ def stop_all_vm(self: "PyMemuc", non_blocking=False, timeout=None) -> Literal[Tr
 
 def reboot_vm(
     self: "PyMemuc",
-    vm_index: int | None = None,
-    vm_name: str | None = None,
+    vm_index: Union[int, None] = None,
+    vm_name: Union[str, None] = None,
     non_blocking=False,
 ) -> Literal[True]:
     """Reboot a VM, must specify either a vm index or a vm name
