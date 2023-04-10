@@ -45,4 +45,4 @@ See the [API documentation][full_doc].
 [codefactor_link]: https://www.codefactor.io/repository/github/marmig0404/pymemuc
 [memuc_docs]: https://www.memuplay.com/blog/memucommand-reference-manual.html
 [demo_notebook]: demo/demo.ipynb
-[full_doc]: https://pymemuc.readthedocs.io
+[full_doc]: https://pymemuc.martinmiglio.dev/
