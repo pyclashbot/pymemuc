@@ -1,0 +1,98 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2022, Martin Miglio
+# This file is distributed under the same license as the pymemuc package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2023.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: pymemuc \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2023-04-10 17:31-0400\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language: en\n"
+"Language-Team: en <LL@li.org>\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.12.1\n"
+
+#: ../../source/index.rst:2
+msgid "pymemuc"
+msgstr ""
+
+#: ../../source/index.rst:-1
+msgid "PyPI - License"
+msgstr ""
+
+#: ../../source/index.rst:-1
+msgid "Documentation Status"
+msgstr ""
+
+#: ../../source/index.rst:-1
+msgid "PyPI - Version"
+msgstr ""
+
+#: ../../source/index.rst:-1
+msgid "PyPI - Downloads"
+msgstr ""
+
+#: ../../source/index.rst:-1
+msgid "PyPI - Python Version"
+msgstr ""
+
+#: ../../source/index.rst:-1
+msgid "CodeFactor"
+msgstr ""
+
+#: ../../source/index.rst:26
+msgid ""
+"A wrapper for `MEmu Command <https://www.memuplay.com/blog/memucommand-"
+"reference-manual.html>`_ in python."
+msgstr ""
+
+#: ../../source/index.rst:28
+msgid ""
+"Allows for easy interaction with MEmu VMs, including VM image management,"
+" VM control, running VM commands and ADB interaction."
+msgstr ""
+
+#: ../../source/index.rst:31
+msgid "Contents"
+msgstr ""
+
+#: ../../source/index.rst:39
+msgid "Contribute"
+msgstr ""
+
+#: ../../source/index.rst:41
+msgid ""
+"If you are having any problems or wish to see added features, `find or "
+"open an issue <https://github.com/marmig0404/pymemuc/issues>`_."
+msgstr ""
+
+#: ../../source/index.rst:42
+msgid ""
+"Looking to contribute directly? Open a pull request in the `repository "
+"<https://github.com/marmig0404/pymemuc>`_."
+msgstr ""
+
+#: ../../source/index.rst:45
+msgid "Support"
+msgstr ""
+
+#: ../../source/index.rst:47
+msgid ""
+"If you are having issues, please let us know. This project is still in "
+"development."
+msgstr ""
+
+#: ../../source/index.rst:50
+msgid "License"
+msgstr ""
+
+#: ../../source/index.rst:52
+msgid "The project is licensed under the MIT license."
+msgstr ""

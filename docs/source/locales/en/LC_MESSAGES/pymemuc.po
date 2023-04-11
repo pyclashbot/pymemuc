@@ -1,0 +1,974 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2022, Martin Miglio
+# This file is distributed under the same license as the pymemuc package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2023.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: pymemuc \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2023-04-10 17:31-0400\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language: en\n"
+"Language-Team: en <LL@li.org>\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.12.1\n"
+
+#: ../../source/pymemuc.rst:2
+msgid "Documentation"
+msgstr ""
+
+#: ../../source/pymemuc.rst:7
+msgid "The ``PyMemuc`` module"
+msgstr ""
+
+#: of pymemuc.pymemuc:1
+msgid "a wrapper for memuc.exe as a library to control virual machines"
+msgstr ""
+
+#: of pymemuc.pymemuc.PyMemuc:1
+msgid "Bases: :py:class:`object`"
+msgstr ""
+
+#: of pymemuc.pymemuc.PyMemuc:1
+msgid ""
+"A class to interact with the memuc.exe command line tool to control "
+"virtual machines."
+msgstr ""
+
+#: of pymemuc._command.change_gps_vm pymemuc._command.connect_internet_vm
+#: pymemuc._command.create_app_shortcut_vm
+#: pymemuc._command.disconnect_internet_vm pymemuc._command.execute_command_vm
+#: pymemuc._command.get_app_info_list_vm pymemuc._command.get_public_ip_vm
+#: pymemuc._command.input_text_vm pymemuc._command.install_apk_vm
+#: pymemuc._command.rotate_window_vm pymemuc._command.send_adb_command_vm
+#: pymemuc._command.set_accelerometer_vm pymemuc._command.start_app_vm
+#: pymemuc._command.stop_app_vm pymemuc._command.trigger_keystroke_vm
+#: pymemuc._command.trigger_shake_vm pymemuc._command.uninstall_apk_vm
+#: pymemuc._command.zoom_in_vm pymemuc._command.zoom_out_vm
+#: pymemuc._control.reboot_vm pymemuc._control.start_vm
+#: pymemuc._control.stop_all_vm pymemuc._control.stop_vm
+#: pymemuc._manage.clone_vm pymemuc._manage.create_vm pymemuc._manage.delete_vm
+#: pymemuc._manage.export_vm pymemuc._manage.get_configuration_vm
+#: pymemuc._manage.import_vm pymemuc._manage.list_vm_info
+#: pymemuc._manage.rename_vm pymemuc._manage.set_configuration_vm
+#: pymemuc._manage.vm_is_running pymemuc._memuc.check_task_status
+#: pymemuc._memuc.memuc_run pymemuc.pymemuc.PyMemuc
+msgid "Parameters"
+msgstr ""
+
+#: of pymemuc.pymemuc.PyMemuc:3
+msgid "Path to memuc.exe. Set to None for autodetect."
+msgstr ""
+
+#: of pymemuc.pymemuc.PyMemuc:5
+msgid "Enable debug mode, defaults to False"
+msgstr ""
+
+#: of pymemuc._command.change_gps_vm:1
+msgid ""
+"Change the GPS location on a VM, must specify either a vm index or a vm "
+"name"
+msgstr ""
+
+#: of pymemuc._command.change_gps_vm:3
+msgid "Latitude"
+msgstr ""
+
+#: of pymemuc._command.change_gps_vm:5
+msgid "Longitude"
+msgstr ""
+
+#: of pymemuc._command.change_gps_vm:7 pymemuc._command.connect_internet_vm:3
+#: pymemuc._command.create_app_shortcut_vm:5
+#: pymemuc._command.disconnect_internet_vm:3
+#: pymemuc._command.execute_command_vm:5
+#: pymemuc._command.get_app_info_list_vm:3 pymemuc._command.get_public_ip_vm:3
+#: pymemuc._command.input_text_vm:5 pymemuc._command.install_apk_vm:5
+#: pymemuc._command.rotate_window_vm:3 pymemuc._command.send_adb_command_vm:5
+#: pymemuc._command.set_accelerometer_vm:5 pymemuc._command.start_app_vm:5
+#: pymemuc._command.stop_app_vm:5 pymemuc._command.trigger_keystroke_vm:5
+#: pymemuc._command.trigger_shake_vm:3 pymemuc._command.uninstall_apk_vm:5
+#: pymemuc._command.zoom_in_vm:3 pymemuc._command.zoom_out_vm:3
+#: pymemuc._control.reboot_vm:3 pymemuc._control.start_vm:3
+#: pymemuc._control.stop_vm:3 pymemuc._manage.clone_vm:3
+#: pymemuc._manage.delete_vm:3 pymemuc._manage.export_vm:3
+#: pymemuc._manage.get_configuration_vm:6 pymemuc._manage.list_vm_info:3
+#: pymemuc._manage.rename_vm:3 pymemuc._manage.set_configuration_vm:8
+msgid "VM index. Defaults to None."
+msgstr ""
+
+#: of pymemuc._command.change_gps_vm:9 pymemuc._command.connect_internet_vm:5
+#: pymemuc._command.create_app_shortcut_vm:7
+#: pymemuc._command.disconnect_internet_vm:5
+#: pymemuc._command.execute_command_vm:7
+#: pymemuc._command.get_app_info_list_vm:5 pymemuc._command.get_public_ip_vm:5
+#: pymemuc._command.input_text_vm:7 pymemuc._command.install_apk_vm:7
+#: pymemuc._command.send_adb_command_vm:7
+#: pymemuc._command.set_accelerometer_vm:7 pymemuc._command.start_app_vm:7
+#: pymemuc._command.stop_app_vm:7 pymemuc._command.trigger_keystroke_vm:7
+#: pymemuc._command.trigger_shake_vm:5 pymemuc._command.uninstall_apk_vm:7
+#: pymemuc._command.zoom_in_vm:5 pymemuc._command.zoom_out_vm:5
+#: pymemuc._control.reboot_vm:5 pymemuc._control.start_vm:5
+#: pymemuc._control.stop_vm:5 pymemuc._manage.clone_vm:5
+#: pymemuc._manage.delete_vm:5 pymemuc._manage.export_vm:5
+#: pymemuc._manage.get_configuration_vm:8 pymemuc._manage.list_vm_info:5
+#: pymemuc._manage.rename_vm:5 pymemuc._manage.set_configuration_vm:10
+msgid "VM name. Defaults to None."
+msgstr ""
+
+#: of pymemuc._command.change_gps_vm pymemuc._command.connect_internet_vm
+#: pymemuc._command.create_app_shortcut_vm
+#: pymemuc._command.disconnect_internet_vm pymemuc._command.execute_command_vm
+#: pymemuc._command.get_app_info_list_vm pymemuc._command.get_public_ip_vm
+#: pymemuc._command.input_text_vm pymemuc._command.install_apk_vm
+#: pymemuc._command.rotate_window_vm pymemuc._command.send_adb_command_vm
+#: pymemuc._command.set_accelerometer_vm pymemuc._command.start_app_vm
+#: pymemuc._command.stop_app_vm pymemuc._command.trigger_keystroke_vm
+#: pymemuc._command.trigger_shake_vm pymemuc._command.uninstall_apk_vm
+#: pymemuc._command.zoom_in_vm pymemuc._command.zoom_out_vm
+#: pymemuc._control.reboot_vm pymemuc._control.start_vm
+#: pymemuc._control.stop_all_vm pymemuc._control.stop_vm
+#: pymemuc._manage.clone_vm pymemuc._manage.create_vm pymemuc._manage.delete_vm
+#: pymemuc._manage.export_vm pymemuc._manage.get_configuration_vm
+#: pymemuc._manage.import_vm pymemuc._manage.list_vm_info
+#: pymemuc._manage.rename_vm pymemuc._manage.set_configuration_vm
+#: pymemuc._memuc.memuc_run
+msgid "Raises"
+msgstr ""
+
+#: of pymemuc._command.change_gps_vm:11 pymemuc._command.connect_internet_vm:7
+#: pymemuc._command.create_app_shortcut_vm:9
+#: pymemuc._command.disconnect_internet_vm:7
+#: pymemuc._command.execute_command_vm:9
+#: pymemuc._command.get_app_info_list_vm:9 pymemuc._command.get_public_ip_vm:7
+#: pymemuc._command.input_text_vm:9 pymemuc._command.install_apk_vm:11
+#: pymemuc._command.rotate_window_vm:5 pymemuc._command.send_adb_command_vm:11
+#: pymemuc._command.set_accelerometer_vm:9 pymemuc._command.start_app_vm:9
+#: pymemuc._command.stop_app_vm:9 pymemuc._command.trigger_keystroke_vm:9
+#: pymemuc._command.trigger_shake_vm:7 pymemuc._command.uninstall_apk_vm:9
+#: pymemuc._command.zoom_in_vm:7 pymemuc._command.zoom_out_vm:7
+#: pymemuc._control.reboot_vm:9 pymemuc._control.start_vm:11
+#: pymemuc._control.stop_vm:11 pymemuc._manage.clone_vm:9
+#: pymemuc._manage.delete_vm:7 pymemuc._manage.export_vm:11
+#: pymemuc._manage.get_configuration_vm:10 pymemuc._manage.list_vm_info:11
+#: pymemuc._manage.set_configuration_vm:12
+msgid "an error if neither a vm index or a vm name is specified"
+msgstr ""
+
+#: of pymemuc._command.change_gps_vm pymemuc._command.connect_internet_vm
+#: pymemuc._command.create_app_shortcut_vm
+#: pymemuc._command.disconnect_internet_vm pymemuc._command.execute_command_vm
+#: pymemuc._command.get_app_info_list_vm pymemuc._command.get_public_ip_vm
+#: pymemuc._command.input_text_vm pymemuc._command.install_apk_vm
+#: pymemuc._command.rotate_window_vm pymemuc._command.send_adb_command_vm
+#: pymemuc._command.set_accelerometer_vm pymemuc._command.sort_out_all_vm
+#: pymemuc._command.start_app_vm pymemuc._command.stop_app_vm
+#: pymemuc._command.trigger_keystroke_vm pymemuc._command.trigger_shake_vm
+#: pymemuc._command.uninstall_apk_vm pymemuc._command.zoom_in_vm
+#: pymemuc._command.zoom_out_vm pymemuc._control.reboot_vm
+#: pymemuc._control.start_vm pymemuc._control.stop_all_vm
+#: pymemuc._control.stop_vm pymemuc._manage.clone_vm pymemuc._manage.create_vm
+#: pymemuc._manage.delete_vm pymemuc._manage.export_vm
+#: pymemuc._manage.get_configuration_vm pymemuc._manage.import_vm
+#: pymemuc._manage.list_vm_info pymemuc._manage.rename_vm
+#: pymemuc._manage.set_configuration_vm pymemuc._manage.vm_is_running
+#: pymemuc._memuc.check_task_status pymemuc._memuc.memuc_run
+msgid "Returns"
+msgstr ""
+
+#: of pymemuc._command.change_gps_vm:12
+msgid "True if the vm GPS change was successful"
+msgstr ""
+
+#: of pymemuc._command.change_gps_vm pymemuc._command.connect_internet_vm
+#: pymemuc._command.create_app_shortcut_vm
+#: pymemuc._command.disconnect_internet_vm pymemuc._command.execute_command_vm
+#: pymemuc._command.get_app_info_list_vm pymemuc._command.get_public_ip_vm
+#: pymemuc._command.input_text_vm pymemuc._command.install_apk_vm
+#: pymemuc._command.rotate_window_vm pymemuc._command.send_adb_command_vm
+#: pymemuc._command.set_accelerometer_vm pymemuc._command.sort_out_all_vm
+#: pymemuc._command.start_app_vm pymemuc._command.stop_app_vm
+#: pymemuc._command.trigger_keystroke_vm pymemuc._command.trigger_shake_vm
+#: pymemuc._command.uninstall_apk_vm pymemuc._command.zoom_in_vm
+#: pymemuc._command.zoom_out_vm pymemuc._control.reboot_vm
+#: pymemuc._control.start_vm pymemuc._control.stop_all_vm
+#: pymemuc._control.stop_vm pymemuc._manage.clone_vm pymemuc._manage.create_vm
+#: pymemuc._manage.delete_vm pymemuc._manage.export_vm
+#: pymemuc._manage.get_configuration_vm pymemuc._manage.import_vm
+#: pymemuc._manage.list_vm_info pymemuc._manage.rename_vm
+#: pymemuc._manage.set_configuration_vm pymemuc._manage.vm_is_running
+#: pymemuc._memuc.check_task_status pymemuc._memuc.memuc_run
+msgid "Return type"
+msgstr ""
+
+#: of pymemuc._command.connect_internet_vm:1
+msgid "Connect the internet on a VM, must specify either a vm index or a vm name"
+msgstr ""
+
+#: of pymemuc._command.connect_internet_vm:8
+msgid "True if the vm internet connection was successful"
+msgstr ""
+
+#: of pymemuc._command.create_app_shortcut_vm:1
+msgid ""
+"Create an app shortcut on a VM, must specify either a vm index or a vm "
+"name"
+msgstr ""
+
+#: of pymemuc._command.create_app_shortcut_vm:3
+msgid "Package name"
+msgstr ""
+
+#: of pymemuc._command.create_app_shortcut_vm:10
+#: pymemuc._command.send_adb_command_vm:12
+msgid "an error if the command times out"
+msgstr ""
+
+#: of pymemuc._command.create_app_shortcut_vm:11
+#: pymemuc._command.disconnect_internet_vm:8
+#: pymemuc._command.execute_command_vm:10 pymemuc._command.get_public_ip_vm:8
+#: pymemuc._command.send_adb_command_vm:13
+#: pymemuc._command.set_accelerometer_vm:10 pymemuc._command.sort_out_all_vm:3
+#: pymemuc._memuc.check_task_status:5
+msgid "the return code and the output of the command."
+msgstr ""
+
+#: of pymemuc._command.disconnect_internet_vm:1
+msgid ""
+"Disconnect the internet on a VM, must specify either a vm index or a vm "
+"name"
+msgstr ""
+
+#: of pymemuc._command.execute_command_vm:1
+msgid "Execute a command on a VM, must specify either a vm index or a vm name"
+msgstr ""
+
+#: of pymemuc._command.execute_command_vm:3
+msgid "Command to execute"
+msgstr ""
+
+#: of pymemuc._command.get_app_info_list_vm:1
+msgid ""
+"Get the list of apps installed on a VM, must specify either a vm index or"
+" a vm name"
+msgstr ""
+
+#: of pymemuc._command.get_app_info_list_vm:7
+msgid "Timeout for the command. Defaults to 10."
+msgstr ""
+
+#: of pymemuc._command.get_app_info_list_vm:10
+msgid "the list of packages installed on the VM"
+msgstr ""
+
+#: of pymemuc._command.get_public_ip_vm:1
+msgid "Get the public IP of a VM, must specify either a vm index or a vm name"
+msgstr ""
+
+#: of pymemuc._command.input_text_vm:1
+msgid "Input text on a VM, must specify either a vm index or a vm name"
+msgstr ""
+
+#: of pymemuc._command.input_text_vm:3
+msgid "Text to input"
+msgstr ""
+
+#: of pymemuc._command.input_text_vm:10
+msgid "True if the vm text input was successful"
+msgstr ""
+
+#: of pymemuc._command.install_apk_vm:1
+msgid "Install an APK on a VM, must specify either a vm index or a vm name"
+msgstr ""
+
+#: of pymemuc._command.install_apk_vm:3
+msgid "Path to the APK"
+msgstr ""
+
+#: of pymemuc._command.install_apk_vm:9
+msgid "Whether to create a shortcut. Defaults to False."
+msgstr ""
+
+#: of pymemuc._command.install_apk_vm:12
+msgid "True if the vm apk installation was successful"
+msgstr ""
+
+#: of pymemuc._command.rotate_window_vm:1
+msgid "Rotate the window on a VM, must specify either a vm index or a vm name"
+msgstr ""
+
+#: of pymemuc._command.rotate_window_vm:6
+msgid "True if the vm window rotation was successful"
+msgstr ""
+
+#: of pymemuc._command.send_adb_command_vm:1
+msgid "Send an ADB command to a VM, must specify either a vm index or a vm name"
+msgstr ""
+
+#: of pymemuc._command.send_adb_command_vm:3
+msgid "ADB command"
+msgstr ""
+
+#: of pymemuc._command.send_adb_command_vm:9
+msgid "Timeout for the command. Defaults to None."
+msgstr ""
+
+#: of pymemuc._command.set_accelerometer_vm:1
+msgid "Set the accelerometer on a VM, must specify either a vm index or a vm name"
+msgstr ""
+
+#: of pymemuc._command.set_accelerometer_vm:3
+msgid "the accelerometer value to set"
+msgstr ""
+
+#: of pymemuc._command.sort_out_all_vm:1
+msgid "Sort out all VMs"
+msgstr ""
+
+#: of pymemuc._command.start_app_vm:1
+msgid "Start an app on a VM, must specify either a vm index or a vm name"
+msgstr ""
+
+#: of pymemuc._command.start_app_vm:3 pymemuc._command.stop_app_vm:3
+#: pymemuc._command.uninstall_apk_vm:3
+msgid "Package name of the APK"
+msgstr ""
+
+#: of pymemuc._command.start_app_vm:10
+msgid "True if the vm app start was successful"
+msgstr ""
+
+#: of pymemuc._command.stop_app_vm:1
+msgid "Stop an app on a VM, must specify either a vm index or a vm name"
+msgstr ""
+
+#: of pymemuc._command.stop_app_vm:10
+msgid "True if the vm app stop was successful"
+msgstr ""
+
+#: of pymemuc._command.trigger_keystroke_vm:1
+msgid "Trigger a keystroke on a VM, must specify either a vm index or a vm name"
+msgstr ""
+
+#: of pymemuc._command.trigger_keystroke_vm:3
+msgid "Key to trigger"
+msgstr ""
+
+#: of pymemuc._command.trigger_keystroke_vm:10
+msgid "True if the vm keystroke trigger was successful"
+msgstr ""
+
+#: of pymemuc._command.trigger_shake_vm:1
+msgid "Trigger a shake on a VM, must specify either a vm index or a vm name"
+msgstr ""
+
+#: of pymemuc._command.trigger_shake_vm:8
+msgid "True if the vm shake trigger was successful"
+msgstr ""
+
+#: of pymemuc._command.uninstall_apk_vm:1
+msgid "Uninstall an APK on a VM, must specify either a vm index or a vm name"
+msgstr ""
+
+#: of pymemuc._command.uninstall_apk_vm:10
+msgid "True if the vm apk uninstallation was successful"
+msgstr ""
+
+#: of pymemuc._command.zoom_in_vm:1
+msgid "Zoom in on a VM, must specify either a vm index or a vm name"
+msgstr ""
+
+#: of pymemuc._command.zoom_in_vm:8
+msgid "True if the vm zoom in was successful"
+msgstr ""
+
+#: of pymemuc._command.zoom_out_vm:1
+msgid "Zoom out on a VM, must specify either a vm index or a vm name"
+msgstr ""
+
+#: of pymemuc._command.zoom_out_vm:8
+msgid "True if the vm zoom out was successful"
+msgstr ""
+
+#: of pymemuc._control.reboot_vm:1
+msgid "Reboot a VM, must specify either a vm index or a vm name"
+msgstr ""
+
+#: of pymemuc._control.reboot_vm:7 pymemuc._control.start_vm:7
+#: pymemuc._control.stop_all_vm:3 pymemuc._control.stop_vm:7
+#: pymemuc._manage.export_vm:9 pymemuc._manage.import_vm:5
+msgid "Whether to run the command in the background. Defaults to False."
+msgstr ""
+
+#: of pymemuc._control.reboot_vm:10
+msgid "True if the vm was rebooted successfully"
+msgstr ""
+
+#: of pymemuc._control.start_vm:1
+msgid "Start a VM, must specify either a vm index or a vm name"
+msgstr ""
+
+#: of pymemuc._control.start_vm:9 pymemuc._control.stop_all_vm:5
+#: pymemuc._control.stop_vm:9
+msgid "Timeout in seconds. Cannot be used if non blocking. Defaults to None."
+msgstr ""
+
+#: of pymemuc._control.start_vm:12
+msgid "True if the vm was started successfully"
+msgstr ""
+
+#: of pymemuc._control.stop_all_vm:1
+msgid "Stop all VMs"
+msgstr ""
+
+#: of pymemuc._control.stop_all_vm:7
+msgid "an error if the vm stop failed"
+msgstr ""
+
+#: of pymemuc._control.stop_all_vm:8 pymemuc._control.stop_vm:12
+msgid "True if the vm was stopped successfully"
+msgstr ""
+
+#: of pymemuc._control.stop_vm:1
+msgid "Stop a VM, must specify either a vm index or a vm name"
+msgstr ""
+
+#: of pymemuc._manage.clone_vm:1
+msgid "Clone a VM, must specify either a vm index or a vm name"
+msgstr ""
+
+#: of pymemuc._manage.clone_vm:7
+msgid "Cloned VM name. Defaults to None."
+msgstr ""
+
+#: of pymemuc._manage.clone_vm:10
+msgid "True if the vm was cloned successfully"
+msgstr ""
+
+#: of pymemuc._manage.create_vm:1
+msgid "Create a new VM"
+msgstr ""
+
+#: of pymemuc._manage.create_vm:3
+msgid "Android version. Defaults to \"76\"."
+msgstr ""
+
+#: of pymemuc._manage.create_vm:5
+msgid "an error if the vm creation failed"
+msgstr ""
+
+#: of pymemuc._manage.create_vm:6
+msgid ""
+"the index of the new VM, -1 if an error occurred but no exception was "
+"raised"
+msgstr ""
+
+#: of pymemuc._manage.delete_vm:1
+msgid "Delete a VM, must specify either a vm index or a vm name"
+msgstr ""
+
+#: of pymemuc._manage.delete_vm:8
+msgid "True if the vm was deleted successfully"
+msgstr ""
+
+#: of pymemuc._manage.export_vm:1
+msgid "Export a VM, must specify either a vm index or a vm name"
+msgstr ""
+
+#: of pymemuc._manage.export_vm:7 pymemuc._manage.import_vm:3
+msgid "File name. Defaults to \"vm.ova\"."
+msgstr ""
+
+#: of pymemuc._manage.export_vm:12 pymemuc._memuc.memuc_run:12
+msgid "the return code and the output of the command"
+msgstr ""
+
+#: of pymemuc._manage.get_configuration_vm:1
+msgid "Get a VM configuration, must specify either a vm index or a vm name"
+msgstr ""
+
+#: of pymemuc._manage.get_configuration_vm:3
+#: pymemuc._manage.set_configuration_vm:3
+msgid ""
+"Configuration key, keys are noted in `configuration keys table "
+"<https://pymemuc.readthedocs.io/pymemuc.html#the-vm-configuration-keys-"
+"table>`_"
+msgstr ""
+
+#: of pymemuc._manage.get_configuration_vm:11
+msgid "The configuration value"
+msgstr ""
+
+#: of pymemuc._manage.import_vm:1
+msgid "Import a VM from a file"
+msgstr ""
+
+#: of pymemuc._manage.import_vm:7
+msgid "an error if the vm import failed"
+msgstr ""
+
+#: of pymemuc._manage.import_vm:8
+msgid "True if the vm was imported successfully"
+msgstr ""
+
+#: of pymemuc._manage.list_vm_info:1
+msgid "List VM info, must specify either a vm index or a vm name"
+msgstr ""
+
+#: of pymemuc._manage.list_vm_info:7
+msgid "Whether to list only running VMs. Defaults to False."
+msgstr ""
+
+#: of pymemuc._manage.list_vm_info:9
+msgid "Whether to list disk info. Defaults to False."
+msgstr ""
+
+#: of pymemuc._manage.list_vm_info:12
+msgid ""
+"a list of VM info, each VM info is a dictionary with the following keys: "
+"index: VM index title: VM title top_level: VM top level running: whether "
+"the VM is running pid: VM pid disk_usage: VM disk usage"
+msgstr ""
+
+#: of pymemuc._manage.rename_vm:1
+msgid "Rename a VM, must specify either a vm index or a vm name"
+msgstr ""
+
+#: of pymemuc._manage.rename_vm:7
+msgid "New VM name. Defaults to None."
+msgstr ""
+
+#: of pymemuc._manage.rename_vm:9
+msgid "an error if neither a vm index or name is specified"
+msgstr ""
+
+#: of pymemuc._manage.rename_vm:10
+msgid "an error if the vm rename failed"
+msgstr ""
+
+#: of pymemuc._manage.rename_vm:11
+msgid "True if the vm was renamed successfully"
+msgstr ""
+
+#: of pymemuc._manage.set_configuration_vm:1
+msgid "Set a VM configuration, must specify either a vm index or a vm name"
+msgstr ""
+
+#: of pymemuc._manage.set_configuration_vm:6
+msgid "Configuration value"
+msgstr ""
+
+#: of pymemuc._manage.set_configuration_vm:13
+msgid "True if the vm configuration was set successfully"
+msgstr ""
+
+#: of pymemuc._manage.vm_is_running:1
+msgid "Check if a VM is running"
+msgstr ""
+
+#: of pymemuc._manage.vm_is_running:3
+msgid "VM index. Defaults to 0."
+msgstr ""
+
+#: of pymemuc._manage.vm_is_running:5
+msgid "True if the VM is running, False otherwise"
+msgstr ""
+
+#: of pymemuc._memuc.check_task_status:1
+msgid "Check the status of a task"
+msgstr ""
+
+#: of pymemuc._memuc.check_task_status:3
+msgid "Asynchronous task ID"
+msgstr ""
+
+#: of pymemuc._memuc.memuc_run:1
+msgid ""
+"run a command with memuc.exe. Memuc can support non-blocking commands, "
+"returning a task id. A timeout can be specified if memuc is expected to "
+"hang, but this will not work with non-blocking commands."
+msgstr ""
+
+#: of pymemuc._memuc.memuc_run:6
+msgid "a list of arguments to pass to memuc.exe"
+msgstr ""
+
+#: of pymemuc._memuc.memuc_run:8
+msgid "whether to run the command in the background. Defaults to False."
+msgstr ""
+
+#: of pymemuc._memuc.memuc_run:10
+msgid "the timeout in seconds. Defaults to None for no timeout."
+msgstr ""
+
+#: of pymemuc._memuc.memuc_run:14
+msgid "an error if the command failed"
+msgstr ""
+
+#: of pymemuc._memuc.memuc_run:15
+msgid "an error if the command timed out"
+msgstr ""
+
+#: of pymemuc.pymemuc.PyMemuc.__init__:1
+msgid ""
+"initialize the class, automatically finding memuc.exe if windows registry"
+" is supported, otherwise a path must be specified"
+msgstr ""
+
+#: ../../source/pymemuc.rst:18
+msgid "The ``VM Configuration Keys`` table"
+msgstr ""
+
+#: ../../source/pymemuc.rst:19
+msgid "VM Configuration Keys"
+msgstr ""
+
+#: ../../source/pymemuc.rst:1
+msgid "Key"
+msgstr ""
+
+#: ../../source/pymemuc.rst:1
+msgid "Description"
+msgstr ""
+
+#: ../../source/tables/vm_config_keys.csv:1
+msgid "``name``"
+msgstr ""
+
+#: ../../source/tables/vm_config_keys.csv:1
+msgid "The name of the VM."
+msgstr ""
+
+#: ../../source/tables/vm_config_keys.csv:1
+msgid "``cpus``"
+msgstr ""
+
+#: ../../source/tables/vm_config_keys.csv:1
+msgid "The number of CPUs to allocate to the VM."
+msgstr ""
+
+#: ../../source/tables/vm_config_keys.csv:1
+msgid "``cpucap``"
+msgstr ""
+
+#: ../../source/tables/vm_config_keys.csv:1
+msgid "The CPU cap to allocate to the VM. (``0``-``100``)"
+msgstr ""
+
+#: ../../source/tables/vm_config_keys.csv:1
+msgid "``memory``"
+msgstr ""
+
+#: ../../source/tables/vm_config_keys.csv:1
+msgid "The amount of memory to allocate to the VM. (Unit: MB)"
+msgstr ""
+
+#: ../../source/tables/vm_config_keys.csv:1
+msgid "``is_full_screen``"
+msgstr ""
+
+#: ../../source/tables/vm_config_keys.csv:1
+msgid "Whether the VM should be started in full screen mode. (``1``, ``0``)"
+msgstr ""
+
+#: ../../source/tables/vm_config_keys.csv:1
+msgid "``is_hide_toolbar``"
+msgstr ""
+
+#: ../../source/tables/vm_config_keys.csv:1
+msgid "Whether the VM's toolbar should be hidden. (``1``, ``0``)"
+msgstr ""
+
+#: ../../source/tables/vm_config_keys.csv:1
+msgid "``turbo_mode``"
+msgstr ""
+
+#: ../../source/tables/vm_config_keys.csv:1
+msgid "Whether the VM should be started in turbo mode. (``1``, ``0``)"
+msgstr ""
+
+#: ../../source/tables/vm_config_keys.csv:1
+msgid "``graphics_render_mode``"
+msgstr ""
+
+#: ../../source/tables/vm_config_keys.csv:1
+msgid "The graphics render mode to use. (``1``:DirectX, ``0``:OpenGL)"
+msgstr ""
+
+#: ../../source/tables/vm_config_keys.csv:1
+msgid "``enable_su``"
+msgstr ""
+
+#: ../../source/tables/vm_config_keys.csv:1
+msgid ""
+"Whether the VM should be started with super user privileges. (``1``, "
+"``0``)"
+msgstr ""
+
+#: ../../source/tables/vm_config_keys.csv:1
+msgid "``enable_audio``"
+msgstr ""
+
+#: ../../source/tables/vm_config_keys.csv:1
+msgid "Whether the VM should be started with audio support. (``1``, ``0``)"
+msgstr ""
+
+#: ../../source/tables/vm_config_keys.csv:1
+msgid "``fps``"
+msgstr ""
+
+#: ../../source/tables/vm_config_keys.csv:1
+msgid "The VM's frames per second. (``0``-``100``)"
+msgstr ""
+
+#: ../../source/tables/vm_config_keys.csv:1
+msgid "``virtual_keyboard_mode``"
+msgstr ""
+
+#: ../../source/tables/vm_config_keys.csv:1
+msgid "The VM's virtual keyboard mode. (``0``, ``1``)"
+msgstr ""
+
+#: ../../source/tables/vm_config_keys.csv:1
+msgid "``sync_time``"
+msgstr ""
+
+#: ../../source/tables/vm_config_keys.csv:1
+msgid "Whether the VM should be started with time synchronization. (``1``, ``0``)"
+msgstr ""
+
+#: ../../source/tables/vm_config_keys.csv:1
+msgid "``phone_layout``"
+msgstr ""
+
+#: ../../source/tables/vm_config_keys.csv:1
+msgid "The VM's phone layout. (``2``: Toolbar, ``1``: Right, ``0``: Bottom)"
+msgstr ""
+
+#: ../../source/tables/vm_config_keys.csv:1
+msgid "``start_window_mode``"
+msgstr ""
+
+#: ../../source/tables/vm_config_keys.csv:1
+msgid ""
+"The VM's start window mode. (``2``: Custom, ``1``: Last time, ``0``: "
+"Default)"
+msgstr ""
+
+#: ../../source/tables/vm_config_keys.csv:1
+msgid "``win_x``"
+msgstr ""
+
+#: ../../source/tables/vm_config_keys.csv:1
+msgid ""
+"The VM's window X offset from upper-left corner. (``start_window_mode`` "
+"!= ``0``) (Unit: Pixel)"
+msgstr ""
+
+#: ../../source/tables/vm_config_keys.csv:1
+msgid "``win_y``"
+msgstr ""
+
+#: ../../source/tables/vm_config_keys.csv:1
+msgid ""
+"The VM's window Y offset from upper-left corner. (``start_window_mode`` "
+"!= ``0``) (Unit: Pixel)"
+msgstr ""
+
+#: ../../source/tables/vm_config_keys.csv:1
+msgid "``win_scaling_percent2``"
+msgstr ""
+
+#: ../../source/tables/vm_config_keys.csv:1
+msgid "The VM's window scaling percentage. (Unit: %)"
+msgstr ""
+
+#: ../../source/tables/vm_config_keys.csv:1
+msgid "``is_custom_resolution``"
+msgstr ""
+
+#: ../../source/tables/vm_config_keys.csv:1
+msgid "Whether the VM should be started with a custom resolution. (``1``, ``0``)"
+msgstr ""
+
+#: ../../source/tables/vm_config_keys.csv:1
+msgid "``resolution_width``"
+msgstr ""
+
+#: ../../source/tables/vm_config_keys.csv:1
+msgid ""
+"The VM's custom resolution width. (``is_custom_resolution`` == ``1``) "
+"(Unit: Pixel)"
+msgstr ""
+
+#: ../../source/tables/vm_config_keys.csv:1
+msgid "``resolution_height``"
+msgstr ""
+
+#: ../../source/tables/vm_config_keys.csv:1
+msgid ""
+"The VM's custom resolution height. (``is_custom_resolution`` == ``1``) "
+"(Unit: Pixel)"
+msgstr ""
+
+#: ../../source/tables/vm_config_keys.csv:1
+msgid "``vbox_dpi``"
+msgstr ""
+
+#: ../../source/tables/vm_config_keys.csv:1
+msgid "The VM's virtual box DPI. (``is_custom_resolution`` == ``1``) (Unit: DPI)"
+msgstr ""
+
+#: ../../source/tables/vm_config_keys.csv:1
+msgid "``linenum``"
+msgstr ""
+
+#: ../../source/tables/vm_config_keys.csv:1
+msgid "The VM's phone number."
+msgstr ""
+
+#: ../../source/tables/vm_config_keys.csv:1
+msgid "``imei``"
+msgstr ""
+
+#: ../../source/tables/vm_config_keys.csv:1
+msgid "The VM's IMEI."
+msgstr ""
+
+#: ../../source/tables/vm_config_keys.csv:1
+msgid "``imsi``"
+msgstr ""
+
+#: ../../source/tables/vm_config_keys.csv:1
+msgid "The VM's IMSI."
+msgstr ""
+
+#: ../../source/tables/vm_config_keys.csv:1
+msgid "``simserial``"
+msgstr ""
+
+#: ../../source/tables/vm_config_keys.csv:1
+msgid "The VM's SIM serial number."
+msgstr ""
+
+#: ../../source/tables/vm_config_keys.csv:1
+msgid "``microvirt_vm_brand``"
+msgstr ""
+
+#: ../../source/tables/vm_config_keys.csv:1
+msgid "The VM's brand."
+msgstr ""
+
+#: ../../source/tables/vm_config_keys.csv:1
+msgid "``microvirt_vm_model``"
+msgstr ""
+
+#: ../../source/tables/vm_config_keys.csv:1
+msgid "The VM's model."
+msgstr ""
+
+#: ../../source/tables/vm_config_keys.csv:1
+msgid "``microvirt_vm_manufacturer``"
+msgstr ""
+
+#: ../../source/tables/vm_config_keys.csv:1
+msgid "The VM's manufacturer."
+msgstr ""
+
+#: ../../source/tables/vm_config_keys.csv:1
+msgid "``selected_map``"
+msgstr ""
+
+#: ../../source/tables/vm_config_keys.csv:1
+msgid "The VM's selected gps provider. (``0``: Google, ``1``: Baidu)"
+msgstr ""
+
+#: ../../source/tables/vm_config_keys.csv:1
+msgid "``latitude``"
+msgstr ""
+
+#: ../../source/tables/vm_config_keys.csv:1
+msgid "The VM's gps latitude. (Unit: Degree)"
+msgstr ""
+
+#: ../../source/tables/vm_config_keys.csv:1
+msgid "``longitude``"
+msgstr ""
+
+#: ../../source/tables/vm_config_keys.csv:1
+msgid "The VM's gps longitude. (Unit: Degree)"
+msgstr ""
+
+#: ../../source/tables/vm_config_keys.csv:1
+msgid "``picturepath``"
+msgstr ""
+
+#: ../../source/tables/vm_config_keys.csv:1
+msgid "The path to the VM's shared picture path."
+msgstr ""
+
+#: ../../source/tables/vm_config_keys.csv:1
+msgid "``musicpath``"
+msgstr ""
+
+#: ../../source/tables/vm_config_keys.csv:1
+msgid "The path to the VM's shared music path."
+msgstr ""
+
+#: ../../source/tables/vm_config_keys.csv:1
+msgid "``moviepath``"
+msgstr ""
+
+#: ../../source/tables/vm_config_keys.csv:1
+msgid "The path to the VM's shared movie path."
+msgstr ""
+
+#: ../../source/tables/vm_config_keys.csv:1
+msgid "``downloadpath``"
+msgstr ""
+
+#: ../../source/tables/vm_config_keys.csv:1
+msgid "The path to the VM's shared download path."
+msgstr ""
+
+#: ../../source/pymemuc.rst:28
+msgid "The ``VMInfo`` type"
+msgstr ""
+
+#: of pymemuc.vminfo.VMInfo:1
+msgid "Bases: :py:class:`~typing.TypedDict`"
+msgstr ""
+
+#: of pymemuc.vminfo.VMInfo:1
+msgid "A TypedDict for VM info"
+msgstr ""
+
+#: ../../docstring of pymemuc.vminfo.VMInfo.index:1
+msgid "VM index"
+msgstr ""
+
+#: ../../docstring of pymemuc.vminfo.VMInfo.title:1
+msgid "VM title"
+msgstr ""
+
+#: ../../docstring of pymemuc.vminfo.VMInfo.top_level:1
+msgid "VM top level window"
+msgstr ""
+
+#: ../../docstring of pymemuc.vminfo.VMInfo.running:1
+msgid "VM is running"
+msgstr ""
+
+#: ../../docstring of pymemuc.vminfo.VMInfo.pid:1
+msgid "VM process ID"
+msgstr ""
+
+#: ../../docstring of pymemuc.vminfo.VMInfo.disk_usage:1
+msgid "VM disk usage in bytes"
+msgstr ""
