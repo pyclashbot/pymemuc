@@ -7,8 +7,10 @@ sys.path.insert(0, os.path.abspath("../.."))
 
 
 project = "pymemuc"
-copyright = "2022, Martin Miglio"  # noqa #pylint: disable=redefined-builtin
+copyright = "2023, Martin Miglio"  # noqa #pylint: disable=redefined-builtin
 author = "Martin Miglio"
+
+locale_dirs = ["locales/"]
 
 extensions = [
     "sphinx.ext.todo",
