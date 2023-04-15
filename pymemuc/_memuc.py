@@ -74,7 +74,7 @@ def memuc_run(
     try:
         with Popen(
             args,
-            shell=True,
+            shell=False,
             stdout=PIPE,
             stderr=STDOUT,
             close_fds=True,
