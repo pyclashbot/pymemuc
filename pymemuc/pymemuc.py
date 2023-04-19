@@ -49,6 +49,7 @@ class PyMemuc:
         get_configuration_vm,
         import_vm,
         list_vm_info,
+        randomize_vm,
         rename_vm,
         set_configuration_vm,
         vm_is_running,

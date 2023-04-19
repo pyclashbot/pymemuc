@@ -341,3 +341,28 @@ def set_configuration_vm(
     if not success:
         raise PyMemucError(f"Failed to set VM configuration: {output}")
     return True
+
+
+def randomize_vm(
+    self: "PyMemuc", vm_index: Union[int, None] = None, vm_name: Union[str, None] = None
+) -> Literal[True]:
+    """Randomize a VM, must specify either a vm index or a vm name
+
+    :param vm_index: VM index. Defaults to None.
+    :type vm_index: int, optional
+    :param vm_name: VM name. Defaults to None.
+    :type vm_name: str, optional
+    :raises PyMemucIndexError: an error if neither a vm index or a vm name is specified
+    :return: True if the vm was randomized successfully
+    :rtype: Literal[True]
+    """
+    if vm_index is not None:
+        status, output = self.memuc_run(["-i", str(vm_index), "randomize"])
+    elif vm_name is not None:
+        status, output = self.memuc_run(["-n", vm_name, "randomize"])
+    else:
+        raise PyMemucIndexError("Please specify either a vm index or a vm name")
+    success = status == 0 and output is not None and "SUCCESS" in output
+    if not success:
+        raise PyMemucError(f"Failed to randomize VM: {output}")
+    return True
