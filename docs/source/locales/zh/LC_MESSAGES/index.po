@@ -57,8 +57,7 @@ msgstr "python 中 `MEmu Command <https://www.memuplay.com/blog/memucommand-"
 msgid ""
 "Allows for easy interaction with MEmu VMs, including VM image management,"
 " VM control, running VM commands and ADB interaction."
-msgstr "允许与 MEmu 虚拟机轻松交互，包括虚拟机镜像管理，
-虚拟机控制，运行虚拟机命令并与ADB交互。"
+msgstr "允许与 MEmu 虚拟机轻松交互，包括虚拟机镜像管理，虚拟机控制，运行虚拟机命令并与ADB交互。"
 
 #: ../../source/index.rst:31
 msgid "Contents"
