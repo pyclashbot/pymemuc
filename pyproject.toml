@@ -16,7 +16,7 @@ classifiers = [
     "Topic :: Software Development :: Libraries :: Python Modules"
 ]
 keywords = ["memu", "memuc", "wrapper", "api"]
-repository = "https://github.com/marmig0404/pymemuc"
+repository = "https://github.com/martinmiglio/pymemuc"
 documentation = "https://pymemuc.readthedocs.io/"
 
 

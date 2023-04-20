@@ -19,8 +19,8 @@ pymemuc
    :alt: PyPI - Python Version
    :target: https://pypi.org/project/pymemuc/
 
-.. image:: https://www.codefactor.io/repository/github/marmig0404/pymemuc/badge
-   :target: https://www.codefactor.io/repository/github/marmig0404/pymemuc
+.. image:: https://www.codefactor.io/repository/github/martinmiglio/pymemuc/badge
+   :target: https://www.codefactor.io/repository/github/martinmiglio/pymemuc
    :alt: CodeFactor
 
 A wrapper for `MEmu Command <https://www.memuplay.com/blog/memucommand-reference-manual.html>`_ in python.
@@ -38,8 +38,8 @@ Contents
 Contribute
 ----------
 
-- If you are having any problems or wish to see added features, `find or open an issue <https://github.com/marmig0404/pymemuc/issues>`_.
-- Looking to contribute directly? Open a pull request in the `repository <https://github.com/marmig0404/pymemuc>`_.
+- If you are having any problems or wish to see added features, `find or open an issue <https://github.com/martinmiglio/pymemuc/issues>`_.
+- Looking to contribute directly? Open a pull request in the `repository <https://github.com/martinmiglio/pymemuc>`_.
 
 Support
 -------

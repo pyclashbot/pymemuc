@@ -70,14 +70,14 @@ msgstr "贡献"
 #: ../../source/index.rst:41
 msgid ""
 "If you are having any problems or wish to see added features, `find or "
-"open an issue <https://github.com/marmig0404/pymemuc/issues>`_."
-msgstr "如果您有任何问题或希望看到添加的功能，`查找或打开一个问题 <https://github.com/marmig0404/pymemuc/issues>`_"
+"open an issue <https://github.com/martinmiglio/pymemuc/issues>`_."
+msgstr "如果您有任何问题或希望看到添加的功能，`查找或打开一个问题 <https://github.com/martinmiglio/pymemuc/issues>`_"
 
 #: ../../source/index.rst:42
 msgid ""
 "Looking to contribute directly? Open a pull request in the `repository "
-"<https://github.com/marmig0404/pymemuc>`_."
-msgstr "希望直接贡献？在 `存储库 <https://github.com/marmig0404/pymemuc>`_ 中打开拉取请求"
+"<https://github.com/martinmiglio/pymemuc>`_."
+msgstr "希望直接贡献？在 `存储库 <https://github.com/martinmiglio/pymemuc>`_ 中打开拉取请求"
 
 #: ../../source/index.rst:45
 msgid "Support"

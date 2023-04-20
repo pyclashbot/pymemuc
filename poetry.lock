@@ -1698,18 +1698,6 @@ docs = ["furo (>=2022.12.7)", "proselint (>=0.13)", "sphinx (>=6.1.3)", "sphinx-
 test = ["appdirs (==1.4.4)", "covdefaults (>=2.3)", "pytest (>=7.2.2)", "pytest-cov (>=4)", "pytest-mock (>=3.10)"]
 
 [[package]]
-name = "poetry-semver"
-version = "0.1.0"
-description = "A semantic versioning library for Python"
-category = "dev"
-optional = false
-python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*"
-files = [
-    {file = "poetry-semver-0.1.0.tar.gz", hash = "sha256:d809b612aa27b39bf2d0fc9d31b4f4809b0e972646c5f19cfa46c725b7638810"},
-    {file = "poetry_semver-0.1.0-py2.py3-none-any.whl", hash = "sha256:4e6349bd7231cc657f0e1930f7b204e87e33dfd63eef5cac869363969515083a"},
-]
-
-[[package]]
 name = "pre-commit"
 version = "3.2.2"
 description = "A framework for managing and maintaining multi-language pre-commit hooks."
@@ -2265,20 +2253,20 @@ requests = ">=2.0.1,<3.0.0"
 
 [[package]]
 name = "requirements-detector"
-version = "1.1.0"
+version = "1.2.1"
 description = "Python tool to find and list requirements of a Python project"
 category = "dev"
 optional = false
 python-versions = ">=3.7,<4.0"
 files = [
-    {file = "requirements_detector-1.1.0-py3-none-any.whl", hash = "sha256:9af62db621c95e0176fed029079924e648de22cd0bb4189c441b9376942faab1"},
-    {file = "requirements_detector-1.1.0.tar.gz", hash = "sha256:246bd23867c12061eadb346a6fe2e616f0b64e681936154a76c494a27cda3ea8"},
+    {file = "requirements_detector-1.2.1-py3-none-any.whl", hash = "sha256:ae4aa170106e8940482fd450e0fafbae1e3627b0ea15b852a191c509e6f8c4db"},
+    {file = "requirements_detector-1.2.1.tar.gz", hash = "sha256:3c3f2eaf40f86337b07826be65ee2a413a6337da2484a887523c816a921f04b6"},
 ]
 
 [package.dependencies]
 astroid = ">=2.0,<3.0"
 packaging = ">=21.3"
-poetry-semver = ">=0.1.0,<0.2.0"
+semver = ">=3.0.0,<4.0.0"
 toml = ">=0.10.2,<0.11.0"
 
 [[package]]
@@ -2332,6 +2320,18 @@ cryptography = ">=2.0"
 jeepney = ">=0.6"
 
 [[package]]
+name = "semver"
+version = "3.0.0"
+description = "Python helper for Semantic Versioning (https://semver.org)"
+category = "dev"
+optional = false
+python-versions = ">=3.7"
+files = [
+    {file = "semver-3.0.0-py3-none-any.whl", hash = "sha256:ab4f69fb1d1ecfb5d81f96411403d7a611fa788c45d252cf5b408025df3ab6ce"},
+    {file = "semver-3.0.0.tar.gz", hash = "sha256:94df43924c4521ec7d307fc86da1531db6c2c33d9d5cdc3e64cca0eb68569269"},
+]
+
+[[package]]
 name = "setoptconf-tmp"
 version = "0.3.1"
 description = "A module for retrieving program settings from various sources in a consistant method."
@@ -2348,14 +2348,14 @@ yaml = ["pyyaml"]
 
 [[package]]
 name = "setuptools"
-version = "67.6.1"
+version = "67.7.0"
 description = "Easily download, build, install, upgrade, and uninstall Python packages"
 category = "dev"
 optional = false
 python-versions = ">=3.7"
 files = [
-    {file = "setuptools-67.6.1-py3-none-any.whl", hash = "sha256:e728ca814a823bf7bf60162daf9db95b93d532948c4c0bea762ce62f60189078"},
-    {file = "setuptools-67.6.1.tar.gz", hash = "sha256:257de92a9d50a60b8e22abfcbb771571fde0dbf3ec234463212027a4eeecbe9a"},
+    {file = "setuptools-67.7.0-py3-none-any.whl", hash = "sha256:888be97fde8cc3afd60f7784e678fa29ee13c4e5362daa7104a93bba33646c50"},
+    {file = "setuptools-67.7.0.tar.gz", hash = "sha256:b7e53a01c6c654d26d2999ee033d8c6125e5fa55f03b7b193f937ae7ac999f22"},
 ]
 
 [package.extras]
@@ -2783,24 +2783,24 @@ socks = ["PySocks (>=1.5.6,!=1.5.7,<2.0)"]
 
 [[package]]
 name = "virtualenv"
-version = "20.21.0"
+version = "20.22.0"
 description = "Virtual Python Environment builder"
 category = "dev"
 optional = false
 python-versions = ">=3.7"
 files = [
-    {file = "virtualenv-20.21.0-py3-none-any.whl", hash = "sha256:31712f8f2a17bd06234fa97fdf19609e789dd4e3e4bf108c3da71d710651adbc"},
-    {file = "virtualenv-20.21.0.tar.gz", hash = "sha256:f50e3e60f990a0757c9b68333c9fdaa72d7188caa417f96af9e52407831a3b68"},
+    {file = "virtualenv-20.22.0-py3-none-any.whl", hash = "sha256:48fd3b907b5149c5aab7c23d9790bea4cac6bc6b150af8635febc4cfeab1275a"},
+    {file = "virtualenv-20.22.0.tar.gz", hash = "sha256:278753c47aaef1a0f14e6db8a4c5e1e040e90aea654d0fc1dc7e0d8a42616cc3"},
 ]
 
 [package.dependencies]
 distlib = ">=0.3.6,<1"
-filelock = ">=3.4.1,<4"
-platformdirs = ">=2.4,<4"
+filelock = ">=3.11,<4"
+platformdirs = ">=3.2,<4"
 
 [package.extras]
-docs = ["furo (>=2022.12.7)", "proselint (>=0.13)", "sphinx (>=6.1.3)", "sphinx-argparse (>=0.4)", "sphinxcontrib-towncrier (>=0.2.1a0)", "towncrier (>=22.12)"]
-test = ["covdefaults (>=2.2.2)", "coverage (>=7.1)", "coverage-enable-subprocess (>=1)", "flaky (>=3.7)", "packaging (>=23)", "pytest (>=7.2.1)", "pytest-env (>=0.8.1)", "pytest-freezegun (>=0.4.2)", "pytest-mock (>=3.10)", "pytest-randomly (>=3.12)", "pytest-timeout (>=2.1)"]
+docs = ["furo (>=2023.3.27)", "proselint (>=0.13)", "sphinx (>=6.1.3)", "sphinx-argparse (>=0.4)", "sphinxcontrib-towncrier (>=0.2.1a0)", "towncrier (>=22.12)"]
+test = ["covdefaults (>=2.3)", "coverage (>=7.2.3)", "coverage-enable-subprocess (>=1)", "flaky (>=3.7)", "packaging (>=23.1)", "pytest (>=7.3.1)", "pytest-env (>=0.8.1)", "pytest-freezegun (>=0.4.2)", "pytest-mock (>=3.10)", "pytest-randomly (>=3.12)", "pytest-timeout (>=2.1)"]
 
 [[package]]
 name = "wcwidth"
