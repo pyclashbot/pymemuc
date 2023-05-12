@@ -1,6 +1,6 @@
 """This module contains functions for commanding running virtual machines with memuc.exe.
 Functions for interacting with running VMs are defined here."""
-from typing import TYPE_CHECKING, Literal, Union
+from typing import TYPE_CHECKING, Literal, Tuple, Union
 
 from .exceptions import PyMemucError, PyMemucIndexError, PyMemucTimeoutExpired
 
@@ -326,7 +326,7 @@ def execute_command_vm(
     command,
     vm_index: Union[int, None] = None,
     vm_name: Union[str, None] = None,
-) -> tuple[int, str]:
+) -> Tuple[int, str]:
     """Execute a command on a VM, must specify either a vm index or a vm name
 
     :param command: Command to execute
@@ -386,7 +386,7 @@ def change_gps_vm(
 # TODO: fix parsing of the output
 def get_public_ip_vm(
     self: "PyMemuc", vm_index: Union[int, None] = None, vm_name: Union[str, None] = None
-) -> tuple[int, str]:
+) -> Tuple[int, str]:
     """Get the public IP of a VM, must specify either a vm index or a vm name
 
     :param vm_index: VM index. Defaults to None.
@@ -504,7 +504,7 @@ def set_accelerometer_vm(
     value: tuple[float, float, float],
     vm_index: Union[int, None] = None,
     vm_name: Union[str, None] = None,
-) -> tuple[int, str]:
+) -> Tuple[int, str]:
     """Set the accelerometer on a VM, must specify either a vm index or a vm name
 
     :param value: the accelerometer value to set
@@ -548,7 +548,7 @@ def create_app_shortcut_vm(
     package_name: str,
     vm_index: Union[int, None] = None,
     vm_name: Union[str, None] = None,
-) -> tuple[int, str]:
+) -> Tuple[int, str]:
     """Create an app shortcut on a VM, must specify either a vm index or a vm name
 
     :param package_name: Package name
