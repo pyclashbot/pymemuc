@@ -8,6 +8,7 @@ from ._constants import WIN32, WINREG_EN
 from .exceptions import PyMemucError, PyMemucException, PyMemucTimeoutExpired
 
 if WINREG_EN:
+    # pylint: disable=import-error
     from winreg import HKEY_LOCAL_MACHINE, ConnectRegistry, OpenKey, QueryValueEx
 
 if WIN32:
