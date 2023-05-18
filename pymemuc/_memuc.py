@@ -2,12 +2,13 @@
 from contextlib import suppress
 from os.path import join, normpath
 from subprocess import PIPE, STDOUT, CalledProcessError, Popen, TimeoutExpired
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Tuple
 
 from ._constants import WIN32, WINREG_EN
 from .exceptions import PyMemucError, PyMemucException, PyMemucTimeoutExpired
 
 if WINREG_EN:
+    # pylint: disable=import-error
     from winreg import HKEY_LOCAL_MACHINE, ConnectRegistry, OpenKey, QueryValueEx
 
 if WIN32:
@@ -45,7 +46,7 @@ def _get_memu_top_level() -> str:
 
 def memuc_run(
     self: "PyMemuc", args: list[str], non_blocking=False, timeout=None
-) -> tuple[int, str]:
+) -> Tuple[int, str]:
     """run a command with memuc.exe.
     Memuc can support non-blocking commands, returning a task id.
     A timeout can be specified if memuc is expected to hang,
@@ -97,7 +98,7 @@ def memuc_run(
 
 
 # TODO: add output parsing
-def check_task_status(self: "PyMemuc", task_id: str) -> tuple[int, str]:
+def check_task_status(self: "PyMemuc", task_id: str) -> Tuple[int, str]:
     """Check the status of a task
 
     :param task_id: Asynchronous task ID
