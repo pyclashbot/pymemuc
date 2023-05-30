@@ -69,9 +69,8 @@ def memuc_run(
         raise PyMemucException("Cannot use timeout and non_blocking at the same time")
     if non_blocking:
         args += "-t"
-    if self.debug:
-        print("pymemuc._memuc.memuc_run:")
-        print(f"\tCommand: \"{' '.join(args)}\"")
+    self.logger.debug("pymemuc._memuc.memuc_run:")
+    self.logger.debug(f"\tCommand: \"{' '.join(args)}\"")
     try:
         with Popen(
             args,
@@ -87,11 +86,10 @@ def memuc_run(
                 process.kill()
                 result, _ = process.communicate()
                 raise PyMemucTimeoutExpired(err) from err
-            if self.debug:
-                if lines := result.splitlines():
-                    print(f"\tOutput: {lines.pop(0)}")
-                    for line in lines:
-                        print(f"\t\t{line}")
+            if lines := result.splitlines():
+                self.logger.debug(f"\tOutput: {lines.pop(0)}")
+                for line in lines:
+                    self.logger.debug(f"\t\t{line}")
             return (0, result)
     except CalledProcessError as err:
         raise PyMemucError(err) from err

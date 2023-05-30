@@ -1,5 +1,6 @@
 """a wrapper for memuc.exe as a library to control virual machines"""
 
+import logging
 from os.path import join
 from typing import Union
 
@@ -60,13 +61,32 @@ class PyMemuc:
         """initialize the class, automatically finding memuc.exe if windows registry is supported,
         otherwise a path must be specified"""
         self.debug = debug
-        if self.debug:
-            print("PyMemuc: Debug mode enabled")
+        self.logger = self._configure_logger()
+        self.logger.debug("PyMemuc: Debug mode enabled")
         if WINREG_EN:
             self.memuc_path: str = join(self._get_memu_top_level(), "memuc.exe")
         elif memuc_path is not None:
             self.memuc_path: str = memuc_path
         else:
             raise PyMemucError(
-                "Windows Registry is not supported on this platform, you must specify the path to memuc.exe manually"
+                "Windows Registry is not supported on this platform,"
+                + " you must specify the path to memuc.exe manually"
             )
+
+    def _configure_logger(self):
+        """Configure the logger for the class"""
+        logger = logging.getLogger(__name__)
+        logger.setLevel(logging.DEBUG if self.debug else logging.INFO)
+
+        # Create a handler for console output
+        console_handler = logging.StreamHandler()
+        console_handler.setLevel(logging.DEBUG)
+        formatter = logging.Formatter(
+            "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
+        )
+        console_handler.setFormatter(formatter)
+
+        # Add the handler to the logger
+        logger.addHandler(console_handler)
+
+        return logger
