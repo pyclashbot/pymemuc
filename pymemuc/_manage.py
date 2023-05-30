@@ -14,10 +14,10 @@ if TYPE_CHECKING:
 
 
 @_retryable
-def create_vm(self: "PyMemuc", vm_version="76") -> int:
+def create_vm(self: "PyMemuc", vm_version="96") -> int:
     """Create a new VM
 
-    :param vm_version: Android version. Defaults to "76".
+    :param vm_version: Android version. Defaults to "96".
     :type vm_version: str, optional
     :raises PyMemucError: an error if the vm creation failed
     :return: the index of the new VM, -1 if an error occurred but no exception was raised
