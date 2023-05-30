@@ -1,0 +1,16 @@
+{
+    "name": "pymemuc development container",
+    "image": "python:3",
+    "customizations": {
+        "vscode": {
+            "extensions": [
+                "ms-python.python"
+            ],
+        }
+    },
+    "runArgs": [
+        "--user",
+        "vscode"
+    ],
+    "postCreateCommand": "pip install poetry && poetry install --with dev,docs"
+}
