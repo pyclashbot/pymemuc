@@ -1,7 +1,14 @@
 """This module contains functions for directly interacting with memuc.exe."""
 from contextlib import suppress
 from os.path import join, normpath
-from subprocess import PIPE, STDOUT, CalledProcessError, Popen, TimeoutExpired
+from subprocess import (
+    PIPE,
+    STARTUPINFO,
+    STDOUT,
+    CalledProcessError,
+    Popen,
+    TimeoutExpired,
+)
 from typing import TYPE_CHECKING, Tuple
 
 from ._constants import WIN32, WINREG_EN
@@ -11,14 +18,15 @@ if WINREG_EN:
     # pylint: disable=import-error
     from winreg import HKEY_LOCAL_MACHINE, ConnectRegistry, OpenKey, QueryValueEx
 
-if WIN32:
-    from subprocess import STARTF_USESHOWWINDOW, STARTUPINFO, SW_HIDE
+ST_INFO = STARTUPINFO()
 
-    ST_INFO = STARTUPINFO()
-    ST_INFO.dwFlags = STARTF_USESHOWWINDOW
+if WIN32:
+    from subprocess import CREATE_NO_WINDOW, REALTIME_PRIORITY_CLASS, SW_HIDE
+
+    ST_INFO.dwFlags |= REALTIME_PRIORITY_CLASS
+    ST_INFO.dwFlags |= CREATE_NO_WINDOW
     ST_INFO.wShowWindow = SW_HIDE
-else:
-    ST_INFO = None
+
 
 if TYPE_CHECKING:
     from pymemuc import PyMemuc
@@ -77,6 +85,7 @@ def memuc_run(
             shell=False,
             stdout=PIPE,
             stderr=STDOUT,
+            startupinfo=ST_INFO,
             close_fds=True,
             universal_newlines=True,
         ) as process:
