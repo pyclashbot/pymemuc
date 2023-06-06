@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: pymemuc \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-04-10 17:31-0400\n"
+"POT-Creation-Date: 2023-04-19 13:51-0400\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: cn\n"
@@ -50,7 +50,8 @@ msgstr "CodeFactor"
 msgid ""
 "A wrapper for `MEmu Command <https://www.memuplay.com/blog/memucommand-"
 "reference-manual.html>`_ in python."
-msgstr "python 中 `MEmu Command <https://www.memuplay.com/blog/memucommand-"
+msgstr ""
+"python 中 `MEmu Command <https://www.memuplay.com/blog/memucommand-"
 "reference-manual.html>`_ 的包装器"
 
 #: ../../source/index.rst:28
@@ -68,15 +69,19 @@ msgid "Contribute"
 msgstr "贡献"
 
 #: ../../source/index.rst:41
+#, fuzzy
 msgid ""
 "If you are having any problems or wish to see added features, `find or "
-"open an issue <https://github.com/martinmiglio/pymemuc/issues>`_."
-msgstr "如果您有任何问题或希望看到添加的功能，`查找或打开一个问题 <https://github.com/martinmiglio/pymemuc/issues>`_"
+"open an issue <https://github.com/marmig0404/pymemuc/issues>`_."
+msgstr ""
+"如果您有任何问题或希望看到添加的功能，`查找或打开一个问题 "
+"<https://github.com/martinmiglio/pymemuc/issues>`_"
 
 #: ../../source/index.rst:42
+#, fuzzy
 msgid ""
 "Looking to contribute directly? Open a pull request in the `repository "
-"<https://github.com/martinmiglio/pymemuc>`_."
+"<https://github.com/marmig0404/pymemuc>`_."
 msgstr "希望直接贡献？在 `存储库 <https://github.com/martinmiglio/pymemuc>`_ 中打开拉取请求"
 
 #: ../../source/index.rst:45
