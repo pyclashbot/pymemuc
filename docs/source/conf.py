@@ -36,4 +36,4 @@ html_theme_options = {
 }
 html_static_path = ["_static"]
 htmlhelp_basename = "pymemuc"
-intersphinx_mapping = {"http://docs.python.org/": None}
+intersphinx_mapping = {"Python Docs": ("http://docs.python.org/", None)}
