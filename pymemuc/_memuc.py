@@ -1,7 +1,7 @@
 """This module contains functions for directly interacting with memuc.exe."""
 from contextlib import suppress
 from os.path import join, normpath
-from subprocess import PIPE, STDOUT, CalledProcessError, Popen, TimeoutExpired
+from subprocess import PIPE, CalledProcessError, Popen, TimeoutExpired
 from typing import TYPE_CHECKING, Tuple
 
 from ._constants import WIN32, WINREG_EN
@@ -16,13 +16,15 @@ if WIN32:
     from subprocess import (
         REALTIME_PRIORITY_CLASS,
         STARTF_USESHOWWINDOW,
+        STARTF_USESTDHANDLES,
         STARTUPINFO,
         SW_HIDE,
     )
 
     ST_INFO = STARTUPINFO()
-    ST_INFO.dwFlags |= STARTF_USESHOWWINDOW
-    ST_INFO.dwFlags |= REALTIME_PRIORITY_CLASS
+    ST_INFO.dwFlags |= (
+        STARTF_USESHOWWINDOW | STARTF_USESTDHANDLES | REALTIME_PRIORITY_CLASS
+    )
     ST_INFO.wShowWindow = SW_HIDE
 
 
@@ -82,7 +84,7 @@ def memuc_run(
             args,
             shell=False,
             stdout=PIPE,
-            stderr=STDOUT,
+            stderr=PIPE,
             startupinfo=ST_INFO,
             close_fds=True,
             universal_newlines=True,
