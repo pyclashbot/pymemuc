@@ -80,6 +80,7 @@ class PyMemuc:
 
         # Create a handler for console output
         console_handler = logging.StreamHandler()
+        console_handler.propagate = False
         console_handler.setLevel(logging.DEBUG)
         formatter = logging.Formatter(
             "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
