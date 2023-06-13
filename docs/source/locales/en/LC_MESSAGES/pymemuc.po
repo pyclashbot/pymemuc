@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: pymemuc \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-04-19 13:51-0400\n"
+"POT-Creation-Date: 2023-04-10 17:31-0400\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: en\n"
@@ -56,10 +56,9 @@ msgstr ""
 #: pymemuc._manage.clone_vm pymemuc._manage.create_vm pymemuc._manage.delete_vm
 #: pymemuc._manage.export_vm pymemuc._manage.get_configuration_vm
 #: pymemuc._manage.import_vm pymemuc._manage.list_vm_info
-#: pymemuc._manage.randomize_vm pymemuc._manage.rename_vm
-#: pymemuc._manage.set_configuration_vm pymemuc._manage.vm_is_running
-#: pymemuc._memuc.check_task_status pymemuc._memuc.memuc_run
-#: pymemuc.pymemuc.PyMemuc
+#: pymemuc._manage.rename_vm pymemuc._manage.set_configuration_vm
+#: pymemuc._manage.vm_is_running pymemuc._memuc.check_task_status
+#: pymemuc._memuc.memuc_run pymemuc.pymemuc.PyMemuc
 msgid "Parameters"
 msgstr ""
 
@@ -100,8 +99,7 @@ msgstr ""
 #: pymemuc._control.stop_vm:3 pymemuc._manage.clone_vm:3
 #: pymemuc._manage.delete_vm:3 pymemuc._manage.export_vm:3
 #: pymemuc._manage.get_configuration_vm:6 pymemuc._manage.list_vm_info:3
-#: pymemuc._manage.randomize_vm:3 pymemuc._manage.rename_vm:3
-#: pymemuc._manage.set_configuration_vm:8
+#: pymemuc._manage.rename_vm:3 pymemuc._manage.set_configuration_vm:8
 msgid "VM index. Defaults to None."
 msgstr ""
 
@@ -120,8 +118,7 @@ msgstr ""
 #: pymemuc._control.stop_vm:5 pymemuc._manage.clone_vm:5
 #: pymemuc._manage.delete_vm:5 pymemuc._manage.export_vm:5
 #: pymemuc._manage.get_configuration_vm:8 pymemuc._manage.list_vm_info:5
-#: pymemuc._manage.randomize_vm:5 pymemuc._manage.rename_vm:5
-#: pymemuc._manage.set_configuration_vm:10
+#: pymemuc._manage.rename_vm:5 pymemuc._manage.set_configuration_vm:10
 msgid "VM name. Defaults to None."
 msgstr ""
 
@@ -140,8 +137,8 @@ msgstr ""
 #: pymemuc._manage.clone_vm pymemuc._manage.create_vm pymemuc._manage.delete_vm
 #: pymemuc._manage.export_vm pymemuc._manage.get_configuration_vm
 #: pymemuc._manage.import_vm pymemuc._manage.list_vm_info
-#: pymemuc._manage.randomize_vm pymemuc._manage.rename_vm
-#: pymemuc._manage.set_configuration_vm pymemuc._memuc.memuc_run
+#: pymemuc._manage.rename_vm pymemuc._manage.set_configuration_vm
+#: pymemuc._memuc.memuc_run
 msgid "Raises"
 msgstr ""
 
@@ -160,7 +157,7 @@ msgstr ""
 #: pymemuc._control.stop_vm:11 pymemuc._manage.clone_vm:9
 #: pymemuc._manage.delete_vm:7 pymemuc._manage.export_vm:11
 #: pymemuc._manage.get_configuration_vm:10 pymemuc._manage.list_vm_info:11
-#: pymemuc._manage.randomize_vm:7 pymemuc._manage.set_configuration_vm:12
+#: pymemuc._manage.set_configuration_vm:12
 msgid "an error if neither a vm index or a vm name is specified"
 msgstr ""
 
@@ -179,10 +176,9 @@ msgstr ""
 #: pymemuc._control.stop_vm pymemuc._manage.clone_vm pymemuc._manage.create_vm
 #: pymemuc._manage.delete_vm pymemuc._manage.export_vm
 #: pymemuc._manage.get_configuration_vm pymemuc._manage.import_vm
-#: pymemuc._manage.list_vm_info pymemuc._manage.randomize_vm
-#: pymemuc._manage.rename_vm pymemuc._manage.set_configuration_vm
-#: pymemuc._manage.vm_is_running pymemuc._memuc.check_task_status
-#: pymemuc._memuc.memuc_run
+#: pymemuc._manage.list_vm_info pymemuc._manage.rename_vm
+#: pymemuc._manage.set_configuration_vm pymemuc._manage.vm_is_running
+#: pymemuc._memuc.check_task_status pymemuc._memuc.memuc_run
 msgid "Returns"
 msgstr ""
 
@@ -205,10 +201,9 @@ msgstr ""
 #: pymemuc._control.stop_vm pymemuc._manage.clone_vm pymemuc._manage.create_vm
 #: pymemuc._manage.delete_vm pymemuc._manage.export_vm
 #: pymemuc._manage.get_configuration_vm pymemuc._manage.import_vm
-#: pymemuc._manage.list_vm_info pymemuc._manage.randomize_vm
-#: pymemuc._manage.rename_vm pymemuc._manage.set_configuration_vm
-#: pymemuc._manage.vm_is_running pymemuc._memuc.check_task_status
-#: pymemuc._memuc.memuc_run
+#: pymemuc._manage.list_vm_info pymemuc._manage.rename_vm
+#: pymemuc._manage.set_configuration_vm pymemuc._manage.vm_is_running
+#: pymemuc._memuc.check_task_status pymemuc._memuc.memuc_run
 msgid "Return type"
 msgstr ""
 
@@ -583,14 +578,6 @@ msgstr ""
 
 #: of pymemuc._manage.vm_is_running:5
 msgid "True if the VM is running, False otherwise"
-msgstr ""
-
-#: of pymemuc._manage.randomize_vm:1
-msgid "Randomize a VM, must specify either a vm index or a vm name"
-msgstr ""
-
-#: of pymemuc._manage.randomize_vm:8
-msgid "True if the vm was randomized successfully"
 msgstr ""
 
 #: of pymemuc._memuc.check_task_status:1
@@ -985,3 +972,9 @@ msgstr ""
 #: ../../docstring of pymemuc.vminfo.VMInfo.disk_usage:1
 msgid "VM disk usage in bytes"
 msgstr ""
+
+#~ msgid "Randomize a VM, must specify either a vm index or a vm name"
+#~ msgstr ""
+
+#~ msgid "True if the vm was randomized successfully"
+#~ msgstr ""
