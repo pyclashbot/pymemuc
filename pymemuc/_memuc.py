@@ -76,7 +76,7 @@ def memuc_run(
     if timeout is not None and non_blocking:
         raise PyMemucException("Cannot use timeout and non_blocking at the same time")
     if non_blocking:
-        args += "-t"
+        args.append("-t")
     self.logger.debug("pymemuc._memuc.memuc_run:")
     self.logger.debug(f"\tCommand: \"{' '.join(args)}\"")
     try:
