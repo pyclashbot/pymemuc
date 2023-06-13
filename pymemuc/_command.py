@@ -473,6 +473,7 @@ def get_app_info_list_vm(
     :param timeout: Timeout for the command. Defaults to 10.
     :type timeout: int, optional
     :raises PyMemucIndexError: an error if neither a vm index or a vm name is specified
+    :raises PyMemucError: an error if the command failed
     :return: the list of packages installed on the VM
     :rtype: list[str]
     """
@@ -491,6 +492,12 @@ def get_app_info_list_vm(
             )
         else:
             raise PyMemucIndexError("Please specify either a vm index or a vm name")
+        # check if 'cmd: Can't find service: package' is in the output
+        if "cmd: Can't find service: package" in output:
+            raise PyMemucError(
+                "Failed to get the list of apps installed on the VM, "
+                "please make sure the VM is running"
+            )
         output = output.split("\n")
         output = [line.replace("package:", "") for line in output if line != ""]
         return output
