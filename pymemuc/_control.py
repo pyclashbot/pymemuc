@@ -10,11 +10,13 @@ if TYPE_CHECKING:
     from pymemuc import PyMemuc
 
 
+# pylint: disable=too-many-arguments
 @_retryable
 def start_vm(
     self: "PyMemuc",
     vm_index: Union[int, None] = None,
     vm_name: Union[str, None] = None,
+    headless=False,
     non_blocking=False,
     timeout=None,
 ) -> Literal[True]:
@@ -24,6 +26,8 @@ def start_vm(
     :type vm_index: int, optional
     :param vm_name: VM name. Defaults to None.
     :type vm_name: str, optional
+    :param headless: Whether to start the VM in headless mode. Defaults to False.
+    :type headless: bool, optional
     :param non_blocking: Whether to run the command in the background. Defaults to False.
     :type non_blocking: bool, optional
     :param timeout: Timeout in seconds. Cannot be used if non blocking. Defaults to None.
@@ -33,13 +37,14 @@ def start_vm(
     :rtype: Literal[True]
     """
     if vm_index is not None:
-        status, output = self.memuc_run(
-            ["-i", str(vm_index), "start"], non_blocking, timeout
-        )
+        args = ["-i", str(vm_index), "start"]
     elif vm_name is not None:
-        status, output = self.memuc_run(["-n", vm_name, "start"], non_blocking, timeout)
+        args = ["-n", vm_name, "start"]
     else:
         raise PyMemucIndexError("Please specify either a vm index or a vm name")
+    if headless:
+        args.append("-b")
+    status, output = self.memuc_run(args, non_blocking, timeout)
     success = status == 0 and output is not None and "SUCCESS" in output
     if not success:
         raise PyMemucError(f"Failed to start VM: {output}")
