@@ -44,6 +44,7 @@ class PyMemuc:
     from ._control import reboot_vm, start_vm, stop_all_vm, stop_vm
     from ._manage import (
         clone_vm,
+        compress_vm,
         create_vm,
         delete_vm,
         export_vm,

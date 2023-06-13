@@ -180,6 +180,38 @@ def rename_vm(
         raise PyMemucError("Failed to rename VM: Timeout expired") from err
 
 
+def compress_vm(
+    self: "PyMemuc",
+    vm_index: Union[int, None] = None,
+    vm_name: Union[str, None] = None,
+    non_blocking=False,
+) -> Literal[True]:
+    """Compress a VM, must specify either a vm index or a vm name
+
+    :param vm_index: VM index. Defaults to None.
+    :type vm_index: int, optional
+    :param vm_name: VM name. Defaults to None.
+    :type vm_name: str, optional
+    :param non_blocking: Whether to run the command in the background. Defaults to False.
+    :type non_blocking: bool, optional
+    :raises PyMemucIndexError: an error if neither a vm index or a vm name is specified
+    :raises PyMemucError: an error if the vm compress failed
+    :return: True if the vm was compressed successfully
+    :rtype: Literal[True]
+    """
+
+    if vm_index is not None:
+        status, output = self.memuc_run(["-i", str(vm_index), "compress"], non_blocking)
+    elif vm_name is not None:
+        status, output = self.memuc_run(["-n", vm_name, "compress"], non_blocking)
+    else:
+        raise PyMemucIndexError("Please specify either a vm index or a vm name")
+    success = status == 0 and output is not None and "SUCCESS" in output
+    if not success:
+        raise PyMemucError(f"Failed to compress VM: {output}")
+    return True
+
+
 def list_vm_info(
     self: "PyMemuc",
     vm_index: Union[int, None] = None,
