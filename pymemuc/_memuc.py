@@ -13,6 +13,7 @@ if WINREG_EN:
 
 ST_INFO = None
 if WIN32:
+    import ctypes
     from subprocess import (
         REALTIME_PRIORITY_CLASS,
         STARTF_USESHOWWINDOW,
@@ -52,6 +53,14 @@ def _get_memu_top_level() -> str:
     raise PyMemucError("MEmuc not found, is it installed?")
 
 
+@staticmethod
+def _terminate_process(process: Popen):
+    """Terminate a process forcefully on Windows."""
+    handle = ctypes.windll.kernel32.OpenProcess(1, False, process.pid)
+    ctypes.windll.kernel32.TerminateProcess(handle, -1)
+    ctypes.windll.kernel32.CloseHandle(handle)
+
+
 def memuc_run(
     self: "PyMemuc", args: list[str], non_blocking=False, timeout=None
 ) -> Tuple[int, str]:
@@ -83,6 +92,7 @@ def memuc_run(
         with Popen(
             args,
             shell=False,
+            bufsize=-1,
             stdout=PIPE,
             stderr=PIPE,
             startupinfo=ST_INFO,
@@ -92,7 +102,11 @@ def memuc_run(
             try:
                 result, _ = process.communicate(timeout=timeout)
             except TimeoutExpired as err:
-                process.kill()
+                if WIN32:
+                    # pylint: disable=protected-access
+                    self._terminate_process(process)
+                else:
+                    process.kill()
                 result, _ = process.communicate()
                 raise PyMemucTimeoutExpired(err) from err
             if lines := result.splitlines():
