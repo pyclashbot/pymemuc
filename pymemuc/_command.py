@@ -2,6 +2,7 @@
 Functions for interacting with running VMs are defined here."""
 from typing import TYPE_CHECKING, Literal, Tuple, Union
 
+from ._decorators import _retryable
 from .exceptions import PyMemucError, PyMemucIndexError, PyMemucTimeoutExpired
 
 if TYPE_CHECKING:
@@ -103,11 +104,13 @@ def uninstall_apk_vm(
     return True
 
 
+@_retryable
 def start_app_vm(
     self: "PyMemuc",
     package_name,
     vm_index: Union[int, None] = None,
     vm_name: Union[str, None] = None,
+    timeout: Union[int, None] = None,
 ) -> Literal[True]:
     """Start an app on a VM, must specify either a vm index or a vm name
 
@@ -117,14 +120,20 @@ def start_app_vm(
     :type vm_index: int, optional
     :param vm_name: VM name. Defaults to None.
     :type vm_name: str, optional
+    :param timeout: Timeout in seconds. Defaults to None.
+    :type timeout: int, optional
     :raises PyMemucIndexError: an error if neither a vm index or a vm name is specified
     :return: True if the vm app start was successful
     :rtype: Literal[True]
     """
     if vm_index is not None:
-        status, output = self.memuc_run(["-i", str(vm_index), "startapp", package_name])
+        status, output = self.memuc_run(
+            ["-i", str(vm_index), "startapp", package_name], timeout=timeout
+        )
     elif vm_name is not None:
-        status, output = self.memuc_run(["-n", vm_name, "startapp", package_name])
+        status, output = self.memuc_run(
+            ["-n", vm_name, "startapp", package_name], timeout=timeout
+        )
     else:
         raise PyMemucIndexError("Please specify either a vm index or a vm name")
     success = status == 0 and output is not None and "SUCCESS" in output
