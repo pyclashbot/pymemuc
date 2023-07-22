@@ -25,6 +25,7 @@ class PyMemuc:
         create_app_shortcut_vm,
         disconnect_internet_vm,
         execute_command_vm,
+        get_adb_connection,
         get_app_info_list_vm,
         get_public_ip_vm,
         input_text_vm,

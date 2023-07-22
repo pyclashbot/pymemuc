@@ -1,6 +1,7 @@
 """This module contains functions for commanding running virtual machines with memuc.exe.
 Functions for interacting with running VMs are defined here."""
 from typing import TYPE_CHECKING, Literal, Tuple, Union
+from urllib.parse import urlparse
 
 from ._decorators import _retryable
 from .exceptions import PyMemucError, PyMemucIndexError, PyMemucTimeoutExpired
@@ -628,3 +629,38 @@ def send_adb_command_vm(
         return output
 
     raise PyMemucIndexError("Please specify either a vm index or a vm name")
+
+
+def get_adb_connection(
+    self: "PyMemuc",
+    vm_index: Union[int, None] = None,
+    vm_name: Union[str, None] = None,
+    timeout: Union[int, None] = None,
+) -> Tuple[Union[str, None], Union[int, None]]:
+    """Get the adb connection information for a VM
+
+    :param vm_index: VM index. Defaults to None.
+    :type vm_index: int, optional
+    :param vm_name: VM name. Defaults to None.
+    :type vm_name: str, optional
+    :param timeout: Timeout for the command. Defaults to None.
+    :type timeout: int, optional
+    :raises PyMemucIndexError: an error if neither a vm index or a vm name is specified
+    :raises PyMemucTimeoutExpired: an error if the command times out
+    :raises PyMemucError: an error if the command fails
+    :return: the ip and port of the adb connection as a tuple
+    :rtype: tuple[str | None, int | None]
+    """
+    adb_output = self.send_adb_command_vm(
+        ["shell", "ifconfig"],
+        vm_index=vm_index,
+        vm_name=vm_name,
+        timeout=timeout,
+    )
+    try:
+        adb_output = adb_output.split("\n")[0]
+        _, connection_string = adb_output.split("connected to ")
+        connection_string = urlparse(f"//{connection_string}")
+        return connection_string.hostname, connection_string.port
+    except ValueError as err:
+        raise PyMemucError(f"Failed to get adb connection: {adb_output}") from err
