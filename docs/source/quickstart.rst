@@ -10,7 +10,7 @@ To use pymemuc, first install it using pip:
 
 .. code-block:: console
 
-   (.venv) $ pip install pymemuc
+   $ pip install pymemuc
 
 
 .. _example_usage:
