@@ -5,19 +5,19 @@ build-backend = "poetry.core.masonry.api"
 [tool.poetry]
 name = "pymemuc"
 version = "v0.0.0"
-description = "A Memuc.exe wrapper for Python"
+description = "A Python API for MEmu Android Emulator."
 readme = "README.md"
 authors = ["Martin Miglio <code@martinmiglio.dev>"]
 license = "MIT"
 classifiers = [
-    "License :: OSI Approved :: MIT License",
-    "Programming Language :: Python",
-    "Programming Language :: Python :: 3",
-    "Topic :: Software Development :: Libraries :: Python Modules"
+  "License :: OSI Approved :: MIT License",
+  "Programming Language :: Python",
+  "Programming Language :: Python :: 3",
+  "Topic :: Software Development :: Libraries :: Python Modules",
 ]
-keywords = ["memu", "memuc", "wrapper", "api"]
+keywords = ["memu", "memuc", "android-emulator", "api"]
 repository = "https://github.com/martinmiglio/pymemuc"
-documentation = "https://pymemuc.readthedocs.io/"
+documentation = "https://pymemuc.martinmiglio.dev/"
 
 
 [tool.poetry.dependencies]
@@ -75,8 +75,8 @@ ignore = ["docs/source"]
 py-version = "3.11"
 suggestion-mode = true
 disable = [
-    "C0301", # line-too-long
-    "W0622", # redefined-builtin
-    "R0903", # too-few-public-methods
-    "C0412", # ungrouped-imports
-    ]
+  "C0301", # line-too-long
+  "W0622", # redefined-builtin
+  "R0903", # too-few-public-methods
+  "C0412", # ungrouped-imports
+]

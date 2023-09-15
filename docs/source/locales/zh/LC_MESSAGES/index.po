@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: pymemuc \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-04-19 13:51-0400\n"
+"POT-Creation-Date: 2023-10-02 14:08-0400\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: cn\n"
@@ -47,57 +47,61 @@ msgid "CodeFactor"
 msgstr "CodeFactor"
 
 #: ../../source/index.rst:26
+#, fuzzy
 msgid ""
-"A wrapper for `MEmu Command <https://www.memuplay.com/blog/memucommand-"
-"reference-manual.html>`_ in python."
+"A Python API for MEmu Android Emulator. pymemuc exposes `MEmu Command "
+"<https://www.memuplay.com/blog/memucommand-reference-manual.html>`_ "
+"functionality in Python."
 msgstr ""
-"python 中 `MEmu Command <https://www.memuplay.com/blog/memucommand-"
-"reference-manual.html>`_ 的包装器"
+"MEmu Android 模拟器的 Python API。pymemuc 以 Python 实现了 `MEmu Command "
+"<https://www.memuplay.com/blog/memucommand-reference-manual.html>`_ "
+"的功能。"
 
-#: ../../source/index.rst:28
+#: ../../source/index.rst:29
 msgid ""
 "Allows for easy interaction with MEmu VMs, including VM image management,"
 " VM control, running VM commands and ADB interaction."
 msgstr "允许与 MEmu 虚拟机轻松交互，包括虚拟机镜像管理，虚拟机控制，运行虚拟机命令并与ADB交互。"
 
-#: ../../source/index.rst:31
+#: ../../source/index.rst:32
 msgid "Contents"
 msgstr "内容"
 
-#: ../../source/index.rst:39
+#: ../../source/index.rst:40
 msgid "Contribute"
 msgstr "贡献"
-
-#: ../../source/index.rst:41
-#, fuzzy
-msgid ""
-"If you are having any problems or wish to see added features, `find or "
-"open an issue <https://github.com/marmig0404/pymemuc/issues>`_."
-msgstr ""
-"如果您有任何问题或希望看到添加的功能，`查找或打开一个问题 "
-"<https://github.com/martinmiglio/pymemuc/issues>`_"
 
 #: ../../source/index.rst:42
 #, fuzzy
 msgid ""
+"If you are having any problems or wish to see added features, `find or "
+"open an issue <https://github.com/martinmiglio/pymemuc/issues>`_."
+msgstr ""
+"如果您有任何问题或希望看到添加的功能，`查找或打开一个问题 "
+"<https://github.com/martinmiglio/pymemuc/issues>`_"
+
+#: ../../source/index.rst:43
+#, fuzzy
+msgid ""
 "Looking to contribute directly? Open a pull request in the `repository "
-"<https://github.com/marmig0404/pymemuc>`_."
+"<https://github.com/martinmiglio/pymemuc>`_."
 msgstr "希望直接贡献？在 `存储库 <https://github.com/martinmiglio/pymemuc>`_ 中打开拉取请求"
 
-#: ../../source/index.rst:45
+#: ../../source/index.rst:46
 msgid "Support"
 msgstr "帮助"
 
-#: ../../source/index.rst:47
+#: ../../source/index.rst:48
 msgid ""
 "If you are having issues, please let us know. This project is still in "
 "development."
 msgstr "如果您遇到问题，请告诉我们。这个项目还在开发中"
 
-#: ../../source/index.rst:50
+#: ../../source/index.rst:51
 msgid "License"
 msgstr "执照"
 
-#: ../../source/index.rst:52
+#: ../../source/index.rst:53
 msgid "The project is licensed under the MIT license."
 msgstr "该项目已获得 MIT 许可。"
+

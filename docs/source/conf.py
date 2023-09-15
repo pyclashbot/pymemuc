@@ -21,7 +21,6 @@ extensions = [
     "sphinxext.opengraph",
     "sphinx_copybutton",
 ]
-templates_path = ["_templates"]
 exclude_patterns = ["_build", "Thumbs.db", ".DS_Store"]
 
 autodoc_default_options = {
@@ -34,6 +33,12 @@ html_theme = "furo"
 html_theme_options = {
     "sidebarwidth": "19em",
 }
-html_static_path = ["_static"]
 htmlhelp_basename = "pymemuc"
 intersphinx_mapping = {"Python Docs": ("http://docs.python.org/", None)}
+
+html_js_files = [
+    (
+        "https://analytics.martinmiglio.dev/script.js",
+        {"data-website-id": "28d008aa-35e3-4aaa-8964-b06ec824bfed", "async": "async"},
+    ),
+]
