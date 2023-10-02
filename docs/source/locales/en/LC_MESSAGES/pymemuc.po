@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: pymemuc \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-04-10 17:31-0400\n"
+"POT-Creation-Date: 2023-10-02 14:08-0400\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: en\n"
@@ -44,18 +44,20 @@ msgstr ""
 #: of pymemuc._command.change_gps_vm pymemuc._command.connect_internet_vm
 #: pymemuc._command.create_app_shortcut_vm
 #: pymemuc._command.disconnect_internet_vm pymemuc._command.execute_command_vm
-#: pymemuc._command.get_app_info_list_vm pymemuc._command.get_public_ip_vm
-#: pymemuc._command.input_text_vm pymemuc._command.install_apk_vm
-#: pymemuc._command.rotate_window_vm pymemuc._command.send_adb_command_vm
-#: pymemuc._command.set_accelerometer_vm pymemuc._command.start_app_vm
-#: pymemuc._command.stop_app_vm pymemuc._command.trigger_keystroke_vm
-#: pymemuc._command.trigger_shake_vm pymemuc._command.uninstall_apk_vm
-#: pymemuc._command.zoom_in_vm pymemuc._command.zoom_out_vm
-#: pymemuc._control.reboot_vm pymemuc._control.start_vm
-#: pymemuc._control.stop_all_vm pymemuc._control.stop_vm
-#: pymemuc._manage.clone_vm pymemuc._manage.create_vm pymemuc._manage.delete_vm
-#: pymemuc._manage.export_vm pymemuc._manage.get_configuration_vm
-#: pymemuc._manage.import_vm pymemuc._manage.list_vm_info
+#: pymemuc._command.get_adb_connection pymemuc._command.get_app_info_list_vm
+#: pymemuc._command.get_public_ip_vm pymemuc._command.input_text_vm
+#: pymemuc._command.install_apk_vm pymemuc._command.rotate_window_vm
+#: pymemuc._command.send_adb_command_vm pymemuc._command.set_accelerometer_vm
+#: pymemuc._command.start_app_vm pymemuc._command.stop_app_vm
+#: pymemuc._command.trigger_keystroke_vm pymemuc._command.trigger_shake_vm
+#: pymemuc._command.uninstall_apk_vm pymemuc._command.zoom_in_vm
+#: pymemuc._command.zoom_out_vm pymemuc._control.reboot_vm
+#: pymemuc._control.start_vm pymemuc._control.stop_all_vm
+#: pymemuc._control.stop_vm pymemuc._manage.clone_vm
+#: pymemuc._manage.compress_vm pymemuc._manage.create_vm
+#: pymemuc._manage.delete_vm pymemuc._manage.export_vm
+#: pymemuc._manage.get_configuration_vm pymemuc._manage.import_vm
+#: pymemuc._manage.list_vm_info pymemuc._manage.randomize_vm
 #: pymemuc._manage.rename_vm pymemuc._manage.set_configuration_vm
 #: pymemuc._manage.vm_is_running pymemuc._memuc.check_task_status
 #: pymemuc._memuc.memuc_run pymemuc.pymemuc.PyMemuc
@@ -87,7 +89,7 @@ msgstr ""
 #: of pymemuc._command.change_gps_vm:7 pymemuc._command.connect_internet_vm:3
 #: pymemuc._command.create_app_shortcut_vm:5
 #: pymemuc._command.disconnect_internet_vm:3
-#: pymemuc._command.execute_command_vm:5
+#: pymemuc._command.execute_command_vm:5 pymemuc._command.get_adb_connection:3
 #: pymemuc._command.get_app_info_list_vm:3 pymemuc._command.get_public_ip_vm:3
 #: pymemuc._command.input_text_vm:5 pymemuc._command.install_apk_vm:5
 #: pymemuc._command.rotate_window_vm:3 pymemuc._command.send_adb_command_vm:5
@@ -97,8 +99,9 @@ msgstr ""
 #: pymemuc._command.zoom_in_vm:3 pymemuc._command.zoom_out_vm:3
 #: pymemuc._control.reboot_vm:3 pymemuc._control.start_vm:3
 #: pymemuc._control.stop_vm:3 pymemuc._manage.clone_vm:3
-#: pymemuc._manage.delete_vm:3 pymemuc._manage.export_vm:3
-#: pymemuc._manage.get_configuration_vm:6 pymemuc._manage.list_vm_info:3
+#: pymemuc._manage.compress_vm:3 pymemuc._manage.delete_vm:3
+#: pymemuc._manage.export_vm:3 pymemuc._manage.get_configuration_vm:6
+#: pymemuc._manage.list_vm_info:3 pymemuc._manage.randomize_vm:3
 #: pymemuc._manage.rename_vm:3 pymemuc._manage.set_configuration_vm:8
 msgid "VM index. Defaults to None."
 msgstr ""
@@ -106,7 +109,7 @@ msgstr ""
 #: of pymemuc._command.change_gps_vm:9 pymemuc._command.connect_internet_vm:5
 #: pymemuc._command.create_app_shortcut_vm:7
 #: pymemuc._command.disconnect_internet_vm:5
-#: pymemuc._command.execute_command_vm:7
+#: pymemuc._command.execute_command_vm:7 pymemuc._command.get_adb_connection:5
 #: pymemuc._command.get_app_info_list_vm:5 pymemuc._command.get_public_ip_vm:5
 #: pymemuc._command.input_text_vm:7 pymemuc._command.install_apk_vm:7
 #: pymemuc._command.send_adb_command_vm:7
@@ -116,8 +119,9 @@ msgstr ""
 #: pymemuc._command.zoom_in_vm:5 pymemuc._command.zoom_out_vm:5
 #: pymemuc._control.reboot_vm:5 pymemuc._control.start_vm:5
 #: pymemuc._control.stop_vm:5 pymemuc._manage.clone_vm:5
-#: pymemuc._manage.delete_vm:5 pymemuc._manage.export_vm:5
-#: pymemuc._manage.get_configuration_vm:8 pymemuc._manage.list_vm_info:5
+#: pymemuc._manage.compress_vm:5 pymemuc._manage.delete_vm:5
+#: pymemuc._manage.export_vm:5 pymemuc._manage.get_configuration_vm:8
+#: pymemuc._manage.list_vm_info:5 pymemuc._manage.randomize_vm:5
 #: pymemuc._manage.rename_vm:5 pymemuc._manage.set_configuration_vm:10
 msgid "VM name. Defaults to None."
 msgstr ""
@@ -125,18 +129,20 @@ msgstr ""
 #: of pymemuc._command.change_gps_vm pymemuc._command.connect_internet_vm
 #: pymemuc._command.create_app_shortcut_vm
 #: pymemuc._command.disconnect_internet_vm pymemuc._command.execute_command_vm
-#: pymemuc._command.get_app_info_list_vm pymemuc._command.get_public_ip_vm
-#: pymemuc._command.input_text_vm pymemuc._command.install_apk_vm
-#: pymemuc._command.rotate_window_vm pymemuc._command.send_adb_command_vm
-#: pymemuc._command.set_accelerometer_vm pymemuc._command.start_app_vm
-#: pymemuc._command.stop_app_vm pymemuc._command.trigger_keystroke_vm
-#: pymemuc._command.trigger_shake_vm pymemuc._command.uninstall_apk_vm
-#: pymemuc._command.zoom_in_vm pymemuc._command.zoom_out_vm
-#: pymemuc._control.reboot_vm pymemuc._control.start_vm
-#: pymemuc._control.stop_all_vm pymemuc._control.stop_vm
-#: pymemuc._manage.clone_vm pymemuc._manage.create_vm pymemuc._manage.delete_vm
-#: pymemuc._manage.export_vm pymemuc._manage.get_configuration_vm
-#: pymemuc._manage.import_vm pymemuc._manage.list_vm_info
+#: pymemuc._command.get_adb_connection pymemuc._command.get_app_info_list_vm
+#: pymemuc._command.get_public_ip_vm pymemuc._command.input_text_vm
+#: pymemuc._command.install_apk_vm pymemuc._command.rotate_window_vm
+#: pymemuc._command.send_adb_command_vm pymemuc._command.set_accelerometer_vm
+#: pymemuc._command.start_app_vm pymemuc._command.stop_app_vm
+#: pymemuc._command.trigger_keystroke_vm pymemuc._command.trigger_shake_vm
+#: pymemuc._command.uninstall_apk_vm pymemuc._command.zoom_in_vm
+#: pymemuc._command.zoom_out_vm pymemuc._control.reboot_vm
+#: pymemuc._control.start_vm pymemuc._control.stop_all_vm
+#: pymemuc._control.stop_vm pymemuc._manage.clone_vm
+#: pymemuc._manage.compress_vm pymemuc._manage.create_vm
+#: pymemuc._manage.delete_vm pymemuc._manage.export_vm
+#: pymemuc._manage.get_configuration_vm pymemuc._manage.import_vm
+#: pymemuc._manage.list_vm_info pymemuc._manage.randomize_vm
 #: pymemuc._manage.rename_vm pymemuc._manage.set_configuration_vm
 #: pymemuc._memuc.memuc_run
 msgid "Raises"
@@ -145,18 +151,19 @@ msgstr ""
 #: of pymemuc._command.change_gps_vm:11 pymemuc._command.connect_internet_vm:7
 #: pymemuc._command.create_app_shortcut_vm:9
 #: pymemuc._command.disconnect_internet_vm:7
-#: pymemuc._command.execute_command_vm:9
+#: pymemuc._command.execute_command_vm:9 pymemuc._command.get_adb_connection:9
 #: pymemuc._command.get_app_info_list_vm:9 pymemuc._command.get_public_ip_vm:7
 #: pymemuc._command.input_text_vm:9 pymemuc._command.install_apk_vm:11
 #: pymemuc._command.rotate_window_vm:5 pymemuc._command.send_adb_command_vm:11
-#: pymemuc._command.set_accelerometer_vm:9 pymemuc._command.start_app_vm:9
+#: pymemuc._command.set_accelerometer_vm:9 pymemuc._command.start_app_vm:11
 #: pymemuc._command.stop_app_vm:9 pymemuc._command.trigger_keystroke_vm:9
 #: pymemuc._command.trigger_shake_vm:7 pymemuc._command.uninstall_apk_vm:9
 #: pymemuc._command.zoom_in_vm:7 pymemuc._command.zoom_out_vm:7
-#: pymemuc._control.reboot_vm:9 pymemuc._control.start_vm:11
-#: pymemuc._control.stop_vm:11 pymemuc._manage.clone_vm:9
-#: pymemuc._manage.delete_vm:7 pymemuc._manage.export_vm:11
-#: pymemuc._manage.get_configuration_vm:10 pymemuc._manage.list_vm_info:11
+#: pymemuc._control.reboot_vm:9 pymemuc._control.start_vm:13
+#: pymemuc._control.stop_vm:11 pymemuc._manage.clone_vm:11
+#: pymemuc._manage.compress_vm:9 pymemuc._manage.delete_vm:7
+#: pymemuc._manage.export_vm:11 pymemuc._manage.get_configuration_vm:10
+#: pymemuc._manage.list_vm_info:11 pymemuc._manage.randomize_vm:7
 #: pymemuc._manage.set_configuration_vm:12
 msgid "an error if neither a vm index or a vm name is specified"
 msgstr ""
@@ -164,19 +171,21 @@ msgstr ""
 #: of pymemuc._command.change_gps_vm pymemuc._command.connect_internet_vm
 #: pymemuc._command.create_app_shortcut_vm
 #: pymemuc._command.disconnect_internet_vm pymemuc._command.execute_command_vm
-#: pymemuc._command.get_app_info_list_vm pymemuc._command.get_public_ip_vm
-#: pymemuc._command.input_text_vm pymemuc._command.install_apk_vm
-#: pymemuc._command.rotate_window_vm pymemuc._command.send_adb_command_vm
-#: pymemuc._command.set_accelerometer_vm pymemuc._command.sort_out_all_vm
-#: pymemuc._command.start_app_vm pymemuc._command.stop_app_vm
-#: pymemuc._command.trigger_keystroke_vm pymemuc._command.trigger_shake_vm
-#: pymemuc._command.uninstall_apk_vm pymemuc._command.zoom_in_vm
-#: pymemuc._command.zoom_out_vm pymemuc._control.reboot_vm
-#: pymemuc._control.start_vm pymemuc._control.stop_all_vm
-#: pymemuc._control.stop_vm pymemuc._manage.clone_vm pymemuc._manage.create_vm
-#: pymemuc._manage.delete_vm pymemuc._manage.export_vm
-#: pymemuc._manage.get_configuration_vm pymemuc._manage.import_vm
-#: pymemuc._manage.list_vm_info pymemuc._manage.rename_vm
+#: pymemuc._command.get_adb_connection pymemuc._command.get_app_info_list_vm
+#: pymemuc._command.get_public_ip_vm pymemuc._command.input_text_vm
+#: pymemuc._command.install_apk_vm pymemuc._command.rotate_window_vm
+#: pymemuc._command.send_adb_command_vm pymemuc._command.set_accelerometer_vm
+#: pymemuc._command.sort_out_all_vm pymemuc._command.start_app_vm
+#: pymemuc._command.stop_app_vm pymemuc._command.trigger_keystroke_vm
+#: pymemuc._command.trigger_shake_vm pymemuc._command.uninstall_apk_vm
+#: pymemuc._command.zoom_in_vm pymemuc._command.zoom_out_vm
+#: pymemuc._control.reboot_vm pymemuc._control.start_vm
+#: pymemuc._control.stop_all_vm pymemuc._control.stop_vm
+#: pymemuc._manage.clone_vm pymemuc._manage.compress_vm
+#: pymemuc._manage.create_vm pymemuc._manage.delete_vm
+#: pymemuc._manage.export_vm pymemuc._manage.get_configuration_vm
+#: pymemuc._manage.import_vm pymemuc._manage.list_vm_info
+#: pymemuc._manage.randomize_vm pymemuc._manage.rename_vm
 #: pymemuc._manage.set_configuration_vm pymemuc._manage.vm_is_running
 #: pymemuc._memuc.check_task_status pymemuc._memuc.memuc_run
 msgid "Returns"
@@ -189,19 +198,21 @@ msgstr ""
 #: of pymemuc._command.change_gps_vm pymemuc._command.connect_internet_vm
 #: pymemuc._command.create_app_shortcut_vm
 #: pymemuc._command.disconnect_internet_vm pymemuc._command.execute_command_vm
-#: pymemuc._command.get_app_info_list_vm pymemuc._command.get_public_ip_vm
-#: pymemuc._command.input_text_vm pymemuc._command.install_apk_vm
-#: pymemuc._command.rotate_window_vm pymemuc._command.send_adb_command_vm
-#: pymemuc._command.set_accelerometer_vm pymemuc._command.sort_out_all_vm
-#: pymemuc._command.start_app_vm pymemuc._command.stop_app_vm
-#: pymemuc._command.trigger_keystroke_vm pymemuc._command.trigger_shake_vm
-#: pymemuc._command.uninstall_apk_vm pymemuc._command.zoom_in_vm
-#: pymemuc._command.zoom_out_vm pymemuc._control.reboot_vm
-#: pymemuc._control.start_vm pymemuc._control.stop_all_vm
-#: pymemuc._control.stop_vm pymemuc._manage.clone_vm pymemuc._manage.create_vm
-#: pymemuc._manage.delete_vm pymemuc._manage.export_vm
-#: pymemuc._manage.get_configuration_vm pymemuc._manage.import_vm
-#: pymemuc._manage.list_vm_info pymemuc._manage.rename_vm
+#: pymemuc._command.get_adb_connection pymemuc._command.get_app_info_list_vm
+#: pymemuc._command.get_public_ip_vm pymemuc._command.input_text_vm
+#: pymemuc._command.install_apk_vm pymemuc._command.rotate_window_vm
+#: pymemuc._command.send_adb_command_vm pymemuc._command.set_accelerometer_vm
+#: pymemuc._command.sort_out_all_vm pymemuc._command.start_app_vm
+#: pymemuc._command.stop_app_vm pymemuc._command.trigger_keystroke_vm
+#: pymemuc._command.trigger_shake_vm pymemuc._command.uninstall_apk_vm
+#: pymemuc._command.zoom_in_vm pymemuc._command.zoom_out_vm
+#: pymemuc._control.reboot_vm pymemuc._control.start_vm
+#: pymemuc._control.stop_all_vm pymemuc._control.stop_vm
+#: pymemuc._manage.clone_vm pymemuc._manage.compress_vm
+#: pymemuc._manage.create_vm pymemuc._manage.delete_vm
+#: pymemuc._manage.export_vm pymemuc._manage.get_configuration_vm
+#: pymemuc._manage.import_vm pymemuc._manage.list_vm_info
+#: pymemuc._manage.randomize_vm pymemuc._manage.rename_vm
 #: pymemuc._manage.set_configuration_vm pymemuc._manage.vm_is_running
 #: pymemuc._memuc.check_task_status pymemuc._memuc.memuc_run
 msgid "Return type"
@@ -226,6 +237,7 @@ msgid "Package name"
 msgstr ""
 
 #: of pymemuc._command.create_app_shortcut_vm:10
+#: pymemuc._command.get_adb_connection:10
 #: pymemuc._command.send_adb_command_vm:12
 msgid "an error if the command times out"
 msgstr ""
@@ -253,6 +265,23 @@ msgstr ""
 msgid "Command to execute"
 msgstr ""
 
+#: of pymemuc._command.get_adb_connection:1
+msgid "Get the adb connection information for a VM"
+msgstr ""
+
+#: of pymemuc._command.get_adb_connection:7
+#: pymemuc._command.send_adb_command_vm:9
+msgid "Timeout for the command. Defaults to None."
+msgstr ""
+
+#: of pymemuc._command.get_adb_connection:11
+msgid "an error if the command fails"
+msgstr ""
+
+#: of pymemuc._command.get_adb_connection:12
+msgid "the ip and port of the adb connection as a tuple"
+msgstr ""
+
 #: of pymemuc._command.get_app_info_list_vm:1
 msgid ""
 "Get the list of apps installed on a VM, must specify either a vm index or"
@@ -263,7 +292,11 @@ msgstr ""
 msgid "Timeout for the command. Defaults to 10."
 msgstr ""
 
-#: of pymemuc._command.get_app_info_list_vm:10
+#: of pymemuc._command.get_app_info_list_vm:10 pymemuc._memuc.memuc_run:14
+msgid "an error if the command failed"
+msgstr ""
+
+#: of pymemuc._command.get_app_info_list_vm:11
 msgid "the list of packages installed on the VM"
 msgstr ""
 
@@ -315,10 +348,6 @@ msgstr ""
 msgid "ADB command"
 msgstr ""
 
-#: of pymemuc._command.send_adb_command_vm:9
-msgid "Timeout for the command. Defaults to None."
-msgstr ""
-
 #: of pymemuc._command.set_accelerometer_vm:1
 msgid "Set the accelerometer on a VM, must specify either a vm index or a vm name"
 msgstr ""
@@ -340,7 +369,11 @@ msgstr ""
 msgid "Package name of the APK"
 msgstr ""
 
-#: of pymemuc._command.start_app_vm:10
+#: of pymemuc._command.start_app_vm:9
+msgid "Timeout in seconds. Defaults to None."
+msgstr ""
+
+#: of pymemuc._command.start_app_vm:12
 msgid "True if the vm app start was successful"
 msgstr ""
 
@@ -400,8 +433,9 @@ msgstr ""
 msgid "Reboot a VM, must specify either a vm index or a vm name"
 msgstr ""
 
-#: of pymemuc._control.reboot_vm:7 pymemuc._control.start_vm:7
+#: of pymemuc._control.reboot_vm:7 pymemuc._control.start_vm:9
 #: pymemuc._control.stop_all_vm:3 pymemuc._control.stop_vm:7
+#: pymemuc._manage.clone_vm:9 pymemuc._manage.compress_vm:7
 #: pymemuc._manage.export_vm:9 pymemuc._manage.import_vm:5
 msgid "Whether to run the command in the background. Defaults to False."
 msgstr ""
@@ -414,12 +448,16 @@ msgstr ""
 msgid "Start a VM, must specify either a vm index or a vm name"
 msgstr ""
 
-#: of pymemuc._control.start_vm:9 pymemuc._control.stop_all_vm:5
+#: of pymemuc._control.start_vm:7
+msgid "Whether to start the VM in headless mode. Defaults to False."
+msgstr ""
+
+#: of pymemuc._control.start_vm:11 pymemuc._control.stop_all_vm:5
 #: pymemuc._control.stop_vm:9
 msgid "Timeout in seconds. Cannot be used if non blocking. Defaults to None."
 msgstr ""
 
-#: of pymemuc._control.start_vm:12
+#: of pymemuc._control.start_vm:14
 msgid "True if the vm was started successfully"
 msgstr ""
 
@@ -447,8 +485,20 @@ msgstr ""
 msgid "Cloned VM name. Defaults to None."
 msgstr ""
 
-#: of pymemuc._manage.clone_vm:10
+#: of pymemuc._manage.clone_vm:12
 msgid "True if the vm was cloned successfully"
+msgstr ""
+
+#: of pymemuc._manage.compress_vm:1
+msgid "Compress a VM, must specify either a vm index or a vm name"
+msgstr ""
+
+#: of pymemuc._manage.compress_vm:10
+msgid "an error if the vm compress failed"
+msgstr ""
+
+#: of pymemuc._manage.compress_vm:11
+msgid "True if the vm was compressed successfully"
 msgstr ""
 
 #: of pymemuc._manage.create_vm:1
@@ -456,7 +506,7 @@ msgid "Create a new VM"
 msgstr ""
 
 #: of pymemuc._manage.create_vm:3
-msgid "Android version. Defaults to \"76\"."
+msgid "Android version. Defaults to \"96\"."
 msgstr ""
 
 #: of pymemuc._manage.create_vm:5
@@ -536,6 +586,14 @@ msgid ""
 "the VM is running pid: VM pid disk_usage: VM disk usage"
 msgstr ""
 
+#: of pymemuc._manage.randomize_vm:1
+msgid "Randomize a VM, must specify either a vm index or a vm name"
+msgstr ""
+
+#: of pymemuc._manage.randomize_vm:8
+msgid "True if the vm was randomized successfully"
+msgstr ""
+
 #: of pymemuc._manage.rename_vm:1
 msgid "Rename a VM, must specify either a vm index or a vm name"
 msgstr ""
@@ -605,10 +663,6 @@ msgstr ""
 
 #: of pymemuc._memuc.memuc_run:10
 msgid "the timeout in seconds. Defaults to None for no timeout."
-msgstr ""
-
-#: of pymemuc._memuc.memuc_run:14
-msgid "an error if the command failed"
 msgstr ""
 
 #: of pymemuc._memuc.memuc_run:15
@@ -978,3 +1032,7 @@ msgstr ""
 
 #~ msgid "True if the vm was randomized successfully"
 #~ msgstr ""
+
+#~ msgid "Android version. Defaults to \"76\"."
+#~ msgstr ""
+
