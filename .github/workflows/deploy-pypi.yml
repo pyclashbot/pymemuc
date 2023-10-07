@@ -6,7 +6,7 @@ on:
       - "v*.*.*"
 
 jobs:
-  deploy:
+  release-build:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -19,9 +19,36 @@ jobs:
           cache: "poetry"
       - name: Install package and dependencies
         run: |
-          poetry install --without dev
+          poetry install --without dev --with tests
       - name: Build and publish
         run: |
           poetry version $(git describe --tags --abbrev=0)
           poetry build
-          poetry publish --username ${{ secrets.PYPI_USERNAME }} --password ${{ secrets.PYPI_API_TOKEN }}
+      - name: Verify wheel using twine
+        run: |
+          poetry run twine check dist/* --strict
+      - name: Upload release distributions
+        uses: actions/upload-artifact@v3
+        with:
+          name: release-dists
+          path: dist/
+
+  pypi-publish:
+    runs-on: ubuntu-latest
+    needs:
+      - release-build
+    environment:
+      name: pypi
+      url: https://pypi.org/p/pymemuc
+    permissions:
+      id-token: write
+    steps:
+      - name: Retrieve release distributions
+        uses: actions/download-artifact@v3
+        with:
+          name: release-dists
+          path: dist/
+      - name: Publish release distributions to PyPI
+        uses: pypa/gh-action-pypi-publish@release/v1
+        with:
+          print-hash: true
