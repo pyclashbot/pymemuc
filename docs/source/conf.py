@@ -38,7 +38,7 @@ intersphinx_mapping = {"Python Docs": ("http://docs.python.org/", None)}
 
 html_js_files = [
     (
-        "https://analytics.martinmiglio.dev/script.js",
+        "https://analytics.pyclashbot.app/script.js",
         {"data-website-id": "28d008aa-35e3-4aaa-8964-b06ec824bfed", "async": "async"},
     ),
 ]

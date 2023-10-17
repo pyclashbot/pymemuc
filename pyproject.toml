@@ -7,7 +7,7 @@ name = "pymemuc"
 version = "v0.0.0"
 description = "A Python API for MEmu Android Emulator."
 readme = "README.md"
-authors = ["Martin Miglio <code@martinmiglio.dev>"]
+authors = ["Martin Miglio <martin@pyclashbot.app>"]
 license = "MIT"
 classifiers = [
   "License :: OSI Approved :: MIT License",
@@ -16,8 +16,8 @@ classifiers = [
   "Topic :: Software Development :: Libraries :: Python Modules",
 ]
 keywords = ["memu", "memuc", "android-emulator", "api"]
-repository = "https://github.com/martinmiglio/pymemuc"
-documentation = "https://pymemuc.martinmiglio.dev/"
+repository = "https://github.com/pyclashbot/pymemuc"
+documentation = "https://pymemuc.pyclashbot.app/"
 
 
 [tool.poetry.dependencies]

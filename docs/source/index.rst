@@ -19,8 +19,8 @@ pymemuc
    :alt: PyPI - Python Version
    :target: https://pypi.org/project/pymemuc/
 
-.. image:: https://www.codefactor.io/repository/github/martinmiglio/pymemuc/badge
-   :target: https://www.codefactor.io/repository/github/martinmiglio/pymemuc
+.. image:: https://www.codefactor.io/repository/github/pyclashbot/pymemuc/badge
+   :target: https://www.codefactor.io/repository/github/pyclashbot/pymemuc
    :alt: CodeFactor
 
 .. meta::
@@ -44,8 +44,8 @@ Contents
 Contribute
 ----------
 
-- If you are having any problems or wish to see added features, `find or open an issue <https://github.com/martinmiglio/pymemuc/issues>`_.
-- Looking to contribute directly? Open a pull request in the `repository <https://github.com/martinmiglio/pymemuc>`_.
+- If you are having any problems or wish to see added features, `find or open an issue <https://github.com/pyclashbot/pymemuc/issues>`_.
+- Looking to contribute directly? Open a pull request in the `repository <https://github.com/pyclashbot/pymemuc>`_.
 
 Support
 -------

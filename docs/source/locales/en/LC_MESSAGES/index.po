@@ -71,13 +71,13 @@ msgstr ""
 #: ../../source/index.rst:42
 msgid ""
 "If you are having any problems or wish to see added features, `find or "
-"open an issue <https://github.com/martinmiglio/pymemuc/issues>`_."
+"open an issue <https://github.com/pyclashbot/pymemuc/issues>`_."
 msgstr ""
 
 #: ../../source/index.rst:43
 msgid ""
 "Looking to contribute directly? Open a pull request in the `repository "
-"<https://github.com/martinmiglio/pymemuc>`_."
+"<https://github.com/pyclashbot/pymemuc>`_."
 msgstr ""
 
 #: ../../source/index.rst:46
@@ -102,13 +102,13 @@ msgstr ""
 #~ "If you are having any problems or"
 #~ " wish to see added features, `find"
 #~ " or open an issue "
-#~ "<https://github.com/martinmiglio/pymemuc/issues>`_."
+#~ "<https://github.com/pyclashbot/pymemuc/issues>`_."
 #~ msgstr ""
 
 #~ msgid ""
 #~ "Looking to contribute directly? Open a"
 #~ " pull request in the `repository "
-#~ "<https://github.com/martinmiglio/pymemuc>`_."
+#~ "<https://github.com/pyclashbot/pymemuc>`_."
 #~ msgstr ""
 
 #~ msgid ""
@@ -121,12 +121,11 @@ msgstr ""
 #~ "If you are having any problems or"
 #~ " wish to see added features, `find"
 #~ " or open an issue "
-#~ "<https://github.com/marmig0404/pymemuc/issues>`_."
+#~ "<https://github.com/pyclashbot/pymemuc/issues>`_."
 #~ msgstr ""
 
 #~ msgid ""
 #~ "Looking to contribute directly? Open a"
 #~ " pull request in the `repository "
-#~ "<https://github.com/marmig0404/pymemuc>`_."
+#~ "<https://github.com/pyclashbot/pymemuc>`_."
 #~ msgstr ""
-

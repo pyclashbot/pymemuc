@@ -1,6 +1,6 @@
 # pymemuc
 
-[![GitHub](https://img.shields.io/github/license/martinmiglio/pymemuc)](LICENSE) [![Documentation Status](https://readthedocs.org/projects/pymemuc/badge/?version=latest)][full_doc] [![PyPI](https://img.shields.io/pypi/v/pymemuc) ![PyPI - Downloads](https://img.shields.io/pypi/dm/pymemuc)][pypi_link] [![PyPI - Python Version](https://img.shields.io/pypi/pyversions/pymemuc)][python_link] [![CodeFactor](https://www.codefactor.io/repository/github/martinmiglio/pymemuc/badge)][codefactor_link]
+[![GitHub](https://img.shields.io/github/license/pyclashbot/pymemuc)](LICENSE) [![Documentation Status](https://readthedocs.org/projects/pymemuc/badge/?version=latest)][full_doc] [![PyPI](https://img.shields.io/pypi/v/pymemuc) ![PyPI - Downloads](https://img.shields.io/pypi/dm/pymemuc)][pypi_link] [![PyPI - Python Version](https://img.shields.io/pypi/pyversions/pymemuc)][python_link] [![CodeFactor](https://www.codefactor.io/repository/github/pyclashbot/pymemuc/badge)][codefactor_link]
 
 A Python API for MEmu Android Emulator.
 pymemuc exposes [MEmu Command (MEMUC)][memuc_docs] functionality in Python.
@@ -43,7 +43,7 @@ See the [API documentation][full_doc].
 
 [python_link]: https://www.python.org/
 [pypi_link]: https://pypi.org/project/pymemuc/
-[codefactor_link]: https://www.codefactor.io/repository/github/martinmiglio/pymemuc
+[codefactor_link]: https://www.codefactor.io/repository/github/pyclashbot/pymemuc
 [memuc_docs]: https://www.memuplay.com/blog/memucommand-reference-manual.html
 [demo_notebook]: demo/demo.ipynb
-[full_doc]: https://pymemuc.martinmiglio.dev/
+[full_doc]: https://pymemuc.pyclashbot.app/
