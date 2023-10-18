@@ -1,3 +1,4 @@
+# pylint: disable=invalid-name,missing-module-docstring,missing-class-docstring,missing-function-docstring
 import os
 import sys
 
@@ -28,7 +29,7 @@ autodoc_default_options = {
 }
 add_module_names = False
 
-
+html_logo = "assets/pycb-logo.png"
 html_theme = "furo"
 html_theme_options = {
     "sidebarwidth": "19em",
