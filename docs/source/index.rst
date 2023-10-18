@@ -1,35 +1,8 @@
 pymemuc
 ===================================
-.. image:: https://img.shields.io/pypi/l/pymemuc
-   :alt: PyPI - License
-   :target: https://pypi.org/project/pymemuc/
-
-.. image:: https://readthedocs.org/projects/pymemuc/badge/?version=latest
-   :target: https://pymemuc.readthedocs.io/?badge=latest
-   :alt: Documentation Status
-
-.. image:: https://img.shields.io/pypi/v/pymemuc
-   :alt: PyPI - Version
-   :target: https://pypi.org/project/pymemuc/
-
-.. image:: https://img.shields.io/pypi/dm/pymemuc
-   :alt: PyPI - Downloads
-
-.. image:: https://img.shields.io/pypi/pyversions/pymemuc
-   :alt: PyPI - Python Version
-   :target: https://pypi.org/project/pymemuc/
-
-.. image:: https://www.codefactor.io/repository/github/pyclashbot/pymemuc/badge
-   :target: https://www.codefactor.io/repository/github/pyclashbot/pymemuc
-   :alt: CodeFactor
-
-.. meta::
-   :description lang=en:
-      A Python API for MEmu Android Emulator.
-      pymemuc exposes MEmu Command functionality in Python.
 
 A Python API for MEmu Android Emulator.
-pymemuc exposes `MEmu Command <https://www.memuplay.com/blog/memucommand-reference-manual.html>`_ functionality in Python.
+The API exposes `MEmu Command <https://www.memuplay.com/blog/memucommand-reference-manual.html>`_ functionality in Python.
 
 Allows for easy interaction with MEmu VMs, including VM image management, VM control, running VM commands and ADB interaction.
 
