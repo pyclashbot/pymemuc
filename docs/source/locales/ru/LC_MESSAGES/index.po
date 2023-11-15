@@ -1,5 +1,5 @@
 # SOME DESCRIPTIVE TITLE.
-# Copyright (C) 2022, Martin Miglio
+# Copyright (C) 2023, Martin Miglio
 # This file is distributed under the same license as the pymemuc package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, 2023.
 #
@@ -11,9 +11,10 @@ msgstr ""
 "POT-Creation-Date: 2023-11-15 16:26-0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language: en\n"
-"Language-Team: en <LL@li.org>\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Language: ru\n"
+"Language-Team: ru <LL@li.org>\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
+"n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -21,7 +22,7 @@ msgstr ""
 
 #: ../../source/index.rst:2
 msgid "pymemuc"
-msgstr ""
+msgstr "pymemuc"
 
 #: ../../source/index.rst:4
 msgid ""
@@ -29,91 +30,58 @@ msgid ""
 "<https://www.memuplay.com/blog/memucommand-reference-manual.html>`_ "
 "functionality in Python."
 msgstr ""
+"Python API для MEmu Android Emulator. Этот API предоставляет функциональность `MEmu Command "
+"<https://www.memuplay.com/blog/memucommand-reference-manual.html>`_ "
+"на языке Python."
 
 #: ../../source/index.rst:7
 msgid ""
 "Allows for easy interaction with MEmu VMs, including VM image management,"
 " VM control, running VM commands and ADB interaction."
 msgstr ""
+"Обеспечивает легкое взаимодействие с MEmu VM, включая управление образами VM,"
+" управление VM, выполнение команд VM и взаимодействие с ADB."
 
 #: ../../source/index.rst:10
 msgid "Contents"
-msgstr ""
+msgstr "Содержание"
 
 #: ../../source/index.rst:18
 msgid "Contribute"
-msgstr ""
+msgstr "Внести вклад"
 
 #: ../../source/index.rst:20
 msgid ""
 "If you are having any problems or wish to see added features, `find or "
 "open an issue <https://github.com/pyclashbot/pymemuc/issues>`_."
 msgstr ""
+"Если у вас возникли проблемы или вы хотели бы видеть добавленные функции, `найдите или "
+"откройте issue <https://github.com/pyclashbot/pymemuc/issues>`_."
 
 #: ../../source/index.rst:21
 msgid ""
 "Looking to contribute directly? Open a pull request in the `repository "
 "<https://github.com/pyclashbot/pymemuc>`_."
 msgstr ""
+"Хотите внести вклад напрямую? Откройте pull request в `репозитории "
+"<https://github.com/pyclashbot/pymemuc>`_."
 
 #: ../../source/index.rst:24
 msgid "Support"
-msgstr ""
+msgstr "Поддержка"
 
 #: ../../source/index.rst:26
 msgid ""
 "If you are having issues, please let us know. This project is still in "
 "development."
 msgstr ""
+"Если у вас возникли проблемы, пожалуйста, дайте нам знать. Этот проект все еще находится "
+"в стадии разработки."
 
 #: ../../source/index.rst:29
 msgid "License"
-msgstr ""
+msgstr "Лицензия"
 
 #: ../../source/index.rst:31
 msgid "The project is licensed under the MIT license."
-msgstr ""
-
-#~ msgid ""
-#~ "If you are having any problems or"
-#~ " wish to see added features, `find"
-#~ " or open an issue "
-#~ "<https://github.com/pyclashbot/pymemuc/issues>`_."
-#~ msgstr ""
-
-#~ msgid ""
-#~ "Looking to contribute directly? Open a"
-#~ " pull request in the `repository "
-#~ "<https://github.com/pyclashbot/pymemuc>`_."
-#~ msgstr ""
-
-#~ msgid ""
-#~ "A wrapper for `MEmu Command "
-#~ "<https://www.memuplay.com/blog/memucommand-reference-"
-#~ "manual.html>`_ in python."
-#~ msgstr ""
-
-#~ msgid "PyPI - License"
-#~ msgstr ""
-
-#~ msgid "Documentation Status"
-#~ msgstr ""
-
-#~ msgid "PyPI - Version"
-#~ msgstr ""
-
-#~ msgid "PyPI - Downloads"
-#~ msgstr ""
-
-#~ msgid "PyPI - Python Version"
-#~ msgstr ""
-
-#~ msgid "CodeFactor"
-#~ msgstr ""
-
-#~ msgid ""
-#~ "A Python API for MEmu Android "
-#~ "Emulator. pymemuc exposes `MEmu Command "
-#~ "<https://www.memuplay.com/blog/memucommand-reference-"
-#~ "manual.html>`_ functionality in Python."
-#~ msgstr ""
+msgstr "Проект лицензирован под лицензией MIT."
