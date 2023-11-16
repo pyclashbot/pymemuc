@@ -115,7 +115,9 @@ def start_app_vm(
 ) -> Literal[True]:
     """Start an app on a VM, must specify either a vm index or a vm name
 
-    :param package_name: Package name of the APK
+    :param package_name: Package name of the APK, e.g. ``com.android.chrome``.
+        This can be found using :func:`~get_app_info_list_vm`,
+        excluding the readable name and version suffix.
     :type package_name: str
     :param vm_index: VM index. Defaults to None.
     :type vm_index: int, optional
