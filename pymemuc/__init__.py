@@ -6,11 +6,12 @@ from .exceptions import (
     PyMemucTimeoutExpired,
 )
 from .pymemuc import PyMemuc
-from .vminfo import VMInfo
+from .types import ConfigKeys, VMInfo
 
 __all__ = [
     "PyMemuc",
     "VMInfo",
+    "ConfigKeys",
     "PyMemucError",
     "PyMemucIndexError",
     "PyMemucTimeoutExpired",

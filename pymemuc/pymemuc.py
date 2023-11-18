@@ -57,14 +57,13 @@ class PyMemuc:
         set_configuration_vm,
         vm_is_running,
     )
-    from ._memuc import (
-        _get_memu_top_level,
-        _terminate_process,
-        check_task_status,
-        memuc_run,
-    )
+    from ._memuc import _get_memu_top_level  # pyright: ignore [reportPrivateUsage]
+    from ._memuc import _terminate_process  # pyright: ignore [reportPrivateUsage]
+    from ._memuc import check_task_status, memuc_run
 
-    def __init__(self, memuc_path: Union[str, None] = None, debug=False) -> None:
+    def __init__(
+        self, memuc_path: Union[str, None] = None, debug: bool = False
+    ) -> None:
         """initialize the class, automatically finding memuc.exe if windows registry is supported,
         otherwise a path must be specified"""
         self.debug = debug

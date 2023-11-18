@@ -7,15 +7,17 @@ WIN32 = name == "nt"
 # check for windows registry support
 if WIN32:
     try:
-        # flake8: noqa
         # pylint: disable=unused-import
-        import winreg  # noqa
+        import winreg  # pyright: ignore [reportUnusedImport]
 
-        WINREG_EN = True
+        winreg_en = True  # pylint: disable=invalid-name
     except ImportError:
-        WINREG_EN = False
+        winreg_en = False  # pylint: disable=invalid-name
 else:
-    WINREG_EN = False
+    winreg_en = False  # pylint: disable=invalid-name
+
+WINREG_EN = winreg_en
+del winreg_en
 
 # number of times to retry a command decorated with _decorator._retryable
 RETRIES = 3

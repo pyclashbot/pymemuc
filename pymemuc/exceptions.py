@@ -1,12 +1,13 @@
 """PyMemuc exceptions module"""
 
 from subprocess import TimeoutExpired
+from typing import Any
 
 
 class PyMemucError(Exception):
     """PyMemuc error class"""
 
-    def __init__(self, value) -> None:
+    def __init__(self, value: Any) -> None:
         self.value = value
 
     def __str__(self) -> str:
@@ -16,7 +17,7 @@ class PyMemucError(Exception):
 class PyMemucException(Exception):
     """PyMemuc exception class"""
 
-    def __init__(self, value) -> None:
+    def __init__(self, value: Any) -> None:
         self.value = value
 
     def __str__(self) -> str:
@@ -26,7 +27,7 @@ class PyMemucException(Exception):
 class PyMemucIndexError(PyMemucException):
     """PyMemuc index error class"""
 
-    def __init__(self, value) -> None:
+    def __init__(self, value: Any) -> None:
         self.value = value
 
     def __str__(self) -> str:
@@ -36,7 +37,7 @@ class PyMemucIndexError(PyMemucException):
 class PyMemucTimeoutExpired(TimeoutExpired):
     """PyMemuc timeout error class"""
 
-    def __init__(self, value) -> None:
+    def __init__(self, value: Any) -> None:
         self.value = value
 
     def __str__(self) -> str:

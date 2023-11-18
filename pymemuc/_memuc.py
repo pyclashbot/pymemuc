@@ -2,7 +2,7 @@
 from contextlib import suppress
 from os.path import join, normpath
 from subprocess import PIPE, CalledProcessError, Popen, TimeoutExpired
-from typing import TYPE_CHECKING, Tuple
+from typing import TYPE_CHECKING, Tuple, Union
 
 from ._constants import WIN32, WINREG_EN
 from .exceptions import PyMemucError, PyMemucException, PyMemucTimeoutExpired
@@ -22,7 +22,7 @@ if WIN32:
         SW_HIDE,
     )
 
-    ST_INFO = STARTUPINFO()
+    ST_INFO = STARTUPINFO()  # pyright: ignore [reportConstantRedefinition]
     ST_INFO.dwFlags |= (
         STARTF_USESHOWWINDOW | STARTF_USESTDHANDLES | REALTIME_PRIORITY_CLASS
     )
@@ -34,7 +34,7 @@ if TYPE_CHECKING:
 
 
 @staticmethod
-def _get_memu_top_level() -> str:
+def _get_memu_top_level() -> str:  # pyright: ignore[reportUnusedFunction]
     """locate the path of the memu directory using windows registry keys
 
     :return: the path of the memu directory
@@ -48,21 +48,42 @@ def _get_memu_top_level() -> str:
         r"SOFTWARE\WOW6432Node\Microsoft\Windows\CurrentVersion\Uninstall\MEmu",
     ]:
         with suppress(FileNotFoundError):
-            akey = OpenKey(ConnectRegistry(None, HKEY_LOCAL_MACHINE), key)
-            return str(join(normpath(QueryValueEx(akey, "InstallLocation")[0]), "Memu"))
+            akey = OpenKey(  # pyright: ignore [reportUnboundVariable]
+                ConnectRegistry(  # pyright: ignore [reportUnboundVariable]
+                    None, HKEY_LOCAL_MACHINE  # pyright: ignore [reportUnboundVariable]
+                ),
+                key,
+            )
+            return str(
+                join(
+                    normpath(
+                        QueryValueEx(  # pyright: ignore [reportUnboundVariable]
+                            akey, "InstallLocation"
+                        )[0]
+                    ),
+                    "Memu",
+                )
+            )
     raise PyMemucError("MEmuc not found, is it installed?")
 
 
 @staticmethod
-def _terminate_process(process: Popen):
+def _terminate_process(  # pyright: ignore [reportUnusedFunction]
+    process: Popen[str],
+) -> None:
     """Terminate a process forcefully on Windows."""
+    if not WIN32 or not ctypes:
+        raise PyMemucError("This function is only supported on Windows")
     handle = ctypes.windll.kernel32.OpenProcess(1, False, process.pid)
     ctypes.windll.kernel32.TerminateProcess(handle, -1)
     ctypes.windll.kernel32.CloseHandle(handle)
 
 
 def memuc_run(
-    self: "PyMemuc", args: list[str], non_blocking=False, timeout=None
+    self: "PyMemuc",
+    args: list[str],
+    non_blocking: bool = False,
+    timeout: Union[float, None] = None,
 ) -> Tuple[int, str]:
     """run a command with memuc.exe.
     Memuc can support non-blocking commands, returning a task id.
@@ -74,7 +95,7 @@ def memuc_run(
     :param non_blocking: whether to run the command in the background. Defaults to False.
     :type non_blocking: bool, optional
     :param timeout: the timeout in seconds. Defaults to None for no timeout.
-    :type timeout: int, optional
+    :type timeout: float, optional
     :return: the return code and the output of the command
     :rtype: tuple[int, str]
     :raises PyMemucError: an error if the command failed
@@ -105,15 +126,14 @@ def memuc_run(
                 if WIN32:
                     # pylint: disable=protected-access
                     self._terminate_process(process)
-                else:
-                    process.kill()
+                process.kill()
                 result, _ = process.communicate()
                 raise PyMemucTimeoutExpired(err) from err
             if lines := result.splitlines():
                 self.logger.debug(f"\tOutput: {lines.pop(0)}")
                 for line in lines:
                     self.logger.debug(f"\t\t{line}")
-            return (0, result)
+            return (process.returncode, result)
     except CalledProcessError as err:
         raise PyMemucError(err) from err
 

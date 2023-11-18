@@ -3,7 +3,7 @@ Functions for interacting with running VMs are defined here."""
 from typing import TYPE_CHECKING, Literal, Tuple, Union
 from urllib.parse import urlparse
 
-from ._decorators import _retryable
+from ._decorators import retryable
 from .exceptions import PyMemucError, PyMemucIndexError, PyMemucTimeoutExpired
 
 if TYPE_CHECKING:
@@ -17,7 +17,7 @@ def sort_out_all_vm(self: "PyMemuc") -> bool:
     :rtype: tuple[int, str]
     """
     status, output = self.memuc_run(["sortwin"])
-    success = status == 0 and output is not None and "SUCCESS" in output
+    success = status == 0 and "SUCCESS" in output
     if not success:
         raise PyMemucError(f"Failed to sort out all VMs: {output}")
     return True
@@ -26,10 +26,10 @@ def sort_out_all_vm(self: "PyMemuc") -> bool:
 # TODO: look into bindings with https://github.com/egirault/googleplay-api
 def install_apk_vm(
     self: "PyMemuc",
-    apk_path,
+    apk_path: str,
     vm_index: Union[int, None] = None,
     vm_name: Union[str, None] = None,
-    create_shortcut=False,
+    create_shortcut: bool = False,
 ) -> Literal[True]:
     """Install an APK on a VM, must specify either a vm index or a vm name
 
@@ -67,7 +67,7 @@ def install_apk_vm(
         )
     else:
         raise PyMemucIndexError("Please specify either a vm index or a vm name")
-    success = status == 0 and output is not None and "SUCCESS" in output
+    success = status == 0 and "SUCCESS" in output
     if not success:
         raise PyMemucError(f"Failed to install APK: {output}")
     return True
@@ -75,7 +75,7 @@ def install_apk_vm(
 
 def uninstall_apk_vm(
     self: "PyMemuc",
-    package_name,
+    package_name: str,
     vm_index: Union[int, None] = None,
     vm_name: Union[str, None] = None,
 ) -> Literal[True]:
@@ -99,19 +99,19 @@ def uninstall_apk_vm(
         status, output = self.memuc_run(["-n", vm_name, "uninstallapp", package_name])
     else:
         raise PyMemucIndexError("Please specify either a vm index or a vm name")
-    success = status == 0 and output is not None and "SUCCESS" in output
+    success = status == 0 and "SUCCESS" in output
     if not success:
         raise PyMemucError(f"Failed to uninstall APK: {output}")
     return True
 
 
-@_retryable
+@retryable
 def start_app_vm(
     self: "PyMemuc",
-    package_name,
+    package_name: str,
     vm_index: Union[int, None] = None,
     vm_name: Union[str, None] = None,
-    timeout: Union[int, None] = None,
+    timeout: Union[float, None] = None,
 ) -> Literal[True]:
     """Start an app on a VM, must specify either a vm index or a vm name
 
@@ -124,7 +124,7 @@ def start_app_vm(
     :param vm_name: VM name. Defaults to None.
     :type vm_name: str, optional
     :param timeout: Timeout in seconds. Defaults to None.
-    :type timeout: int, optional
+    :type timeout: float, optional
     :raises PyMemucIndexError: an error if neither a vm index or a vm name is specified
     :return: True if the vm app start was successful
     :rtype: Literal[True]
@@ -139,7 +139,7 @@ def start_app_vm(
         )
     else:
         raise PyMemucIndexError("Please specify either a vm index or a vm name")
-    success = status == 0 and output is not None and "SUCCESS" in output
+    success = status == 0 and "SUCCESS" in output
     if not success:
         raise PyMemucError(f"Failed to start app: {output}")
     return True
@@ -147,7 +147,7 @@ def start_app_vm(
 
 def stop_app_vm(
     self: "PyMemuc",
-    package_name,
+    package_name: str,
     vm_index: Union[int, None] = None,
     vm_name: Union[str, None] = None,
 ) -> Literal[True]:
@@ -169,7 +169,7 @@ def stop_app_vm(
         status, output = self.memuc_run(["-n", vm_name, "stopapp", package_name])
     else:
         raise PyMemucIndexError("Please specify either a vm index or a vm name")
-    success = status == 0 and output is not None and "SUCCESS" in output
+    success = status == 0 and "SUCCESS" in output
     if not success:
         raise PyMemucError(f"Failed to stop app: {output}")
     return True
@@ -199,7 +199,7 @@ def trigger_keystroke_vm(
         status, output = self.memuc_run(["-n", vm_name, "sendkey", key])
     else:
         raise PyMemucIndexError("Please specify either a vm index or a vm name")
-    success = status == 0 and output is not None and "SUCCESS" in output
+    success = status == 0 and "SUCCESS" in output
     if not success:
         raise PyMemucError(f"Failed to trigger keystroke: {output}")
     return True
@@ -224,7 +224,7 @@ def trigger_shake_vm(
         status, output = self.memuc_run(["-n", vm_name, "shake"])
     else:
         raise PyMemucIndexError("Please specify either a vm index or a vm name")
-    success = status == 0 and output is not None and "SUCCESS" in output
+    success = status == 0 and "SUCCESS" in output
     if not success:
         raise PyMemucError(f"Failed to trigger shake: {output}")
     return True
@@ -249,7 +249,7 @@ def connect_internet_vm(
         status, output = self.memuc_run(["-n", vm_name, "connect"])
     else:
         raise PyMemucIndexError("Please specify either a vm index or a vm name")
-    success = status == 0 and output is not None and "SUCCESS" in output
+    success = status == 0 and "SUCCESS" in output
     if not success:
         raise PyMemucError(f"Failed to connect internet: {output}")
     return True
@@ -274,7 +274,7 @@ def disconnect_internet_vm(
         status, output = self.memuc_run(["-n", vm_name, "disconnect"])
     else:
         raise PyMemucIndexError("Please specify either a vm index or a vm name")
-    success = status == 0 and output is not None and "SUCCESS" in output
+    success = status == 0 and "SUCCESS" in output
     if not success:
         raise PyMemucError(f"Failed to disconnect internet: {output}")
     return True
@@ -282,7 +282,7 @@ def disconnect_internet_vm(
 
 def input_text_vm(
     self: "PyMemuc",
-    text,
+    text: str,
     vm_index: Union[int, None] = None,
     vm_name: Union[str, None] = None,
 ) -> Literal[True]:
@@ -304,7 +304,7 @@ def input_text_vm(
         status, output = self.memuc_run(["-n", vm_name, "input", text])
     else:
         raise PyMemucIndexError("Please specify either a vm index or a vm name")
-    success = status == 0 and output is not None and "SUCCESS" in output
+    success = status == 0 and "SUCCESS" in output
     if not success:
         raise PyMemucError(f"Failed to input text: {output}")
     return True
@@ -327,7 +327,7 @@ def rotate_window_vm(
         status, output = self.memuc_run(["-n", vm_name, "rotate"])
     else:
         raise PyMemucIndexError("Please specify either a vm index or a vm name")
-    success = status == 0 and output is not None and "SUCCESS" in output
+    success = status == 0 and "SUCCESS" in output
     if not success:
         raise PyMemucError(f"Failed to rotate window: {output}")
     return True
@@ -335,7 +335,7 @@ def rotate_window_vm(
 
 def execute_command_vm(
     self: "PyMemuc",
-    command,
+    command: str,
     vm_index: Union[int, None] = None,
     vm_name: Union[str, None] = None,
 ) -> Tuple[int, str]:
@@ -389,7 +389,7 @@ def change_gps_vm(
         )
     else:
         raise PyMemucIndexError("Please specify either a vm index or a vm name")
-    success = success == 0 and output is not None and "SUCCESS" in output
+    success = success == 0 and "SUCCESS" in output
     if not success:
         raise PyMemucError(f"Failed to change GPS location: {output}")
     return True
@@ -439,7 +439,7 @@ def zoom_in_vm(
         status, output = self.memuc_run(["-n", vm_name, "zoomin"])
     else:
         raise PyMemucIndexError("Please specify either a vm index or a vm name")
-    success = status == 0 and output is not None and "SUCCESS" in output
+    success = status == 0 and "SUCCESS" in output
     if not success:
         raise PyMemucError(f"Failed to zoom in: {output}")
     return True
@@ -464,7 +464,7 @@ def zoom_out_vm(
         status, output = self.memuc_run(["-n", vm_name, "zoomout"])
     else:
         raise PyMemucIndexError("Please specify either a vm index or a vm name")
-    success = status == 0 and output is not None and "SUCCESS" in output
+    success = status == 0 and "SUCCESS" in output
     if not success:
         raise PyMemucError(f"Failed to zoom in: {output}")
     return True
@@ -474,7 +474,7 @@ def get_app_info_list_vm(
     self: "PyMemuc",
     vm_index: Union[int, None] = None,
     vm_name: Union[str, None] = None,
-    timeout=10,
+    timeout: float = 10,
 ) -> list[str]:
     """Get the list of apps installed on a VM, must specify either a vm index or a vm name
 
@@ -483,7 +483,7 @@ def get_app_info_list_vm(
     :param vm_name: VM name. Defaults to None.
     :type vm_name: str, optional
     :param timeout: Timeout for the command. Defaults to 10.
-    :type timeout: int, optional
+    :type timeout: float, optional
     :raises PyMemucIndexError: an error if neither a vm index or a vm name is specified
     :raises PyMemucError: an error if the command failed
     :return: the list of packages installed on the VM
@@ -602,7 +602,7 @@ def send_adb_command_vm(
     command: Union[str, list[str]],
     vm_index: Union[int, None] = None,
     vm_name: Union[str, None] = None,
-    timeout: Union[int, None] = None,
+    timeout: Union[float, None] = None,
 ) -> str:
     """Send an ADB command to a VM, must specify either a vm index or a vm name
 
@@ -613,7 +613,7 @@ def send_adb_command_vm(
     :param vm_name: VM name. Defaults to None.
     :type vm_name: str, optional
     :param timeout: Timeout for the command. Defaults to None.
-    :type timeout: int, optional
+    :type timeout: float, optional
     :raises PyMemucIndexError: an error if neither a vm index or a vm name is specified
     :raises PyMemucTimeoutExpired: an error if the command times out
     :return: the return code and the output of the command.
@@ -637,7 +637,7 @@ def get_adb_connection(
     self: "PyMemuc",
     vm_index: Union[int, None] = None,
     vm_name: Union[str, None] = None,
-    timeout: Union[int, None] = None,
+    timeout: Union[float, None] = None,
 ) -> Tuple[Union[str, None], Union[int, None]]:
     """Get the adb connection information for a VM
 
@@ -646,7 +646,7 @@ def get_adb_connection(
     :param vm_name: VM name. Defaults to None.
     :type vm_name: str, optional
     :param timeout: Timeout for the command. Defaults to None.
-    :type timeout: int, optional
+    :type timeout: float, optional
     :raises PyMemucIndexError: an error if neither a vm index or a vm name is specified
     :raises PyMemucTimeoutExpired: an error if the command times out
     :raises PyMemucError: an error if the command fails
