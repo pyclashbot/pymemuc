@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: pymemuc \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-11-15 16:26-0500\n"
+"POT-Creation-Date: 2023-11-18 12:42-0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: ru\n"
@@ -101,16 +101,16 @@ msgstr "Долгота"
 #: pymemuc._command.get_app_info_list_vm:3 pymemuc._command.get_public_ip_vm:3
 #: pymemuc._command.input_text_vm:5 pymemuc._command.install_apk_vm:5
 #: pymemuc._command.rotate_window_vm:3 pymemuc._command.send_adb_command_vm:5
-#: pymemuc._command.set_accelerometer_vm:5 pymemuc._command.start_app_vm:5
+#: pymemuc._command.set_accelerometer_vm:5 pymemuc._command.start_app_vm:7
 #: pymemuc._command.stop_app_vm:5 pymemuc._command.trigger_keystroke_vm:5
 #: pymemuc._command.trigger_shake_vm:3 pymemuc._command.uninstall_apk_vm:5
 #: pymemuc._command.zoom_in_vm:3 pymemuc._command.zoom_out_vm:3
 #: pymemuc._control.reboot_vm:3 pymemuc._control.start_vm:3
 #: pymemuc._control.stop_vm:3 pymemuc._manage.clone_vm:3
 #: pymemuc._manage.compress_vm:3 pymemuc._manage.delete_vm:3
-#: pymemuc._manage.export_vm:3 pymemuc._manage.get_configuration_vm:6
+#: pymemuc._manage.export_vm:3 pymemuc._manage.get_configuration_vm:5
 #: pymemuc._manage.list_vm_info:3 pymemuc._manage.randomize_vm:3
-#: pymemuc._manage.rename_vm:3 pymemuc._manage.set_configuration_vm:8
+#: pymemuc._manage.rename_vm:3 pymemuc._manage.set_configuration_vm:7
 msgid "VM index. Defaults to None."
 msgstr "Индекс VM. По умолчанию None."
 
@@ -121,16 +121,16 @@ msgstr "Индекс VM. По умолчанию None."
 #: pymemuc._command.get_app_info_list_vm:5 pymemuc._command.get_public_ip_vm:5
 #: pymemuc._command.input_text_vm:7 pymemuc._command.install_apk_vm:7
 #: pymemuc._command.send_adb_command_vm:7
-#: pymemuc._command.set_accelerometer_vm:7 pymemuc._command.start_app_vm:7
+#: pymemuc._command.set_accelerometer_vm:7 pymemuc._command.start_app_vm:9
 #: pymemuc._command.stop_app_vm:7 pymemuc._command.trigger_keystroke_vm:7
 #: pymemuc._command.trigger_shake_vm:5 pymemuc._command.uninstall_apk_vm:7
 #: pymemuc._command.zoom_in_vm:5 pymemuc._command.zoom_out_vm:5
 #: pymemuc._control.reboot_vm:5 pymemuc._control.start_vm:5
 #: pymemuc._control.stop_vm:5 pymemuc._manage.clone_vm:5
 #: pymemuc._manage.compress_vm:5 pymemuc._manage.delete_vm:5
-#: pymemuc._manage.export_vm:5 pymemuc._manage.get_configuration_vm:8
+#: pymemuc._manage.export_vm:5 pymemuc._manage.get_configuration_vm:7
 #: pymemuc._manage.list_vm_info:5 pymemuc._manage.randomize_vm:5
-#: pymemuc._manage.rename_vm:5 pymemuc._manage.set_configuration_vm:10
+#: pymemuc._manage.rename_vm:5 pymemuc._manage.set_configuration_vm:9
 msgid "VM name. Defaults to None."
 msgstr "Имя VM. По умолчанию None."
 
@@ -163,16 +163,16 @@ msgstr "Вызывает"
 #: pymemuc._command.get_app_info_list_vm:9 pymemuc._command.get_public_ip_vm:7
 #: pymemuc._command.input_text_vm:9 pymemuc._command.install_apk_vm:11
 #: pymemuc._command.rotate_window_vm:5 pymemuc._command.send_adb_command_vm:11
-#: pymemuc._command.set_accelerometer_vm:9 pymemuc._command.start_app_vm:11
+#: pymemuc._command.set_accelerometer_vm:9 pymemuc._command.start_app_vm:13
 #: pymemuc._command.stop_app_vm:9 pymemuc._command.trigger_keystroke_vm:9
 #: pymemuc._command.trigger_shake_vm:7 pymemuc._command.uninstall_apk_vm:9
 #: pymemuc._command.zoom_in_vm:7 pymemuc._command.zoom_out_vm:7
 #: pymemuc._control.reboot_vm:9 pymemuc._control.start_vm:13
 #: pymemuc._control.stop_vm:11 pymemuc._manage.clone_vm:11
 #: pymemuc._manage.compress_vm:9 pymemuc._manage.delete_vm:7
-#: pymemuc._manage.export_vm:11 pymemuc._manage.get_configuration_vm:10
+#: pymemuc._manage.export_vm:11 pymemuc._manage.get_configuration_vm:9
 #: pymemuc._manage.list_vm_info:11 pymemuc._manage.randomize_vm:7
-#: pymemuc._manage.set_configuration_vm:12
+#: pymemuc._manage.set_configuration_vm:11
 msgid "an error if neither a vm index or a vm name is specified"
 msgstr "ошибка, если не указан ни индекс, ни имя VM"
 
@@ -396,16 +396,20 @@ msgstr ""
 "Запустить приложение на виртуальной машине, необходимо указать индекс или"
 " имя виртуальной машины"
 
-#: of pymemuc._command.start_app_vm:3 pymemuc._command.stop_app_vm:3
-#: pymemuc._command.uninstall_apk_vm:3
-msgid "Package name of the APK"
-msgstr "Имя пакета APK"
+#: of pymemuc._command.start_app_vm:3
+msgid ""
+"Package name of the APK, e.g. ``com.android.chrome``. This can be found "
+"using :func:`~get_app_info_list_vm`, excluding the readable name and "
+"version suffix."
+msgstr ""
+"Имя пакета APK, например, ``com.android.chrome``. Это можно найти, используя "
+":func:`~get_app_info_list_vm`, исключая читаемое имя и суффикс версии."
 
-#: of pymemuc._command.start_app_vm:9
+#: of pymemuc._command.start_app_vm:11
 msgid "Timeout in seconds. Defaults to None."
 msgstr "Таймаут в секундах. По умолчанию - None."
 
-#: of pymemuc._command.start_app_vm:12
+#: of pymemuc._command.start_app_vm:14
 msgid "True if the vm app start was successful"
 msgstr "True, если запуск приложения на виртуальной машине прошел успешно"
 
@@ -414,6 +418,10 @@ msgid "Stop an app on a VM, must specify either a vm index or a vm name"
 msgstr ""
 "Остановить приложение на виртуальной машине, необходимо указать индекс "
 "или имя виртуальной машины"
+
+#: of pymemuc._command.stop_app_vm:3 pymemuc._command.uninstall_apk_vm:3
+msgid "Package name of the APK"
+msgstr "Имя пакета APK"
 
 #: of pymemuc._command.stop_app_vm:10
 msgid "True if the vm app stop was successful"
@@ -611,16 +619,11 @@ msgstr ""
 
 #: of pymemuc._manage.get_configuration_vm:3
 #: pymemuc._manage.set_configuration_vm:3
-msgid ""
-"Configuration key, keys are noted in `configuration keys table "
-"<https://pymemuc.readthedocs.io/pymemuc.html#the-vm-configuration-keys-"
-"table>`_"
-msgstr ""
-"Ключ конфигурации, ключи приведены в таблице `ключей конфигурации "
-"<https://pymemuc.readthedocs.io/pymemuc.html#the-vm-configuration-keys-"
-"table>`_"
+#, fuzzy
+msgid "Configuration key"
+msgstr "Ключи конфигурации виртуальной машины"
 
-#: of pymemuc._manage.get_configuration_vm:11
+#: of pymemuc._manage.get_configuration_vm:10
 msgid "The configuration value"
 msgstr "Значение конфигурации"
 
@@ -700,11 +703,11 @@ msgstr ""
 "Установить конфигурацию виртуальной машины, необходимо указать индекс или"
 " имя виртуальной машины"
 
-#: of pymemuc._manage.set_configuration_vm:6
+#: of pymemuc._manage.set_configuration_vm:5
 msgid "Configuration value"
 msgstr "Значение конфигурации"
 
-#: of pymemuc._manage.set_configuration_vm:13
+#: of pymemuc._manage.set_configuration_vm:12
 msgid "True if the vm configuration was set successfully"
 msgstr "True, если конфигурация виртуальной машины была успешно установлена"
 
@@ -764,10 +767,11 @@ msgstr ""
 "поддерживается реестр Windows, в противном случае необходимо указать путь"
 
 #: ../../source/pymemuc.rst:18
-msgid "The ``VM Configuration Keys`` table"
+#, fuzzy
+msgid "The ``ConfigKeys`` alias"
 msgstr "Таблица ключей конфигурации виртуальной машины"
 
-#: ../../source/pymemuc.rst:19
+#: ../../source/pymemuc.rst:23
 msgid "VM Configuration Keys"
 msgstr "Ключи конфигурации виртуальной машины"
 
@@ -874,7 +878,8 @@ msgid "The VM's frames per second. (``0``-``100``)"
 msgstr "Количество кадров в секунду виртуальной машины. (``0``-``100``)"
 
 #: ../../source/tables/vm_config_keys.csv:1
-msgid "``virtual_keyboard_mode``"
+#, fuzzy
+msgid "``vkeyboard_mode``"
 msgstr "``virtual_keyboard_mode``"
 
 #: ../../source/tables/vm_config_keys.csv:1
@@ -1104,38 +1109,93 @@ msgstr "``downloadpath``"
 msgid "The path to the VM's shared download path."
 msgstr "Путь к общему каталогу загрузок виртуальной машины."
 
-#: ../../source/pymemuc.rst:28
+#: ../../source/tables/vm_config_keys.csv:1
+msgid "``macaddress``"
+msgstr ""
+
+#: ../../source/tables/vm_config_keys.csv:1
+msgid "Device MAC address"
+msgstr "MAC-адрес устройства"
+
+#: ../../source/tables/vm_config_keys.csv:1
+msgid "``cache_mode``"
+msgstr ""
+
+#: ../../source/tables/vm_config_keys.csv:1
+msgid ""
+"Cache mode, 1 is acceleration (good performance, but there is a risk of "
+"damage to the image when the power is off accidentally), 0 is stable (the"
+" image file is not easy to be damaged, and the performance is slightly "
+"worse) (``1``, ``0``)"
+msgstr ""
+"Режим кэширования, 1 - ускорение (хорошая производительность, но есть "
+"риск повреждения изображения при случайном отключении питания), 0 - стабильный"
+" (изображение сложнее повредить, и производительность немного хуже) (``1``, ``0``)"
+
+#: ../../source/tables/vm_config_keys.csv:1
+msgid "``geometry``"
+msgstr ""
+
+#: ../../source/tables/vm_config_keys.csv:1
+msgid "Top left coordinate and size of simulator (``x y width height``)"
+msgstr "Верхний левый угол и размер симулятора (``x y ширина высота``)"
+
+#: ../../source/tables/vm_config_keys.csv:1
+msgid "``custom_resolution``"
+msgstr ""
+
+#: ../../source/tables/vm_config_keys.csv:1
+msgid "Android resolution and dpi (width height dpi)"
+msgstr "Разрешение Android и dpi (ширина высота dpi)"
+
+#: ../../source/tables/vm_config_keys.csv:1
+msgid "``disable_resize``"
+msgstr ""
+
+#: ../../source/tables/vm_config_keys.csv:1
+msgid "Fixed window size, 1 is fixed, 0 is stretchable"
+msgstr "Фиксированный размер окна, 1 - фиксированный, 0 - растягиваемый"
+
+#: ../../source/tables/vm_config_keys.csv:1
+msgid "``ssid``"
+msgstr ""
+
+#: ../../source/tables/vm_config_keys.csv:1
+msgid "WIFI name (``uylnhxb557|auto``) (auto stands for automatic generation)"
+msgstr "Имя WIFI (``uylnhxb557|auto``) (auto означает автоматическое создание)"
+
+#: ../../source/pymemuc.rst:30
 msgid "The ``VMInfo`` type"
 msgstr "Тип данных ``VMInfo``"
 
-#: of pymemuc.vminfo.VMInfo:1
+#: of pymemuc.types.VMInfo:1
 msgid "Bases: :py:class:`~typing.TypedDict`"
 msgstr "Базовый класс: :py:class:`~typing.TypedDict`"
 
-#: of pymemuc.vminfo.VMInfo:1
+#: of pymemuc.types.VMInfo:1
 msgid "A TypedDict for VM info"
 msgstr "TypedDict для информации о виртуальной машине"
 
-#: ../../docstring of pymemuc.vminfo.VMInfo.index:1
+#: ../../docstring of pymemuc.types.VMInfo.index:1
 msgid "VM index"
 msgstr "Индекс виртуальной машины"
 
-#: ../../docstring of pymemuc.vminfo.VMInfo.title:1
+#: ../../docstring of pymemuc.types.VMInfo.title:1
 msgid "VM title"
 msgstr "Название виртуальной машины"
 
-#: ../../docstring of pymemuc.vminfo.VMInfo.top_level:1
+#: ../../docstring of pymemuc.types.VMInfo.top_level:1
 msgid "VM top level window"
 msgstr "Верхнее окно виртуальной машины"
 
-#: ../../docstring of pymemuc.vminfo.VMInfo.running:1
+#: ../../docstring of pymemuc.types.VMInfo.running:1
 msgid "VM is running"
 msgstr "Виртуальная машина запущена"
 
-#: ../../docstring of pymemuc.vminfo.VMInfo.pid:1
+#: ../../docstring of pymemuc.types.VMInfo.pid:1
 msgid "VM process ID"
 msgstr "Идентификатор процесса виртуальной машины"
 
-#: ../../docstring of pymemuc.vminfo.VMInfo.disk_usage:1
+#: ../../docstring of pymemuc.types.VMInfo.disk_usage:1
 msgid "VM disk usage in bytes"
 msgstr "Использование диска виртуальной машины в байтах"

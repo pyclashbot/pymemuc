@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: pymemuc \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-02 14:08-0400\n"
+"POT-Creation-Date: 2023-11-18 12:42-0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: cn\n"
@@ -16,7 +16,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Generated-By: Babel 2.12.1\n"
+"Generated-By: Babel 2.13.0\n"
 
 #: ../../source/pymemuc.rst:2
 msgid "Documentation"
@@ -92,16 +92,16 @@ msgstr "经度"
 #: pymemuc._command.get_app_info_list_vm:3 pymemuc._command.get_public_ip_vm:3
 #: pymemuc._command.input_text_vm:5 pymemuc._command.install_apk_vm:5
 #: pymemuc._command.rotate_window_vm:3 pymemuc._command.send_adb_command_vm:5
-#: pymemuc._command.set_accelerometer_vm:5 pymemuc._command.start_app_vm:5
+#: pymemuc._command.set_accelerometer_vm:5 pymemuc._command.start_app_vm:7
 #: pymemuc._command.stop_app_vm:5 pymemuc._command.trigger_keystroke_vm:5
 #: pymemuc._command.trigger_shake_vm:3 pymemuc._command.uninstall_apk_vm:5
 #: pymemuc._command.zoom_in_vm:3 pymemuc._command.zoom_out_vm:3
 #: pymemuc._control.reboot_vm:3 pymemuc._control.start_vm:3
 #: pymemuc._control.stop_vm:3 pymemuc._manage.clone_vm:3
 #: pymemuc._manage.compress_vm:3 pymemuc._manage.delete_vm:3
-#: pymemuc._manage.export_vm:3 pymemuc._manage.get_configuration_vm:6
+#: pymemuc._manage.export_vm:3 pymemuc._manage.get_configuration_vm:5
 #: pymemuc._manage.list_vm_info:3 pymemuc._manage.randomize_vm:3
-#: pymemuc._manage.rename_vm:3 pymemuc._manage.set_configuration_vm:8
+#: pymemuc._manage.rename_vm:3 pymemuc._manage.set_configuration_vm:7
 msgid "VM index. Defaults to None."
 msgstr "虚拟机索引。 默认为 None。"
 
@@ -112,16 +112,16 @@ msgstr "虚拟机索引。 默认为 None。"
 #: pymemuc._command.get_app_info_list_vm:5 pymemuc._command.get_public_ip_vm:5
 #: pymemuc._command.input_text_vm:7 pymemuc._command.install_apk_vm:7
 #: pymemuc._command.send_adb_command_vm:7
-#: pymemuc._command.set_accelerometer_vm:7 pymemuc._command.start_app_vm:7
+#: pymemuc._command.set_accelerometer_vm:7 pymemuc._command.start_app_vm:9
 #: pymemuc._command.stop_app_vm:7 pymemuc._command.trigger_keystroke_vm:7
 #: pymemuc._command.trigger_shake_vm:5 pymemuc._command.uninstall_apk_vm:7
 #: pymemuc._command.zoom_in_vm:5 pymemuc._command.zoom_out_vm:5
 #: pymemuc._control.reboot_vm:5 pymemuc._control.start_vm:5
 #: pymemuc._control.stop_vm:5 pymemuc._manage.clone_vm:5
 #: pymemuc._manage.compress_vm:5 pymemuc._manage.delete_vm:5
-#: pymemuc._manage.export_vm:5 pymemuc._manage.get_configuration_vm:8
+#: pymemuc._manage.export_vm:5 pymemuc._manage.get_configuration_vm:7
 #: pymemuc._manage.list_vm_info:5 pymemuc._manage.randomize_vm:5
-#: pymemuc._manage.rename_vm:5 pymemuc._manage.set_configuration_vm:10
+#: pymemuc._manage.rename_vm:5 pymemuc._manage.set_configuration_vm:9
 msgid "VM name. Defaults to None."
 msgstr "虚拟机名称。 默认为 None。"
 
@@ -154,16 +154,16 @@ msgstr "引发异常"
 #: pymemuc._command.get_app_info_list_vm:9 pymemuc._command.get_public_ip_vm:7
 #: pymemuc._command.input_text_vm:9 pymemuc._command.install_apk_vm:11
 #: pymemuc._command.rotate_window_vm:5 pymemuc._command.send_adb_command_vm:11
-#: pymemuc._command.set_accelerometer_vm:9 pymemuc._command.start_app_vm:11
+#: pymemuc._command.set_accelerometer_vm:9 pymemuc._command.start_app_vm:13
 #: pymemuc._command.stop_app_vm:9 pymemuc._command.trigger_keystroke_vm:9
 #: pymemuc._command.trigger_shake_vm:7 pymemuc._command.uninstall_apk_vm:9
 #: pymemuc._command.zoom_in_vm:7 pymemuc._command.zoom_out_vm:7
 #: pymemuc._control.reboot_vm:9 pymemuc._control.start_vm:13
 #: pymemuc._control.stop_vm:11 pymemuc._manage.clone_vm:11
 #: pymemuc._manage.compress_vm:9 pymemuc._manage.delete_vm:7
-#: pymemuc._manage.export_vm:11 pymemuc._manage.get_configuration_vm:10
+#: pymemuc._manage.export_vm:11 pymemuc._manage.get_configuration_vm:9
 #: pymemuc._manage.list_vm_info:11 pymemuc._manage.randomize_vm:7
-#: pymemuc._manage.set_configuration_vm:12
+#: pymemuc._manage.set_configuration_vm:11
 msgid "an error if neither a vm index or a vm name is specified"
 msgstr "如果既未指定虚拟机索引也未指定虚拟机名称，则会出现错误"
 
@@ -364,23 +364,29 @@ msgstr "整理所有虚拟机"
 msgid "Start an app on a VM, must specify either a vm index or a vm name"
 msgstr "在虚拟机上启动应用程序，必须指定虚拟机索引或虚拟机名称"
 
-#: of pymemuc._command.start_app_vm:3 pymemuc._command.stop_app_vm:3
-#: pymemuc._command.uninstall_apk_vm:3
-msgid "Package name of the APK"
-msgstr "APK的应用包名"
+#: of pymemuc._command.start_app_vm:3
+msgid ""
+"Package name of the APK, e.g. ``com.android.chrome``. This can be found "
+"using :func:`~get_app_info_list_vm`, excluding the readable name and "
+"version suffix."
+msgstr ""
 
-#: of pymemuc._command.start_app_vm:9
+#: of pymemuc._command.start_app_vm:11
 #, fuzzy
 msgid "Timeout in seconds. Defaults to None."
 msgstr "命令的超时持续时间。 默认为 None。"
 
-#: of pymemuc._command.start_app_vm:12
+#: of pymemuc._command.start_app_vm:14
 msgid "True if the vm app start was successful"
 msgstr "如果虚拟机应用程序启动成功，则为 True"
 
 #: of pymemuc._command.stop_app_vm:1
 msgid "Stop an app on a VM, must specify either a vm index or a vm name"
 msgstr "在虚拟机上停止应用程序，必须指定虚拟机索引或虚拟机名称"
+
+#: of pymemuc._command.stop_app_vm:3 pymemuc._command.uninstall_apk_vm:3
+msgid "Package name of the APK"
+msgstr "APK的应用包名"
 
 #: of pymemuc._command.stop_app_vm:10
 msgid "True if the vm app stop was successful"
@@ -551,15 +557,11 @@ msgstr "获取虚拟机配置，必须指定虚拟机索引或虚拟机名称"
 
 #: of pymemuc._manage.get_configuration_vm:3
 #: pymemuc._manage.set_configuration_vm:3
-msgid ""
-"Configuration key, keys are noted in `configuration keys table "
-"<https://pymemuc.readthedocs.io/pymemuc.html#the-vm-configuration-keys-"
-"table>`_"
-msgstr ""
-"配置键 `配置键表 <https://pymemuc.readthedocs.io/pymemuc.html#the-vm-"
-"configuration-keys-table>`_"
+#, fuzzy
+msgid "Configuration key"
+msgstr "虚拟机配置键"
 
-#: of pymemuc._manage.get_configuration_vm:11
+#: of pymemuc._manage.get_configuration_vm:10
 msgid "The configuration value"
 msgstr "配置值"
 
@@ -628,11 +630,11 @@ msgstr "如果虚拟机已成功重命名，则为 True"
 msgid "Set a VM configuration, must specify either a vm index or a vm name"
 msgstr "设置虚拟机配置，必须指定虚拟机索引或虚拟机名称"
 
-#: of pymemuc._manage.set_configuration_vm:6
+#: of pymemuc._manage.set_configuration_vm:5
 msgid "Configuration value"
 msgstr "配置值"
 
-#: of pymemuc._manage.set_configuration_vm:13
+#: of pymemuc._manage.set_configuration_vm:12
 msgid "True if the vm configuration was set successfully"
 msgstr "如果虚拟机配置设置成功则为 True"
 
@@ -688,10 +690,11 @@ msgid ""
 msgstr "初始化类，如果支持 Windows 注册表，则自动查找 memuc.exe，否则必须指定路径"
 
 #: ../../source/pymemuc.rst:18
-msgid "The ``VM Configuration Keys`` table"
+#, fuzzy
+msgid "The ``ConfigKeys`` alias"
 msgstr "``虚拟机配置键`` 表"
 
-#: ../../source/pymemuc.rst:19
+#: ../../source/pymemuc.rst:23
 msgid "VM Configuration Keys"
 msgstr "虚拟机配置键"
 
@@ -794,7 +797,7 @@ msgid "The VM's frames per second. (``0``-``100``)"
 msgstr "虚拟机的每秒帧数。 (``0``-``100``)"
 
 #: ../../source/tables/vm_config_keys.csv:1
-msgid "``virtual_keyboard_mode``"
+msgid "``vkeyboard_mode``"
 msgstr ""
 
 #: ../../source/tables/vm_config_keys.csv:1
@@ -1003,45 +1006,90 @@ msgstr ""
 msgid "The path to the VM's shared download path."
 msgstr "虚拟机共享下载路径的目录路径。"
 
-#: ../../source/pymemuc.rst:28
+#: ../../source/tables/vm_config_keys.csv:1
+msgid "``macaddress``"
+msgstr ""
+
+#: ../../source/tables/vm_config_keys.csv:1
+msgid "Device MAC address"
+msgstr "设备 MAC 地址"
+
+#: ../../source/tables/vm_config_keys.csv:1
+msgid "``cache_mode``"
+msgstr ""
+
+#: ../../source/tables/vm_config_keys.csv:1
+msgid ""
+"Cache mode, 1 is acceleration (good performance, but there is a risk of "
+"damage to the image when the power is off accidentally), 0 is stable (the"
+" image file is not easy to be damaged, and the performance is slightly "
+"worse) (``1``, ``0``)"
+msgstr "缓存模式，1 表示加速（性能良好，但存在意外断电时图像损坏的风险），0 表示稳定（图像文件不容易损坏，性能略有下降）（1, 0）"
+
+#: ../../source/tables/vm_config_keys.csv:1
+msgid "``geometry``"
+msgstr ""
+
+#: ../../source/tables/vm_config_keys.csv:1
+msgid "Top left coordinate and size of simulator (``x y width height``)"
+msgstr "模拟器的左上坐标和尺寸（x y 宽度 高度）"
+
+#: ../../source/tables/vm_config_keys.csv:1
+msgid "``custom_resolution``"
+msgstr ""
+
+#: ../../source/tables/vm_config_keys.csv:1
+msgid "Android resolution and dpi (width height dpi)"
+msgstr "Android 分辨率和 DPI（宽度 高度 DPI）"
+
+#: ../../source/tables/vm_config_keys.csv:1
+msgid "``disable_resize``"
+msgstr ""
+
+#: ../../source/tables/vm_config_keys.csv:1
+msgid "Fixed window size, 1 is fixed, 0 is stretchable"
+msgstr "固定窗口大小，1 表示固定，0 表示可伸缩"
+
+#: ../../source/tables/vm_config_keys.csv:1
+msgid "``ssid``"
+msgstr ""
+
+#: ../../source/tables/vm_config_keys.csv:1
+msgid "WIFI name (``uylnhxb557|auto``) (auto stands for automatic generation)"
+msgstr "WIFI名称（uylnhxb557|auto）（auto 代表自动生成）"
+
+#: ../../source/pymemuc.rst:30
 msgid "The ``VMInfo`` type"
 msgstr "``VMInfo`` 类型"
 
-#: of pymemuc.vminfo.VMInfo:1
+#: of pymemuc.types.VMInfo:1
 msgid "Bases: :py:class:`~typing.TypedDict`"
 msgstr ""
 
-#: of pymemuc.vminfo.VMInfo:1
+#: of pymemuc.types.VMInfo:1
 msgid "A TypedDict for VM info"
 msgstr "用于虚拟机信息的 TypedDict"
 
-#: ../../docstring of pymemuc.vminfo.VMInfo.index:1
+#: ../../docstring of pymemuc.types.VMInfo.index:1
 msgid "VM index"
 msgstr "虚拟机索引"
 
-#: ../../docstring of pymemuc.vminfo.VMInfo.title:1
+#: ../../docstring of pymemuc.types.VMInfo.title:1
 msgid "VM title"
 msgstr "虚拟机名称"
 
-#: ../../docstring of pymemuc.vminfo.VMInfo.top_level:1
+#: ../../docstring of pymemuc.types.VMInfo.top_level:1
 msgid "VM top level window"
 msgstr "虚拟机顶层窗口"
 
-#: ../../docstring of pymemuc.vminfo.VMInfo.running:1
+#: ../../docstring of pymemuc.types.VMInfo.running:1
 msgid "VM is running"
 msgstr "虚拟机是否正在运行"
 
-#: ../../docstring of pymemuc.vminfo.VMInfo.pid:1
+#: ../../docstring of pymemuc.types.VMInfo.pid:1
 msgid "VM process ID"
 msgstr "虚拟机进程号"
 
-#: ../../docstring of pymemuc.vminfo.VMInfo.disk_usage:1
+#: ../../docstring of pymemuc.types.VMInfo.disk_usage:1
 msgid "VM disk usage in bytes"
 msgstr "虚拟机磁盘使用量（以字节为单位）"
-
-#~ msgid "Randomize a VM, must specify either a vm index or a vm name"
-#~ msgstr "要随机化虚拟机，您必须指定虚拟机索引或虚拟机名称"
-
-#~ msgid "True if the vm was randomized successfully"
-#~ msgstr "如果虚拟机成功随机化，则为 True"
-

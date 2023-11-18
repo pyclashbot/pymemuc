@@ -323,9 +323,8 @@ def get_configuration_vm(
 ) -> str:
     """Get a VM configuration, must specify either a vm index or a vm name
 
-    :param config_key: Configuration key, keys are noted in `configuration keys table
-        <https://pymemuc.readthedocs.io/pymemuc.html#the-vm-configuration-keys-table>`_
-    :type config_key: str
+    :param config_key: Configuration key
+    :type config_key: ConfigKeys
     :param vm_index: VM index. Defaults to None.
     :type vm_index: int, optional
     :param vm_name: VM name. Defaults to None.
@@ -337,10 +336,10 @@ def get_configuration_vm(
 
     if vm_index is not None:
         status, output = self.memuc_run(
-            ["-i", str(vm_index), "getconfigex", str(config_key)]
+            ["-i", str(vm_index), "getconfigex", config_key]
         )
     elif vm_name is not None:
-        status, output = self.memuc_run(["-n", vm_name, "getconfigex", str(config_key)])
+        status, output = self.memuc_run(["-n", vm_name, "getconfigex", config_key])
     else:
         raise PyMemucIndexError("Please specify either a vm index or a vm name")
     success = status == 0 and "Value" in output
@@ -351,16 +350,15 @@ def get_configuration_vm(
 
 def set_configuration_vm(
     self: "PyMemuc",
-    config_key: str,
+    config_key: ConfigKeys,
     config_value: str,
     vm_index: Union[int, None] = None,
     vm_name: Union[str, None] = None,
 ) -> Literal[True]:
     """Set a VM configuration, must specify either a vm index or a vm name
 
-    :param config_key: Configuration key, keys are noted in `configuration keys table
-        <https://pymemuc.readthedocs.io/pymemuc.html#the-vm-configuration-keys-table>`_
-    :type config_key: str
+    :param config_key: Configuration key
+    :type config_key: ConfigKeys
     :param config_value: Configuration value
     :type config_value: str
     :param vm_index: VM index. Defaults to None.

@@ -12,21 +12,23 @@ The ``PyMemuc`` module
     :show-inheritance:
 
 
-.. _The ``VM Configuration Keys`` table:
+.. _PyMemuc Types:
 
-The ``VM Configuration Keys`` table
+The ``ConfigKeys`` alias
 -----------------------------------
+.. autoclass:: pymemuc.types.ConfigKeys
+    :members:
+    :undoc-members:
+    :show-inheritance:
 .. csv-table:: VM Configuration Keys
     :file: tables/vm_config_keys.csv
     :header: "Key", "Description"
     :widths: 20, 80
 
 
-.. _The ``VMInfo`` type:
-
 The ``VMInfo`` type
 -------------------
-.. autoclass:: pymemuc.vminfo.VMInfo
+.. autoclass:: pymemuc.types.VMInfo
     :members:
     :undoc-members:
     :show-inheritance:

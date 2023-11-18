@@ -1,4 +1,4 @@
-"""A type definition for VM info"""
+"""Type definitions for pymemuc"""
 
 from typing import Literal, TypedDict
 
@@ -20,40 +20,47 @@ class VMInfo(TypedDict):
     """VM disk usage in bytes"""
 
 
-class ConfigKeys(TypedDict):
-    name: str
-    cpus: str
-    cpucap: str
-    memory: str
-    is_full_screen: Literal[1, 0]
-    is_hide_toolbar: Literal[1, 0]
-    turbo_mode: Literal[1, 0]
-    graphics_render_mode: Literal[1, 0]
-    enable_su: Literal[1, 0]
-    enable_audio: Literal[1, 0]
-    fps: str
-    virtual_keyboard_mode: Literal[0, 1]
-    sync_time: Literal[1, 0]
-    phone_layout: Literal[2, 1, 0]
-    start_window_mode: Literal[2, 1, 0]
-    win_x: str
-    win_y: str
-    win_scaling_percent2: str
-    is_custom_resolution: Literal[1, 0]
-    resolution_width: str
-    resolution_height: str
-    vbox_dpi: str
-    linenum: str
-    imei: str
-    imsi: str
-    simserial: str
-    microvirt_vm_brand: str
-    microvirt_vm_model: str
-    microvirt_vm_manufacturer: str
-    selected_map: Literal[0, 1]
-    latitude: str
-    longitude: str
-    picturepath: str
-    musicpath: str
-    moviepath: str
-    downloadpath: str
+ConfigKeys = Literal[
+    "name",
+    "cpus",
+    "cpucap",
+    "memory",
+    "is_full_screen",
+    "is_hide_toolbar",
+    "turbo_mode",
+    "graphics_render_mode",
+    "enable_su",
+    "enable_audio",
+    "fps",
+    "vkeyboard_mode",
+    "sync_time",
+    "phone_layout",
+    "start_window_mode",
+    "win_x",
+    "win_y",
+    "win_scaling_percent2",
+    "is_custom_resolution",
+    "resolution_width",
+    "resolution_height",
+    "vbox_dpi",
+    "linenum",
+    "imei",
+    "imsi",
+    "simserial",
+    "microvirt_vm_brand",
+    "microvirt_vm_model",
+    "microvirt_vm_manufacturer",
+    "selected_map",
+    "latitude",
+    "longitude",
+    "picturepath",
+    "musicpath",
+    "moviepath",
+    "downloadpath",
+    "macaddress",
+    "cache_mode",
+    "geometry",
+    "custom_resolution",
+    "disable_resize",
+    "ssid",
+]
