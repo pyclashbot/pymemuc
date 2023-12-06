@@ -30,7 +30,7 @@ def create_vm(
     if not success:
         raise PyMemucError(f"Failed to create VM: {output}")
     try:
-        indecies = re.search(r"index:(\w)", output)
+        indecies = re.search(r"index:(\w+)", output)
         return -1 if indecies is None else int(indecies[1])
     except AttributeError:
         return -1
