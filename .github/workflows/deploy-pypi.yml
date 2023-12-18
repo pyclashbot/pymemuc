@@ -28,7 +28,7 @@ jobs:
         run: |
           poetry run twine check dist/* --strict
       - name: Upload release distributions
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: release-dists
           path: dist/
