@@ -15,6 +15,7 @@ ST_INFO = None
 if WIN32:
     import ctypes
     from subprocess import (
+        CREATE_NO_WINDOW,
         REALTIME_PRIORITY_CLASS,
         STARTF_USESHOWWINDOW,
         STARTF_USESTDHANDLES,
@@ -27,7 +28,14 @@ if WIN32:
         STARTF_USESHOWWINDOW | STARTF_USESTDHANDLES | REALTIME_PRIORITY_CLASS
     )
     ST_INFO.wShowWindow = SW_HIDE
-
+    CR_FLAGS = CREATE_NO_WINDOW
+    subprocess_flags = {
+        "startupinfo": ST_INFO,
+        "creationflags": CR_FLAGS,
+        "start_new_session": True,
+    }
+else:
+    subprocess_flags = {}
 
 if TYPE_CHECKING:
     from pymemuc import PyMemuc
@@ -116,9 +124,9 @@ def memuc_run(
             bufsize=-1,
             stdout=PIPE,
             stderr=PIPE,
-            startupinfo=ST_INFO,
             close_fds=True,
             universal_newlines=True,
+            **subprocess_flags,
         ) as process:
             try:
                 result, _ = process.communicate(timeout=timeout)
