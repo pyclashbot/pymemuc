@@ -39,7 +39,7 @@ ConfigKeys = Literal[
     "win_x",
     "win_y",
     "win_scaling_percent2",
-    "is_custom_resolution",
+    "is_customed_resolution",
     "resolution_width",
     "resolution_height",
     "vbox_dpi",
