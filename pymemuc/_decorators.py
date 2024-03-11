@@ -1,7 +1,9 @@
 """This module contains decorators for functions in pymemuc."""
 
 from functools import wraps
-from typing import TYPE_CHECKING, Any, Callable
+from typing import TYPE_CHECKING, Callable, TypeVar
+
+from typing_extensions import Concatenate, ParamSpec
 
 from ._constants import RETRIES
 from .exceptions import PyMemucError, PyMemucTimeoutExpired
@@ -9,15 +11,20 @@ from .exceptions import PyMemucError, PyMemucTimeoutExpired
 if TYPE_CHECKING:
     from pymemuc import PyMemuc
 
+_P = ParamSpec("_P")
+_R = TypeVar("_R")
 
-def retryable(func: Callable[..., Any]):
+
+def retryable(
+    func: Callable[Concatenate["PyMemuc", _P], _R]
+) -> Callable[Concatenate["PyMemuc", _P], _R]:
     """Decorator to retry a function if it raises an exception.
     The number of retries is defined in pymemuc._constants.RETRIES
     After the last retry, the exception is raised.
     """
 
     @wraps(func)
-    def wrapper(self: "PyMemuc", *args: Any, **kwargs: Any):
+    def wrapper(self: "PyMemuc", *args: _P.args, **kwargs: _P.kwargs) -> _R:
         fin_err = None  # track the last error
         for i in range(RETRIES):
             try:
