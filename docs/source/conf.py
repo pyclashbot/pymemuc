@@ -35,6 +35,8 @@ html_theme_options = {
     "sidebarwidth": "19em",
 }
 htmlhelp_basename = "pymemuc"
+html_baseurl = os.environ.get("READTHEDOCS_CANONICAL_URL", "")
+
 intersphinx_mapping = {"Python Docs": ("http://docs.python.org/", None)}
 
 html_js_files = [
