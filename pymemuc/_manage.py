@@ -1,6 +1,7 @@
 """This module contains functions for managing the VMs.
 Functions for creating, deleting, and listing VMs are defined here.
 """
+
 import re
 from os.path import abspath, expanduser, expandvars
 from typing import TYPE_CHECKING, Literal, Union
@@ -311,8 +312,8 @@ def vm_is_running(self: "PyMemuc", vm_index: int = 0) -> bool:
     :return: True if the VM is running, False otherwise
     :rtype: bool
     """
-    _, output = self.memuc_run(["-i", str(vm_index), "isrunning"])
-    return "Running" in output
+    _, output = self.memuc_run(["-i", str(vm_index), "isvmrunning"])
+    return "Not Running" not in output
 
 
 def get_configuration_vm(
