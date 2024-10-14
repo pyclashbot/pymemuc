@@ -1,10 +1,10 @@
-"""Type definitions for pymemuc"""
+"""Type definitions for pymemuc."""
 
 from typing import Literal, TypedDict
 
 
 class VMInfo(TypedDict):
-    """A TypedDict for VM info"""
+    """A TypedDict for VM info."""
 
     index: int
     """ VM index """

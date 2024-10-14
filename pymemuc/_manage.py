@@ -1,24 +1,26 @@
-"""This module contains functions for managing the VMs.
+"""Functions for managing the VMs.
+
 Functions for creating, deleting, and listing VMs are defined here.
 """
 
+from __future__ import annotations
+
 import re
-from os.path import abspath, expanduser, expandvars
-from typing import TYPE_CHECKING, Literal, Union
+from pathlib import Path
+from typing import TYPE_CHECKING, Literal
 
 from ._decorators import retryable
 from .exceptions import PyMemucError, PyMemucIndexError, PyMemucTimeoutExpired
-from .types import ConfigKeys, VMInfo
 
 if TYPE_CHECKING:
     from pymemuc import PyMemuc
 
+    from .types import ConfigKeys, VMInfo
+
 
 @retryable
-def create_vm(
-    self: "PyMemuc", vm_version: Union[Literal["76"], Literal["96"]] = "96"
-) -> int:
-    """Create a new VM
+def create_vm(self: PyMemuc, vm_version: Literal["76", "96"] = "96") -> int:
+    """Create a new VM.
 
     :param vm_version: Android version. Defaults to "96".
     :type vm_version: str, optional
@@ -29,7 +31,8 @@ def create_vm(
     status, output = self.memuc_run(["create", vm_version])
     success = status == 0 and "SUCCESS" in output
     if not success:
-        raise PyMemucError(f"Failed to create VM: {output}")
+        msg = f"Failed to create VM: {output}"
+        raise PyMemucError(msg)
     try:
         indecies = re.search(r"index:(\w+)", output)
         return -1 if indecies is None else int(indecies[1])
@@ -39,9 +42,11 @@ def create_vm(
 
 @retryable
 def delete_vm(
-    self: "PyMemuc", vm_index: Union[int, None] = None, vm_name: Union[str, None] = None
+    self: PyMemuc,
+    vm_index: int | None = None,
+    vm_name: str | None = None,
 ) -> Literal[True]:
-    """Delete a VM, must specify either a vm index or a vm name
+    """Delete a VM, must specify either a vm index or a vm name.
 
     :param vm_index: VM index. Defaults to None.
     :type vm_index: int, optional
@@ -56,21 +61,23 @@ def delete_vm(
     elif vm_name is not None:
         status, output = self.memuc_run(["-n", vm_name, "remove"])
     else:
-        raise PyMemucIndexError("Please specify either a vm index or a vm name")
+        msg = "Please specify either a vm index or a vm name"
+        raise PyMemucIndexError(msg)
     success = status == 0 and "SUCCESS" in output
     if not success:
-        raise PyMemucError(f"Failed to delete VM: {output}")
+        msg = f"Failed to delete VM: {output}"
+        raise PyMemucError(msg)
     return True
 
 
 def clone_vm(
-    self: "PyMemuc",
-    vm_index: Union[int, None] = None,
-    vm_name: Union[str, None] = None,
-    new_name: Union[str, None] = None,
+    self: PyMemuc,
+    vm_index: int | None = None,
+    vm_name: str | None = None,
+    new_name: str | None = None,
     non_blocking: bool = False,
 ) -> Literal[True]:
-    """Clone a VM, must specify either a vm index or a vm name
+    """Clone a VM, must specify either a vm index or a vm name.
 
     :param vm_index: VM index. Defaults to None.
     :type vm_index: int, optional
@@ -86,30 +93,28 @@ def clone_vm(
     """
     new_name_cmd = ["-r", new_name] if new_name is not None else []
     if vm_index is not None:
-        status, output = self.memuc_run(
-            ["-i", str(vm_index), "clone", *new_name_cmd], non_blocking
-        )
+        status, output = self.memuc_run(["-i", str(vm_index), "clone", *new_name_cmd], non_blocking)
     elif vm_name is not None:
-        status, output = self.memuc_run(
-            ["-n", vm_name, "clone", *new_name_cmd], non_blocking
-        )
+        status, output = self.memuc_run(["-n", vm_name, "clone", *new_name_cmd], non_blocking)
     else:
-        raise PyMemucIndexError("Please specify either a vm index or a vm name")
+        msg = "Please specify either a vm index or a vm name"
+        raise PyMemucIndexError(msg)
     success = status == 0 and "SUCCESS" in output
     if not success:
-        raise PyMemucError(f"Failed to clone VM: {output}")
+        msg = f"Failed to clone VM: {output}"
+        raise PyMemucError(msg)
     return True
 
 
 # TODO: verify functionality
 def export_vm(
-    self: "PyMemuc",
-    vm_index: Union[int, None] = None,
-    vm_name: Union[str, None] = None,
+    self: PyMemuc,
+    vm_index: int | None = None,
+    vm_name: str | None = None,
     file_name: str = "vm.ova",
     non_blocking: bool = False,
-):
-    """Export a VM, must specify either a vm index or a vm name
+) -> tuple[int, str]:
+    """Export a VM, must specify either a vm index or a vm name.
 
     :param vm_index: VM index. Defaults to None.
     :type vm_index: int, optional
@@ -123,20 +128,17 @@ def export_vm(
     :return: the return code and the output of the command
     :rtype: tuple[int, str]
     """
-    file_name = abspath(expandvars(expanduser(file_name)))
+    file_name = Path(file_name).resolve().as_posix()
     if vm_index is not None:
-        return self.memuc_run(
-            ["-i", str(vm_index), "export", f'"{file_name}"'], non_blocking
-        )
+        return self.memuc_run(["-i", str(vm_index), "export", f'"{file_name}"'], non_blocking)
     if vm_name is not None:
         return self.memuc_run(["-n", vm_name, "export", f'"{file_name}"'], non_blocking)
-    raise PyMemucIndexError("Please specify either a vm index or a vm name")
+    msg = "Please specify either a vm index or a vm name"
+    raise PyMemucIndexError(msg)
 
 
-def import_vm(
-    self: "PyMemuc", file_name: str = "vm.ova", non_blocking: bool = False
-) -> Literal[True]:
-    """Import a VM from a file
+def import_vm(self: PyMemuc, file_name: str = "vm.ova", non_blocking: bool = False) -> Literal[True]:
+    """Import a VM from a file.
 
     :param file_name: File name. Defaults to "vm.ova".
     :type file_name: str, optional
@@ -149,18 +151,19 @@ def import_vm(
     status, output = self.memuc_run(["import", file_name], non_blocking)
     success = status == 0 and "SUCCESS" in output
     if not success:
-        raise PyMemucError(f"Failed to import VM: {output}")
+        msg = f"Failed to import VM: {output}"
+        raise PyMemucError(msg)
     return True
 
 
 @retryable
 def rename_vm(
-    self: "PyMemuc",
-    vm_index: Union[int, None] = None,
-    vm_name: Union[str, None] = None,
-    new_name: Union[str, None] = None,
+    self: PyMemuc,
+    vm_index: int | None = None,
+    vm_name: str | None = None,
+    new_name: str | None = None,
 ) -> Literal[True]:
-    """Rename a VM, must specify either a vm index or a vm name
+    """Rename a VM, must specify either a vm index or a vm name.
 
     :param vm_index: VM index. Defaults to None.
     :type vm_index: int, optional
@@ -175,30 +178,30 @@ def rename_vm(
     """
     try:
         if vm_index is not None and new_name is not None:
-            status, output = self.memuc_run(
-                ["-i", str(vm_index), "rename", new_name], timeout=10
-            )
+            status, output = self.memuc_run(["-i", str(vm_index), "rename", new_name], timeout=10)
         elif vm_name is not None and new_name is not None:
-            status, output = self.memuc_run(
-                ["-n", vm_name, "rename", new_name], timeout=10
-            )
+            status, output = self.memuc_run(["-n", vm_name, "rename", new_name], timeout=10)
         else:
-            raise PyMemucIndexError("Please specify either a vm index or a vm name")
+            msg = "Please specify either a vm index or a vm name"
+            raise PyMemucIndexError(msg)
         success = status == 0 and "SUCCESS" in output
         if not success:
-            raise PyMemucError(f"Failed to rename VM: {output}")
-        return True
+            msg = f"Failed to rename VM: {output}"
+            raise PyMemucError(msg)
     except PyMemucTimeoutExpired as err:
-        raise PyMemucError("Failed to rename VM: Timeout expired") from err
+        msg = "Failed to rename VM: Timeout expired"
+        raise PyMemucError(msg) from err
+    else:
+        return True
 
 
 def compress_vm(
-    self: "PyMemuc",
-    vm_index: Union[int, None] = None,
-    vm_name: Union[str, None] = None,
+    self: PyMemuc,
+    vm_index: int | None = None,
+    vm_name: str | None = None,
     non_blocking: bool = False,
 ) -> Literal[True]:
-    """Compress a VM, must specify either a vm index or a vm name
+    """Compress a VM, must specify either a vm index or a vm name.
 
     :param vm_index: VM index. Defaults to None.
     :type vm_index: int, optional
@@ -211,27 +214,28 @@ def compress_vm(
     :return: True if the vm was compressed successfully
     :rtype: Literal[True]
     """
-
     if vm_index is not None:
         status, output = self.memuc_run(["-i", str(vm_index), "compress"], non_blocking)
     elif vm_name is not None:
         status, output = self.memuc_run(["-n", vm_name, "compress"], non_blocking)
     else:
-        raise PyMemucIndexError("Please specify either a vm index or a vm name")
+        msg = "Please specify either a vm index or a vm name"
+        raise PyMemucIndexError(msg)
     success = status == 0 and "SUCCESS" in output
     if not success:
-        raise PyMemucError(f"Failed to compress VM: {output}")
+        msg = f"Failed to compress VM: {output}"
+        raise PyMemucError(msg)
     return True
 
 
 def list_vm_info(
-    self: "PyMemuc",
-    vm_index: Union[int, None] = None,
-    vm_name: Union[str, None] = None,
+    self: PyMemuc,
+    vm_index: int | None = None,
+    vm_name: str | None = None,
     running: bool = False,
     disk_info: bool = False,
 ) -> list[VMInfo]:
-    """List VM info, must specify either a vm index or a vm name
+    """List VM info, must specify either a vm index or a vm name.
 
     :param vm_index: VM index. Defaults to None.
     :type vm_index: int, optional
@@ -251,7 +255,6 @@ def list_vm_info(
                                 disk_usage: VM disk usage
     :rtype: list[VMInfo]
     """
-
     if vm_index is not None:
         _, output = self.memuc_run(
             [
@@ -260,7 +263,7 @@ def list_vm_info(
                 "listvms",
                 "-r" if running else "",
                 "-s" if disk_info else "",
-            ]
+            ],
         )
     elif vm_name is not None:
         _, output = self.memuc_run(
@@ -270,12 +273,10 @@ def list_vm_info(
                 "listvms",
                 "-r" if running else "",
                 "-s" if disk_info else "",
-            ]
+            ],
         )
     else:
-        _, output = self.memuc_run(
-            ["listvms", "-r" if running else "", "-s" if disk_info else ""]
-        )
+        _, output = self.memuc_run(["listvms", "-r" if running else "", "-s" if disk_info else ""])
 
     # handle when no VMs are on the system
     # memuc.exe will output a "read failed" error
@@ -299,13 +300,13 @@ def list_vm_info(
                     "running": vm_info[3] == "1",
                     "pid": int(vm_info[4]),
                     "disk_usage": int(vm_info[5]) if disk_info else -1,
-                }
+                },
             )
     return parsed_output
 
 
-def vm_is_running(self: "PyMemuc", vm_index: int = 0) -> bool:
-    """Check if a VM is running
+def vm_is_running(self: PyMemuc, vm_index: int = 0) -> bool:
+    """Check if a VM is running.
 
     :param vm_index: VM index. Defaults to 0.
     :type vm_index: int, optional
@@ -317,12 +318,12 @@ def vm_is_running(self: "PyMemuc", vm_index: int = 0) -> bool:
 
 
 def get_configuration_vm(
-    self: "PyMemuc",
+    self: PyMemuc,
     config_key: ConfigKeys,
-    vm_index: Union[int, None] = None,
-    vm_name: Union[str, None] = None,
+    vm_index: int | None = None,
+    vm_name: str | None = None,
 ) -> str:
-    """Get a VM configuration, must specify either a vm index or a vm name
+    """Get a VM configuration, must specify either a vm index or a vm name.
 
     :param config_key: Configuration key
     :type config_key: ConfigKeys
@@ -334,29 +335,28 @@ def get_configuration_vm(
     :return: The configuration value
     :rtype: str
     """
-
     if vm_index is not None:
-        status, output = self.memuc_run(
-            ["-i", str(vm_index), "getconfigex", config_key]
-        )
+        status, output = self.memuc_run(["-i", str(vm_index), "getconfigex", config_key])
     elif vm_name is not None:
         status, output = self.memuc_run(["-n", vm_name, "getconfigex", config_key])
     else:
-        raise PyMemucIndexError("Please specify either a vm index or a vm name")
+        msg = "Please specify either a vm index or a vm name"
+        raise PyMemucIndexError(msg)
     success = status == 0 and "Value" in output
     if not success:
-        raise PyMemucError(f"Failed to get VM configuration: {output}")
+        msg = f"Failed to get VM configuration: {output}"
+        raise PyMemucError(msg)
     return output.split("Value: ")[1].replace("\n", "").replace("\r", "")
 
 
 def set_configuration_vm(
-    self: "PyMemuc",
+    self: PyMemuc,
     config_key: ConfigKeys,
     config_value: str,
-    vm_index: Union[int, None] = None,
-    vm_name: Union[str, None] = None,
+    vm_index: int | None = None,
+    vm_name: str | None = None,
 ) -> Literal[True]:
-    """Set a VM configuration, must specify either a vm index or a vm name
+    """Set a VM configuration, must specify either a vm index or a vm name.
 
     :param config_key: Configuration key
     :type config_key: ConfigKeys
@@ -371,25 +371,25 @@ def set_configuration_vm(
     :rtype: Literal[True]
     """
     if vm_index is not None:
-        status, output = self.memuc_run(
-            ["-i", str(vm_index), "setconfigex", config_key, config_value]
-        )
+        status, output = self.memuc_run(["-i", str(vm_index), "setconfigex", config_key, config_value])
     elif vm_name is not None:
-        status, output = self.memuc_run(
-            ["-n", vm_name, "setconfigex", config_key, config_value]
-        )
+        status, output = self.memuc_run(["-n", vm_name, "setconfigex", config_key, config_value])
     else:
-        raise PyMemucIndexError("Please specify either a vm index or a vm name")
+        msg = "Please specify either a vm index or a vm name"
+        raise PyMemucIndexError(msg)
     success = status == 0 and "SUCCESS" in output
     if not success:
-        raise PyMemucError(f"Failed to set VM configuration: {output}")
+        msg = f"Failed to set VM configuration: {output}"
+        raise PyMemucError(msg)
     return True
 
 
 def randomize_vm(
-    self: "PyMemuc", vm_index: Union[int, None] = None, vm_name: Union[str, None] = None
+    self: PyMemuc,
+    vm_index: int | None = None,
+    vm_name: str | None = None,
 ) -> Literal[True]:
-    """Randomize a VM, must specify either a vm index or a vm name
+    """Randomize a VM, must specify either a vm index or a vm name.
 
     :param vm_index: VM index. Defaults to None.
     :type vm_index: int, optional
@@ -404,8 +404,10 @@ def randomize_vm(
     elif vm_name is not None:
         status, output = self.memuc_run(["-n", vm_name, "randomize"])
     else:
-        raise PyMemucIndexError("Please specify either a vm index or a vm name")
+        msg = "Please specify either a vm index or a vm name"
+        raise PyMemucIndexError(msg)
     success = status == 0 and "SUCCESS" in output
     if not success:
-        raise PyMemucError(f"Failed to randomize VM: {output}")
+        msg = f"Failed to randomize VM: {output}"
+        raise PyMemucError(msg)
     return True

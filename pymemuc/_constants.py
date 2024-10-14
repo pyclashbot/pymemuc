@@ -1,4 +1,5 @@
-"""This file contains constants used by pymemuc."""
+"""Constants used by pymemuc."""
+
 from os import name
 
 # check if running on windows
@@ -7,14 +8,13 @@ WIN32 = name == "nt"
 # check for windows registry support
 if WIN32:
     try:
-        # pylint: disable=unused-import
-        import winreg  # pyright: ignore [reportUnusedImport]
+        import winreg  # noqa: F401
 
-        winreg_en = True  # pylint: disable=invalid-name
+        winreg_en = True
     except ImportError:
-        winreg_en = False  # pylint: disable=invalid-name
+        winreg_en = False
 else:
-    winreg_en = False  # pylint: disable=invalid-name
+    winreg_en = False
 
 WINREG_EN = winreg_en
 del winreg_en

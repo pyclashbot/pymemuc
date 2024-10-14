@@ -1,14 +1,16 @@
-"""This module contains functions for directly interacting with memuc.exe."""
+"""Functions for directly interacting with memuc.exe."""
+
+from __future__ import annotations
+
 from contextlib import suppress
-from os.path import join, normpath
+from pathlib import Path
 from subprocess import PIPE, CalledProcessError, Popen, TimeoutExpired
-from typing import TYPE_CHECKING, Tuple, Union
+from typing import TYPE_CHECKING
 
 from ._constants import WIN32, WINREG_EN
 from .exceptions import PyMemucError, PyMemucException, PyMemucTimeoutExpired
 
 if WINREG_EN:
-    # pylint: disable=import-error
     from winreg import HKEY_LOCAL_MACHINE, ConnectRegistry, OpenKey, QueryValueEx
 
 ST_INFO = None
@@ -23,10 +25,8 @@ if WIN32:
         SW_HIDE,
     )
 
-    ST_INFO = STARTUPINFO()  # pyright: ignore [reportConstantRedefinition]
-    ST_INFO.dwFlags |= (
-        STARTF_USESHOWWINDOW | STARTF_USESTDHANDLES | REALTIME_PRIORITY_CLASS
-    )
+    ST_INFO = STARTUPINFO()
+    ST_INFO.dwFlags |= STARTF_USESHOWWINDOW | STARTF_USESTDHANDLES | REALTIME_PRIORITY_CLASS
     ST_INFO.wShowWindow = SW_HIDE
     CR_FLAGS = CREATE_NO_WINDOW
     subprocess_flags = {
@@ -42,58 +42,48 @@ if TYPE_CHECKING:
 
 
 @staticmethod
-def _get_memu_top_level() -> str:  # pyright: ignore[reportUnusedFunction]
-    """locate the path of the memu directory using windows registry keys
+def _get_memu_top_level() -> str:
+    """Locate the path of the memu directory using windows registry keys.
 
     :return: the path of the memu directory
     :rtype: str
     :raises PyMemucError: an error if memu is not installed
     """
     if not WINREG_EN:
-        raise PyMemucError("Windows Registry is not supported on this platform")
+        msg = "Windows Registry is not supported on this platform"
+        raise PyMemucError(msg)
     for key in [  # keys to search for memu
         r"SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\MEmu",
         r"SOFTWARE\WOW6432Node\Microsoft\Windows\CurrentVersion\Uninstall\MEmu",
     ]:
         with suppress(FileNotFoundError):
-            akey = OpenKey(  # pyright: ignore [reportUnboundVariable]
-                ConnectRegistry(  # pyright: ignore [reportUnboundVariable]
-                    None, HKEY_LOCAL_MACHINE  # pyright: ignore [reportUnboundVariable]
-                ),
-                key,
-            )
-            return str(
-                join(
-                    normpath(
-                        QueryValueEx(  # pyright: ignore [reportUnboundVariable]
-                            akey, "InstallLocation"
-                        )[0]
-                    ),
-                    "Memu",
-                )
-            )
-    raise PyMemucError("MEmuc not found, is it installed?")
+            akey = OpenKey(ConnectRegistry(None, HKEY_LOCAL_MACHINE), key)
+            return Path(QueryValueEx(akey, "InstallLocation")[0]).joinpath("Memu").as_posix()
+    msg = "MEmuc not found, is it installed?"
+    raise PyMemucError(msg)
 
 
 @staticmethod
-def _terminate_process(  # pyright: ignore [reportUnusedFunction]
+def _terminate_process(
     process: Popen[str],
 ) -> None:
     """Terminate a process forcefully on Windows."""
     if not WIN32 or not ctypes:
-        raise PyMemucError("This function is only supported on Windows")
-    handle = ctypes.windll.kernel32.OpenProcess(1, False, process.pid)
+        msg = "This function is only supported on Windows"
+        raise PyMemucError(msg)
+    handle = ctypes.windll.kernel32.OpenProcess(1, False, process.pid)  # noqa: FBT003
     ctypes.windll.kernel32.TerminateProcess(handle, -1)
     ctypes.windll.kernel32.CloseHandle(handle)
 
 
 def memuc_run(
-    self: "PyMemuc",
+    self: PyMemuc,
     args: list[str],
     non_blocking: bool = False,
-    timeout: Union[float, None] = None,
-) -> Tuple[int, str]:
-    """run a command with memuc.exe.
+    timeout: float | None = None,
+) -> tuple[int, str]:
+    """Run a command with memuc.exe.
+
     Memuc can support non-blocking commands, returning a task id.
     A timeout can be specified if memuc is expected to hang,
     but this will not work with non-blocking commands.
@@ -109,16 +99,16 @@ def memuc_run(
     :raises PyMemucError: an error if the command failed
     :raises PyMemucTimeoutExpired: an error if the command timed out
     """
-    # sourcery skip: extract-method
     args.insert(0, self.memuc_path)
     if timeout is not None and non_blocking:
-        raise PyMemucException("Cannot use timeout and non_blocking at the same time")
+        msg = "Cannot use timeout and non_blocking at the same time"
+        raise PyMemucException(msg)
     if non_blocking:
         args.append("-t")
     self.logger.debug("pymemuc._memuc.memuc_run:")
-    self.logger.debug(f"\tCommand: \"{' '.join(args)}\"")
+    self.logger.debug('\tCommand: "%s"', " ".join(args))
     try:
-        with Popen(
+        with Popen(  # noqa: S603
             args,
             shell=False,
             bufsize=-1,
@@ -132,23 +122,22 @@ def memuc_run(
                 result, _ = process.communicate(timeout=timeout)
             except TimeoutExpired as err:
                 if WIN32:
-                    # pylint: disable=protected-access
                     self._terminate_process(process)
                 process.kill()
                 result, _ = process.communicate()
                 raise PyMemucTimeoutExpired(err) from err
             if lines := result.splitlines():
-                self.logger.debug(f"\tOutput: {lines.pop(0)}")
+                self.logger.debug("\tOutput: %s", lines.pop(0))
                 for line in lines:
-                    self.logger.debug(f"\t\t{line}")
+                    self.logger.debug("\t\t%s", line)
             return (process.returncode, result)
     except CalledProcessError as err:
         raise PyMemucError(err) from err
 
 
 # TODO: add output parsing
-def check_task_status(self: "PyMemuc", task_id: str) -> Tuple[int, str]:
-    """Check the status of a task
+def check_task_status(self: PyMemuc, task_id: str) -> tuple[int, str]:
+    """Check the status of a task.
 
     :param task_id: Asynchronous task ID
     :type task_id: str

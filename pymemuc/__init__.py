@@ -1,4 +1,5 @@
-"""a wrapper for memuc.exe as a library to control virual machines"""
+"""A wrapper for memuc.exe as a library to control virual machines."""
+
 from .exceptions import (
     PyMemucError,
     PyMemucException,

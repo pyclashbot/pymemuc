@@ -1,7 +1,11 @@
-"""This module contains functions for controlling the VMs.
+"""Functions for controlling the VMs.
+
 Functions for starting and stopping VMs are defined here.
 """
-from typing import TYPE_CHECKING, Literal, Union
+
+from __future__ import annotations
+
+from typing import TYPE_CHECKING, Literal
 
 from ._decorators import retryable
 from .exceptions import PyMemucError, PyMemucIndexError
@@ -10,17 +14,16 @@ if TYPE_CHECKING:
     from pymemuc import PyMemuc
 
 
-# pylint: disable=too-many-arguments
 @retryable
-def start_vm(
-    self: "PyMemuc",
-    vm_index: Union[int, None] = None,
-    vm_name: Union[str, None] = None,
+def start_vm(  # noqa: PLR0913
+    self: PyMemuc,
+    vm_index: int | None = None,
+    vm_name: str | None = None,
     headless: bool = False,
     non_blocking: bool = False,
-    timeout: Union[float, None] = None,
+    timeout: float | None = None,
 ) -> Literal[True]:
-    """Start a VM, must specify either a vm index or a vm name
+    """Start a VM, must specify either a vm index or a vm name.
 
     :param vm_index: VM index. Defaults to None.
     :type vm_index: int, optional
@@ -41,25 +44,27 @@ def start_vm(
     elif vm_name is not None:
         args = ["-n", vm_name, "start"]
     else:
-        raise PyMemucIndexError("Please specify either a vm index or a vm name")
+        msg = "Please specify either a vm index or a vm name"
+        raise PyMemucIndexError(msg)
     if headless:
         args.append("-b")
     status, output = self.memuc_run(args, non_blocking, timeout)
     success = status == 0 and "SUCCESS" in output
     if not success:
-        raise PyMemucError(f"Failed to start VM: {output}")
+        msg = f"Failed to start VM: {output}"
+        raise PyMemucError(msg)
     return True
 
 
 @retryable
 def stop_vm(
-    self: "PyMemuc",
-    vm_index: Union[int, None] = None,
-    vm_name: Union[str, None] = None,
+    self: PyMemuc,
+    vm_index: int | None = None,
+    vm_name: str | None = None,
     non_blocking: bool = False,
-    timeout: Union[float, None] = None,
+    timeout: float | None = None,
 ) -> Literal[True]:
-    """Stop a VM, must specify either a vm index or a vm name
+    """Stop a VM, must specify either a vm index or a vm name.
 
     :param vm_index: VM index. Defaults to None.
     :type vm_index: int, optional
@@ -74,24 +79,26 @@ def stop_vm(
     :rtype: Literal[True]
     """
     if vm_index is not None:
-        status, output = self.memuc_run(
-            ["-i", str(vm_index), "stop"], non_blocking, timeout
-        )
+        status, output = self.memuc_run(["-i", str(vm_index), "stop"], non_blocking, timeout)
     elif vm_name is not None:
         status, output = self.memuc_run(["-n", vm_name, "stop"], non_blocking, timeout)
     else:
-        raise PyMemucIndexError("Please specify either a vm index or a vm name")
+        msg = "Please specify either a vm index or a vm name"
+        raise PyMemucIndexError(msg)
     success = status == 0 and "SUCCESS" in output
     if not success:
-        raise PyMemucError(f"Failed to stop VM: {output}")
+        msg = f"Failed to stop VM: {output}"
+        raise PyMemucError(msg)
     return True
 
 
 @retryable
 def stop_all_vm(
-    self: "PyMemuc", non_blocking: bool = False, timeout: Union[float, None] = None
+    self: PyMemuc,
+    non_blocking: bool = False,
+    timeout: float | None = None,
 ) -> Literal[True]:
-    """Stop all VMs
+    """Stop all VMs.
 
     :param non_blocking: Whether to run the command in the background. Defaults to False.
     :type non_blocking: bool, optional
@@ -104,17 +111,18 @@ def stop_all_vm(
     status, output = self.memuc_run(["stopall"], non_blocking, timeout)
     success = status == 0 and "SUCCESS" in output
     if not success:
-        raise PyMemucError(f"Failed to stop all VMs: {output}")
+        msg = f"Failed to stop all VMs: {output}"
+        raise PyMemucError(msg)
     return True
 
 
 def reboot_vm(
-    self: "PyMemuc",
-    vm_index: Union[int, None] = None,
-    vm_name: Union[str, None] = None,
+    self: PyMemuc,
+    vm_index: int | None = None,
+    vm_name: str | None = None,
     non_blocking: bool = False,
 ) -> Literal[True]:
-    """Reboot a VM, must specify either a vm index or a vm name
+    """Reboot a VM, must specify either a vm index or a vm name.
 
     :param vm_index: VM index. Defaults to None.
     :type vm_index: int, optional
@@ -131,8 +139,10 @@ def reboot_vm(
     elif vm_name is not None:
         status, output = self.memuc_run(["-n", vm_name, "reboot"], non_blocking)
     else:
-        raise PyMemucIndexError("Please specify either a vm index or a vm name")
+        msg = "Please specify either a vm index or a vm name"
+        raise PyMemucIndexError(msg)
     success = status == 0 and "SUCCESS" in output
     if not success:
-        raise PyMemucError(f"Failed to reboot VM: {output}")
+        msg = f"Failed to reboot VM: {output}"
+        raise PyMemucError(msg)
     return True

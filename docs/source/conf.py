@@ -1,14 +1,13 @@
-# pylint: disable=invalid-name,missing-module-docstring,missing-class-docstring,missing-function-docstring
-import os
+import os  # noqa: D100, INP001
 import sys
 
-sys.path.insert(0, os.path.abspath("."))
-sys.path.insert(0, os.path.abspath(".."))
-sys.path.insert(0, os.path.abspath("../.."))
+sys.path.insert(0, os.path.abspath("."))  # noqa: PTH100
+sys.path.insert(0, os.path.abspath(".."))  # noqa: PTH100
+sys.path.insert(0, os.path.abspath("../.."))  # noqa: PTH100
 
 
 project = "pymemuc"
-copyright = "2023, Martin Miglio"  # noqa #pylint: disable=redefined-builtin
+copyright = "2023, Martin Miglio"  # noqa: A001
 author = "Martin Miglio"
 
 locale_dirs = ["locales/"]

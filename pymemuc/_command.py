@@ -1,6 +1,11 @@
-"""This module contains functions for commanding running virtual machines with memuc.exe.
-Functions for interacting with running VMs are defined here."""
-from typing import TYPE_CHECKING, Literal, Tuple, Union
+"""Functions for commanding running virtual machines with memuc.exe.
+
+Functions for interacting with running VMs are defined here.
+"""
+
+from __future__ import annotations
+
+from typing import TYPE_CHECKING, Literal
 from urllib.parse import urlparse
 
 from ._decorators import retryable
@@ -10,8 +15,8 @@ if TYPE_CHECKING:
     from pymemuc import PyMemuc
 
 
-def sort_out_all_vm(self: "PyMemuc") -> bool:
-    """Sort out all VMs
+def sort_out_all_vm(self: PyMemuc) -> bool:
+    """Sort out all VMs.
 
     :return: the return code and the output of the command.
     :rtype: tuple[int, str]
@@ -19,19 +24,20 @@ def sort_out_all_vm(self: "PyMemuc") -> bool:
     status, output = self.memuc_run(["sortwin"])
     success = status == 0 and "SUCCESS" in output
     if not success:
-        raise PyMemucError(f"Failed to sort out all VMs: {output}")
+        msg = f"Failed to sort out all VMs: {output}"
+        raise PyMemucError(msg)
     return True
 
 
 # TODO: look into bindings with https://github.com/egirault/googleplay-api
 def install_apk_vm(
-    self: "PyMemuc",
+    self: PyMemuc,
     apk_path: str,
-    vm_index: Union[int, None] = None,
-    vm_name: Union[str, None] = None,
+    vm_index: int | None = None,
+    vm_name: str | None = None,
     create_shortcut: bool = False,
 ) -> Literal[True]:
-    """Install an APK on a VM, must specify either a vm index or a vm name
+    """Install an APK on a VM, must specify either a vm index or a vm name.
 
     :param apk_path: Path to the APK
     :type apk_path: str
@@ -53,7 +59,7 @@ def install_apk_vm(
                 str(vm_index),
                 apk_path,
                 "-s" if create_shortcut else "",
-            ]
+            ],
         )
     elif vm_name is not None:
         status, output = self.memuc_run(
@@ -63,23 +69,25 @@ def install_apk_vm(
                 vm_name,
                 apk_path,
                 "-s" if create_shortcut else "",
-            ]
+            ],
         )
     else:
-        raise PyMemucIndexError("Please specify either a vm index or a vm name")
+        msg = "Please specify either a vm index or a vm name"
+        raise PyMemucIndexError(msg)
     success = status == 0 and "SUCCESS" in output
     if not success:
-        raise PyMemucError(f"Failed to install APK: {output}")
+        msg = f"Failed to install APK: {output}"
+        raise PyMemucError(msg)
     return True
 
 
 def uninstall_apk_vm(
-    self: "PyMemuc",
+    self: PyMemuc,
     package_name: str,
-    vm_index: Union[int, None] = None,
-    vm_name: Union[str, None] = None,
+    vm_index: int | None = None,
+    vm_name: str | None = None,
 ) -> Literal[True]:
-    """Uninstall an APK on a VM, must specify either a vm index or a vm name
+    """Uninstall an APK on a VM, must specify either a vm index or a vm name.
 
     :param package_name: Package name of the APK
     :type package_name: str
@@ -92,28 +100,28 @@ def uninstall_apk_vm(
     :rtype: Literal[True]
     """
     if vm_index is not None:
-        status, output = self.memuc_run(
-            ["-i", str(vm_index), "uninstallapp", package_name]
-        )
+        status, output = self.memuc_run(["-i", str(vm_index), "uninstallapp", package_name])
     elif vm_name is not None:
         status, output = self.memuc_run(["-n", vm_name, "uninstallapp", package_name])
     else:
-        raise PyMemucIndexError("Please specify either a vm index or a vm name")
+        msg = "Please specify either a vm index or a vm name"
+        raise PyMemucIndexError(msg)
     success = status == 0 and "SUCCESS" in output
     if not success:
-        raise PyMemucError(f"Failed to uninstall APK: {output}")
+        msg = f"Failed to uninstall APK: {output}"
+        raise PyMemucError(msg)
     return True
 
 
 @retryable
 def start_app_vm(
-    self: "PyMemuc",
+    self: PyMemuc,
     package_name: str,
-    vm_index: Union[int, None] = None,
-    vm_name: Union[str, None] = None,
-    timeout: Union[float, None] = None,
+    vm_index: int | None = None,
+    vm_name: str | None = None,
+    timeout: float | None = None,
 ) -> Literal[True]:
-    """Start an app on a VM, must specify either a vm index or a vm name
+    """Start an app on a VM, must specify either a vm index or a vm name.
 
     :param package_name: Package name of the APK, e.g. ``com.android.chrome``.
         This can be found using :func:`~get_app_info_list_vm`,
@@ -130,28 +138,26 @@ def start_app_vm(
     :rtype: Literal[True]
     """
     if vm_index is not None:
-        status, output = self.memuc_run(
-            ["-i", str(vm_index), "startapp", package_name], timeout=timeout
-        )
+        status, output = self.memuc_run(["-i", str(vm_index), "startapp", package_name], timeout=timeout)
     elif vm_name is not None:
-        status, output = self.memuc_run(
-            ["-n", vm_name, "startapp", package_name], timeout=timeout
-        )
+        status, output = self.memuc_run(["-n", vm_name, "startapp", package_name], timeout=timeout)
     else:
-        raise PyMemucIndexError("Please specify either a vm index or a vm name")
+        msg = "Please specify either a vm index or a vm name"
+        raise PyMemucIndexError(msg)
     success = status == 0 and "SUCCESS" in output
     if not success:
-        raise PyMemucError(f"Failed to start app: {output}")
+        msg = f"Failed to start app: {output}"
+        raise PyMemucError(msg)
     return True
 
 
 def stop_app_vm(
-    self: "PyMemuc",
+    self: PyMemuc,
     package_name: str,
-    vm_index: Union[int, None] = None,
-    vm_name: Union[str, None] = None,
+    vm_index: int | None = None,
+    vm_name: str | None = None,
 ) -> Literal[True]:
-    """Stop an app on a VM, must specify either a vm index or a vm name
+    """Stop an app on a VM, must specify either a vm index or a vm name.
 
     :param package_name: Package name of the APK
     :type package_name: str
@@ -168,20 +174,22 @@ def stop_app_vm(
     elif vm_name is not None:
         status, output = self.memuc_run(["-n", vm_name, "stopapp", package_name])
     else:
-        raise PyMemucIndexError("Please specify either a vm index or a vm name")
+        msg = "Please specify either a vm index or a vm name"
+        raise PyMemucIndexError(msg)
     success = status == 0 and "SUCCESS" in output
     if not success:
-        raise PyMemucError(f"Failed to stop app: {output}")
+        msg = f"Failed to stop app: {output}"
+        raise PyMemucError(msg)
     return True
 
 
 def trigger_keystroke_vm(
-    self: "PyMemuc",
+    self: PyMemuc,
     key: Literal["back", "home", "menu", "volumeup", "volumedown"],
-    vm_index: Union[int, None] = None,
-    vm_name: Union[str, None] = None,
+    vm_index: int | None = None,
+    vm_name: str | None = None,
 ) -> Literal[True]:
-    """Trigger a keystroke on a VM, must specify either a vm index or a vm name
+    """Trigger a keystroke on a VM, must specify either a vm index or a vm name.
 
     :param key: Key to trigger
     :type key: Literal["back", "home", "menu", "volumeup", "volumedown"]
@@ -198,17 +206,21 @@ def trigger_keystroke_vm(
     elif vm_name is not None:
         status, output = self.memuc_run(["-n", vm_name, "sendkey", key])
     else:
-        raise PyMemucIndexError("Please specify either a vm index or a vm name")
+        msg = "Please specify either a vm index or a vm name"
+        raise PyMemucIndexError(msg)
     success = status == 0 and "SUCCESS" in output
     if not success:
-        raise PyMemucError(f"Failed to trigger keystroke: {output}")
+        msg = f"Failed to trigger keystroke: {output}"
+        raise PyMemucError(msg)
     return True
 
 
 def trigger_shake_vm(
-    self: "PyMemuc", vm_index: Union[int, None] = None, vm_name: Union[str, None] = None
+    self: PyMemuc,
+    vm_index: int | None = None,
+    vm_name: str | None = None,
 ) -> Literal[True]:
-    """Trigger a shake on a VM, must specify either a vm index or a vm name
+    """Trigger a shake on a VM, must specify either a vm index or a vm name.
 
     :param vm_index: VM index. Defaults to None.
     :type vm_index: int, optional
@@ -223,17 +235,21 @@ def trigger_shake_vm(
     elif vm_name is not None:
         status, output = self.memuc_run(["-n", vm_name, "shake"])
     else:
-        raise PyMemucIndexError("Please specify either a vm index or a vm name")
+        msg = "Please specify either a vm index or a vm name"
+        raise PyMemucIndexError(msg)
     success = status == 0 and "SUCCESS" in output
     if not success:
-        raise PyMemucError(f"Failed to trigger shake: {output}")
+        msg = f"Failed to trigger shake: {output}"
+        raise PyMemucError(msg)
     return True
 
 
 def connect_internet_vm(
-    self: "PyMemuc", vm_index: Union[int, None] = None, vm_name: Union[str, None] = None
+    self: PyMemuc,
+    vm_index: int | None = None,
+    vm_name: str | None = None,
 ) -> Literal[True]:
-    """Connect the internet on a VM, must specify either a vm index or a vm name
+    """Connect the internet on a VM, must specify either a vm index or a vm name.
 
     :param vm_index: VM index. Defaults to None.
     :type vm_index: int, optional
@@ -248,17 +264,21 @@ def connect_internet_vm(
     elif vm_name is not None:
         status, output = self.memuc_run(["-n", vm_name, "connect"])
     else:
-        raise PyMemucIndexError("Please specify either a vm index or a vm name")
+        msg = "Please specify either a vm index or a vm name"
+        raise PyMemucIndexError(msg)
     success = status == 0 and "SUCCESS" in output
     if not success:
-        raise PyMemucError(f"Failed to connect internet: {output}")
+        msg = f"Failed to connect internet: {output}"
+        raise PyMemucError(msg)
     return True
 
 
 def disconnect_internet_vm(
-    self: "PyMemuc", vm_index: Union[int, None] = None, vm_name: Union[str, None] = None
+    self: PyMemuc,
+    vm_index: int | None = None,
+    vm_name: str | None = None,
 ) -> Literal[True]:
-    """Disconnect the internet on a VM, must specify either a vm index or a vm name
+    """Disconnect the internet on a VM, must specify either a vm index or a vm name.
 
     :param vm_index: VM index. Defaults to None.
     :type vm_index: int, optional
@@ -273,20 +293,22 @@ def disconnect_internet_vm(
     elif vm_name is not None:
         status, output = self.memuc_run(["-n", vm_name, "disconnect"])
     else:
-        raise PyMemucIndexError("Please specify either a vm index or a vm name")
+        msg = "Please specify either a vm index or a vm name"
+        raise PyMemucIndexError(msg)
     success = status == 0 and "SUCCESS" in output
     if not success:
-        raise PyMemucError(f"Failed to disconnect internet: {output}")
+        msg = f"Failed to disconnect internet: {output}"
+        raise PyMemucError(msg)
     return True
 
 
 def input_text_vm(
-    self: "PyMemuc",
+    self: PyMemuc,
     text: str,
-    vm_index: Union[int, None] = None,
-    vm_name: Union[str, None] = None,
+    vm_index: int | None = None,
+    vm_name: str | None = None,
 ) -> Literal[True]:
-    """Input text on a VM, must specify either a vm index or a vm name
+    """Input text on a VM, must specify either a vm index or a vm name.
 
     :param text: Text to input
     :type text: str
@@ -303,17 +325,21 @@ def input_text_vm(
     elif vm_name is not None:
         status, output = self.memuc_run(["-n", vm_name, "input", text])
     else:
-        raise PyMemucIndexError("Please specify either a vm index or a vm name")
+        msg = "Please specify either a vm index or a vm name"
+        raise PyMemucIndexError(msg)
     success = status == 0 and "SUCCESS" in output
     if not success:
-        raise PyMemucError(f"Failed to input text: {output}")
+        msg = f"Failed to input text: {output}"
+        raise PyMemucError(msg)
     return True
 
 
 def rotate_window_vm(
-    self: "PyMemuc", vm_index: Union[int, None] = None, vm_name: Union[str, None] = None
+    self: PyMemuc,
+    vm_index: int | None = None,
+    vm_name: str | None = None,
 ) -> Literal[True]:
-    """Rotate the window on a VM, must specify either a vm index or a vm name
+    """Rotate the window on a VM, must specify either a vm index or a vm name.
 
     :param vm_index: VM index. Defaults to None.
     :type vm_index: int, optional
@@ -326,20 +352,22 @@ def rotate_window_vm(
     elif vm_name is not None:
         status, output = self.memuc_run(["-n", vm_name, "rotate"])
     else:
-        raise PyMemucIndexError("Please specify either a vm index or a vm name")
+        msg = "Please specify either a vm index or a vm name"
+        raise PyMemucIndexError(msg)
     success = status == 0 and "SUCCESS" in output
     if not success:
-        raise PyMemucError(f"Failed to rotate window: {output}")
+        msg = f"Failed to rotate window: {output}"
+        raise PyMemucError(msg)
     return True
 
 
 def execute_command_vm(
-    self: "PyMemuc",
+    self: PyMemuc,
     command: str,
-    vm_index: Union[int, None] = None,
-    vm_name: Union[str, None] = None,
-) -> Tuple[int, str]:
-    """Execute a command on a VM, must specify either a vm index or a vm name
+    vm_index: int | None = None,
+    vm_name: str | None = None,
+) -> tuple[int, str]:
+    """Execute a command on a VM, must specify either a vm index or a vm name.
 
     :param command: Command to execute
     :type command: str
@@ -355,17 +383,18 @@ def execute_command_vm(
         return self.memuc_run(["-i", str(vm_index), "execcmd", f'"{command}"'])
     if vm_name is not None:
         return self.memuc_run(["-n", vm_name, "execcmd", f'"{command}"'])
-    raise PyMemucIndexError("Please specify either a vm index or a vm name")
+    msg = "Please specify either a vm index or a vm name"
+    raise PyMemucIndexError(msg)
 
 
 def change_gps_vm(
-    self: "PyMemuc",
+    self: PyMemuc,
     latitude: float,
     longitude: float,
-    vm_index: Union[int, None] = None,
-    vm_name: Union[str, None] = None,
+    vm_index: int | None = None,
+    vm_name: str | None = None,
 ) -> Literal[True]:
-    """Change the GPS location on a VM, must specify either a vm index or a vm name
+    """Change the GPS location on a VM, must specify either a vm index or a vm name.
 
     :param latitude: Latitude
     :type latitude: float
@@ -380,26 +409,26 @@ def change_gps_vm(
     :rtype: Literal[True]
     """
     if vm_index is not None:
-        success, output = self.memuc_run(
-            ["-i", str(vm_index), "setgps", str(latitude), str(longitude)]
-        )
+        success, output = self.memuc_run(["-i", str(vm_index), "setgps", str(latitude), str(longitude)])
     elif vm_name is not None:
-        success, output = self.memuc_run(
-            ["-n", vm_name, "setgps", str(latitude), str(longitude)]
-        )
+        success, output = self.memuc_run(["-n", vm_name, "setgps", str(latitude), str(longitude)])
     else:
-        raise PyMemucIndexError("Please specify either a vm index or a vm name")
+        msg = "Please specify either a vm index or a vm name"
+        raise PyMemucIndexError(msg)
     success = success == 0 and "SUCCESS" in output
     if not success:
-        raise PyMemucError(f"Failed to change GPS location: {output}")
+        msg = f"Failed to change GPS location: {output}"
+        raise PyMemucError(msg)
     return True
 
 
 # TODO: fix parsing of the output
 def get_public_ip_vm(
-    self: "PyMemuc", vm_index: Union[int, None] = None, vm_name: Union[str, None] = None
-) -> Tuple[int, str]:
-    """Get the public IP of a VM, must specify either a vm index or a vm name
+    self: PyMemuc,
+    vm_index: int | None = None,
+    vm_name: str | None = None,
+) -> tuple[int, str]:
+    """Get the public IP of a VM, must specify either a vm index or a vm name.
 
     :param vm_index: VM index. Defaults to None.
     :type vm_index: int, optional
@@ -410,20 +439,15 @@ def get_public_ip_vm(
     :rtype: tuple[int, str]
     """
     if vm_index is not None:
-        return self.memuc_run(
-            ["-i", str(vm_index), 'execcmd "wget -O- whatismyip.akamai.com"']
-        )
+        return self.memuc_run(["-i", str(vm_index), 'execcmd "wget -O- whatismyip.akamai.com"'])
     if vm_name is not None:
-        return self.memuc_run(
-            ["-n", vm_name, 'execcmd "wget -O- whatismyip.akamai.com"']
-        )
-    raise PyMemucIndexError("Please specify either a vm index or a vm name")
+        return self.memuc_run(["-n", vm_name, 'execcmd "wget -O- whatismyip.akamai.com"'])
+    msg = "Please specify either a vm index or a vm name"
+    raise PyMemucIndexError(msg)
 
 
-def zoom_in_vm(
-    self: "PyMemuc", vm_index: Union[int, None] = None, vm_name: Union[str, None] = None
-) -> Literal[True]:
-    """Zoom in on a VM, must specify either a vm index or a vm name
+def zoom_in_vm(self: PyMemuc, vm_index: int | None = None, vm_name: str | None = None) -> Literal[True]:
+    """Zoom in on a VM, must specify either a vm index or a vm name.
 
     :param vm_index: VM index. Defaults to None.
     :type vm_index: int, optional
@@ -438,17 +462,17 @@ def zoom_in_vm(
     elif vm_name is not None:
         status, output = self.memuc_run(["-n", vm_name, "zoomin"])
     else:
-        raise PyMemucIndexError("Please specify either a vm index or a vm name")
+        msg = "Please specify either a vm index or a vm name"
+        raise PyMemucIndexError(msg)
     success = status == 0 and "SUCCESS" in output
     if not success:
-        raise PyMemucError(f"Failed to zoom in: {output}")
+        msg = f"Failed to zoom in: {output}"
+        raise PyMemucError(msg)
     return True
 
 
-def zoom_out_vm(
-    self: "PyMemuc", vm_index: Union[int, None] = None, vm_name: Union[str, None] = None
-) -> Literal[True]:
-    """Zoom out on a VM, must specify either a vm index or a vm name
+def zoom_out_vm(self: PyMemuc, vm_index: int | None = None, vm_name: str | None = None) -> Literal[True]:
+    """Zoom out on a VM, must specify either a vm index or a vm name.
 
     :param vm_index: VM index. Defaults to None.
     :type vm_index: int, optional
@@ -463,20 +487,22 @@ def zoom_out_vm(
     elif vm_name is not None:
         status, output = self.memuc_run(["-n", vm_name, "zoomout"])
     else:
-        raise PyMemucIndexError("Please specify either a vm index or a vm name")
+        msg = "Please specify either a vm index or a vm name"
+        raise PyMemucIndexError(msg)
     success = status == 0 and "SUCCESS" in output
     if not success:
-        raise PyMemucError(f"Failed to zoom in: {output}")
+        msg = f"Failed to zoom in: {output}"
+        raise PyMemucError(msg)
     return True
 
 
 def get_app_info_list_vm(
-    self: "PyMemuc",
-    vm_index: Union[int, None] = None,
-    vm_name: Union[str, None] = None,
+    self: PyMemuc,
+    vm_index: int | None = None,
+    vm_name: str | None = None,
     timeout: float = 10,
 ) -> list[str]:
-    """Get the list of apps installed on a VM, must specify either a vm index or a vm name
+    """Get the list of apps installed on a VM, must specify either a vm index or a vm name.
 
     :param vm_index: VM index. Defaults to None.
     :type vm_index: int, optional
@@ -503,28 +529,28 @@ def get_app_info_list_vm(
                 non_blocking=False,
             )
         else:
-            raise PyMemucIndexError("Please specify either a vm index or a vm name")
+            msg = "Please specify either a vm index or a vm name"
+            raise PyMemucIndexError(msg)
         # check if 'cmd: Can't find service: package' is in the output
         if "cmd: Can't find service: package" in output:
+            msg = "Failed to get the list of apps installed on the VM, please make sure the VM is running"
             raise PyMemucError(
-                "Failed to get the list of apps installed on the VM, "
-                "please make sure the VM is running"
+                msg,
             )
         output = output.split("\n")
-        output = [line.replace("package:", "") for line in output if line != ""]
-        return output
+        return [line.replace("package:", "") for line in output if line != ""]
     except PyMemucTimeoutExpired:
         return []
 
 
 # TODO: debug this, it doesn't work
 def set_accelerometer_vm(
-    self: "PyMemuc",
+    self: PyMemuc,
     value: tuple[float, float, float],
-    vm_index: Union[int, None] = None,
-    vm_name: Union[str, None] = None,
-) -> Tuple[int, str]:
-    """Set the accelerometer on a VM, must specify either a vm index or a vm name
+    vm_index: int | None = None,
+    vm_name: str | None = None,
+) -> tuple[int, str]:
+    """Set the accelerometer on a VM, must specify either a vm index or a vm name.
 
     :param value: the accelerometer value to set
     :type value: tuple[float, float, float]
@@ -536,7 +562,6 @@ def set_accelerometer_vm(
     :return: the return code and the output of the command.
     :rtype: tuple[int, str]
     """
-
     if vm_index is not None:
         return self.memuc_run(
             [
@@ -546,7 +571,7 @@ def set_accelerometer_vm(
                 str(value[0]),
                 str(value[1]),
                 str(value[2]),
-            ]
+            ],
         )
     if vm_name is not None:
         return self.memuc_run(
@@ -557,18 +582,19 @@ def set_accelerometer_vm(
                 str(value[0]),
                 str(value[1]),
                 str(value[2]),
-            ]
+            ],
         )
-    raise PyMemucIndexError("Please specify either a vm index or a vm name")
+    msg = "Please specify either a vm index or a vm name"
+    raise PyMemucIndexError(msg)
 
 
 def create_app_shortcut_vm(
-    self: "PyMemuc",
+    self: PyMemuc,
     package_name: str,
-    vm_index: Union[int, None] = None,
-    vm_name: Union[str, None] = None,
-) -> Tuple[int, str]:
-    """Create an app shortcut on a VM, must specify either a vm index or a vm name
+    vm_index: int | None = None,
+    vm_name: str | None = None,
+) -> tuple[int, str]:
+    """Create an app shortcut on a VM, must specify either a vm index or a vm name.
 
     :param package_name: Package name
     :type package_name: str
@@ -593,18 +619,19 @@ def create_app_shortcut_vm(
             timeout=10,
             non_blocking=False,
         )  # can raise timeout
-    raise PyMemucIndexError("Please specify either a vm index or a vm name")
+    msg = "Please specify either a vm index or a vm name"
+    raise PyMemucIndexError(msg)
 
 
 # TODO: parse the output to confirm that the command was ran successfully
 def send_adb_command_vm(
-    self: "PyMemuc",
-    command: Union[str, list[str]],
-    vm_index: Union[int, None] = None,
-    vm_name: Union[str, None] = None,
-    timeout: Union[float, None] = None,
+    self: PyMemuc,
+    command: str | list[str],
+    vm_index: int | None = None,
+    vm_name: str | None = None,
+    timeout: float | None = None,
 ) -> str:
-    """Send an ADB command to a VM, must specify either a vm index or a vm name
+    """Send an ADB command to a VM, must specify either a vm index or a vm name.
 
     :param command: ADB command
     :type command: str | list[str]
@@ -622,24 +649,23 @@ def send_adb_command_vm(
     if isinstance(command, str):
         command = command.split()
     if vm_index is not None:
-        _, output = self.memuc_run(
-            ["-i", str(vm_index), "adb"] + command, timeout=timeout
-        )
+        _, output = self.memuc_run(["-i", str(vm_index), "adb", *command], timeout=timeout)
         return output
     if vm_name is not None:
-        _, output = self.memuc_run(["-n", vm_name, "adb"] + command, timeout=timeout)
+        _, output = self.memuc_run(["-n", vm_name, "adb", *command], timeout=timeout)
         return output
 
-    raise PyMemucIndexError("Please specify either a vm index or a vm name")
+    msg = "Please specify either a vm index or a vm name"
+    raise PyMemucIndexError(msg)
 
 
 def get_adb_connection(
-    self: "PyMemuc",
-    vm_index: Union[int, None] = None,
-    vm_name: Union[str, None] = None,
-    timeout: Union[float, None] = None,
-) -> Tuple[Union[str, None], Union[int, None]]:
-    """Get the adb connection information for a VM
+    self: PyMemuc,
+    vm_index: int | None = None,
+    vm_name: str | None = None,
+    timeout: float | None = None,
+) -> tuple[str | None, int | None]:
+    """Get the adb connection information for a VM.
 
     :param vm_index: VM index. Defaults to None.
     :type vm_index: int, optional
@@ -663,6 +689,8 @@ def get_adb_connection(
         adb_output = adb_output.split("\n")[0]
         _, connection_string = adb_output.split("connected to ")
         connection_string = urlparse(f"//{connection_string}")
-        return connection_string.hostname, connection_string.port
     except ValueError as err:
-        raise PyMemucError(f"Failed to get adb connection: {adb_output}") from err
+        msg = f"Failed to get adb connection: {adb_output}"
+        raise PyMemucError(msg) from err
+    else:
+        return connection_string.hostname, connection_string.port

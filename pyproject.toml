@@ -21,7 +21,7 @@ documentation = "https://pymemuc.pyclashbot.app/"
 
 [tool.poetry.dependencies]
 python = "^3.9"
-typing-extensions = {version = ">=3.10.0", markers = "python_version < \"3.10\""}
+typing-extensions = { version = ">=3.10.0", markers = "python_version < \"3.10\"" }
 
 [tool.poetry.group.dev.dependencies]
 pre-commit = ">=3.2.1,<5.0.0"
@@ -41,6 +41,17 @@ twine = ">=4.0.2,<6.0.0"
 
 [tool.ruff.lint]
 select = ["ALL"]
+ignore = [
+  "D203",
+  "D213",
+  "COM812",
+  "ISC001",
+  "FBT001",
+  "FBT002",
+  "FIX002",
+  "TD002",
+  "TD003",
+]
 
 [tool.ruff]
 line-length = 120
