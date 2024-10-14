@@ -19,17 +19,14 @@ keywords = ["memu", "memuc", "android-emulator", "api"]
 repository = "https://github.com/pyclashbot/pymemuc"
 documentation = "https://pymemuc.pyclashbot.app/"
 
-
 [tool.poetry.dependencies]
 python = "^3.9"
 typing-extensions = {version = ">=3.10.0", markers = "python_version < \"3.10\""}
 
 [tool.poetry.group.dev.dependencies]
 pre-commit = ">=3.2.1,<5.0.0"
-black = ">=23.1,<25.0"
-prospector = "^1.9.0"
 ipykernel = "^6.22.0"
-
+ruff = "^0.6.9"
 
 [tool.poetry.group.docs.dependencies]
 sphinx = "^7.2.6"
@@ -39,44 +36,11 @@ sphinx-copybutton = "^0.5.2"
 furo = "^2024.1.29"
 sphinx-intl = "^2.1.0"
 
-
 [tool.poetry.group.tests.dependencies]
 twine = ">=4.0.2,<6.0.0"
 
+[tool.ruff.lint]
+select = ["ALL"]
 
-[tool.black]
-line-length = 88
-target-version = ['py311']
-include = '\.pyi?$'
-exclude = '''
-(
-  /(
-      \.eggs         # exclude a few common directories in the
-    | \.git          # root of the project
-    | \.hg
-    | \.mypy_cache
-    | \.tox
-    | \.venv
-    | _build
-    | buck-out
-    | build
-    | dist
-  )/
-)
-'''
-
-
-[tool.isort]
-profile = "black"
-
-
-[tool.pylint.main]
-ignore = ["docs/source"]
-py-version = "3.11"
-suggestion-mode = true
-disable = [
-  "C0301", # line-too-long
-  "W0622", # redefined-builtin
-  "R0903", # too-few-public-methods
-  "C0412", # ungrouped-imports
-]
+[tool.ruff]
+line-length = 120
