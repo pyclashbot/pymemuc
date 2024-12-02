@@ -37,7 +37,7 @@ furo = "^2024.1.29"
 sphinx-intl = "^2.1.0"
 
 [tool.poetry.group.tests.dependencies]
-twine = ">=4.0.2,<6.0.0"
+twine = ">=4.0.2,<7.0.0"
 
 [tool.ruff.lint]
 select = ["ALL"]
