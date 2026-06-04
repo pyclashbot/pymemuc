@@ -370,10 +370,12 @@ def set_configuration_vm(
     :return: True if the vm configuration was set successfully
     :rtype: Literal[True]
     """
+    multi_arg_config_keys = {"custom_resolution", "geometry"}
+    config_value_args = config_value.split() if config_key in multi_arg_config_keys else [config_value]
     if vm_index is not None:
-        status, output = self.memuc_run(["-i", str(vm_index), "setconfigex", config_key, config_value])
+        status, output = self.memuc_run(["-i", str(vm_index), "setconfigex", config_key, *config_value_args])
     elif vm_name is not None:
-        status, output = self.memuc_run(["-n", vm_name, "setconfigex", config_key, config_value])
+        status, output = self.memuc_run(["-n", vm_name, "setconfigex", config_key, *config_value_args])
     else:
         msg = "Please specify either a vm index or a vm name"
         raise PyMemucIndexError(msg)
